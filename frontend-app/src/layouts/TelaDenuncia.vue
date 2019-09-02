@@ -8,7 +8,7 @@
 
   </div>
   <div class="frase">
-
+<p>Denuncie uma queimada e ajude a natureza</p>
   </div>
   <div class="btn-denuncia">
    <q-btn color="white"  push>
@@ -34,15 +34,16 @@ export default {
 </script>
 <style>
 .container{
-
+  display: flex;
   background: #FB9727;
   width: 100vw;
   height: 100vh;
-  max-width: 320px;
+  justify-items: center;
+
 }
 
 .logo{
-
+width: 320px;
 font-family: Roboto;
 font-style: normal;
 font-weight: 900;
@@ -50,6 +51,7 @@ font-size: 18px;
 line-height: 21px;
 text-align: center;
 color: #FFFFFF;
+margin-top: 50px;
 }
 
 .img-centro{
@@ -64,7 +66,7 @@ border-radius: 396px;
 
 .frase{
 
-
+width: 320px;
 font-family: Roboto;
 font-style: normal;
 font-weight: normal;
@@ -76,7 +78,6 @@ color: #FFFFFF;
 }
 
 .btn-denuncia{
-
 
 
 }
@@ -91,7 +92,7 @@ width: 200px;
 
 .login{
 
-
+width: 320px;
 font-family: Roboto;
 font-style: normal;
 font-weight: 500;
