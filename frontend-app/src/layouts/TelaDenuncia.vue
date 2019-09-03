@@ -67,6 +67,7 @@ text-align: center;
 color: #FFFFFF;
 }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 .btn-denuncia{
 }
 =======
@@ -74,6 +75,9 @@ color: #FFFFFF;
 .btn-denuncia > button{
 height: 55px;
 width: 200px;
+=======
+
+>>>>>>> Stashed changes
 }
 .login{
 width: 320px;
