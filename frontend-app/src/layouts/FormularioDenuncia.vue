@@ -8,12 +8,12 @@
           <p>Precisamos de algumas informações sobre a queimada.</p>
         </div>
         <div class="camera">
-          <h5>1º PASSO 
+          <h5>1º PASSO
           <q-icon v-show="!completo" name="fas fa-circle" class="text-grey-4" style="font-size: 0.7em;  vertical-align: middle; " />
           <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
                </h5>
                <q-btn outline style="color: #FB9727;" icon-right="add_a_photo" label="Tirar foto" />
-          
+
         </div>
         <div class="gps">
             <h5>2º PASSO
@@ -56,7 +56,7 @@
           <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
           </h5>
           <p>Deseja se identificar?</p>
-           
+
            <q-btn :outline="!mostrarDados" :class="{marcado: mostrarDados, nmarcado: !mostrarDados}" @click="selecionarDados()" label="Sim" />
            <q-btn :outline="!ocultarDados" :class="{marcado: ocultarDados, nmarcado: !ocultarDados}" @click="selecionarDados()" label="Não" />
    <div v-show="mostrarDados" class="dados">
@@ -70,7 +70,7 @@
         </div>
         </div>
         </div>
-        
+
          <div class="btn-denunciar">
            <q-btn color="primary"  push>
       <div class="row items-center no-wrap  botao-denuncia">
@@ -83,7 +83,7 @@
 
     </div>
 
-  
+
 
   </div>
 </template>
@@ -170,12 +170,97 @@ export default {
 .container{
   background: #f3f3f3;
   width: 100vw;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
+}
+h3{
+font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 19px;align-items: center;
+text-align: center;
+color: #605B57;
+}
+.descricao{
+font-family: Roboto;
+font-style: normal;
+font-weight: 300;
+font-size: 16
+px;
+line-height: 13px;
+align-items: center;
+color: #737373;
+}
+.camera{
+font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 12px;
+line-height: 14px;
+align-items: center;
+text-align: center;
+color: #858585;
+}
+.q-field{
+width: 245.21px;
+height: 29px;
+left: 38px;
+top: 404px;
+}
+.gps{
+font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 12px;
+line-height: 14px;
+align-items: center;
+text-align: center;
+color: #858585;
+}
+.endereco{
+  font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 12px;
+line-height: 14px;
+align-items: center;
+text-align: center;
+color: #858585;
+}
+.intensidade{
+  font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 12px;
+line-height: 14px;
+align-items: center;
+text-align: center;
+color: #858585;
+}
+.observacao{
+  font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 12px;
+line-height: 14px;
+align-items: center;
+text-align: center;
+color: #858585;
+}
+.identificacao{
+ font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 12px;
+line-height: 14px;
+align-items: center;
+text-align: center;
+color: #858585;
 }
 .card{
   justify-content: center;
@@ -196,7 +281,7 @@ width: 250px;
 }
 
 .marcado {
-  background: #FB9727; 
+  background: #FB9727;
   color: white;
 }
 
