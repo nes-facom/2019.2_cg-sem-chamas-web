@@ -66,18 +66,13 @@ line-height: 19px;
 text-align: center;
 color: #FFFFFF;
 }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 .btn-denuncia{
 }
-=======
->>>>>>> Stashed changes
+
 .btn-denuncia > button{
 height: 55px;
 width: 200px;
-=======
-
->>>>>>> Stashed changes
 }
 .login{
 width: 320px;
