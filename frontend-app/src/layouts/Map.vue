@@ -1,8 +1,8 @@
 <template>
   <q-layout>
     <div id="location-map">
-     
-       
+
+
       <GmapMap
         :options="{
    zoomControl: true,
@@ -13,7 +13,7 @@
    fullscreenControl: false,
    draggable: !isBlink,
    gestureHandling: 'greedy'
-     
+
        }"
         :center="{lat:clat, lng:clng}"
         :zoom="15"
@@ -42,15 +42,15 @@
           style="font-size: 1em"
         />
 
-        
+
       </div>
 
       <div class="fix-position" @click="fix()" >
-        
-  <q-icon name="gps_fixed" class="text-grey-8" style="font-size: 1.7rem;"  />        
+
+  <q-icon name="gps_fixed" class="text-grey-8" style="font-size: 1.7rem;"  />
       </div>
 
-            
+
       <div v-show="!selecao" class="gps-button">
         <q-btn push color="primary" label="Selecionar posição" @click="geoLocal()" />
       </div>
@@ -82,7 +82,7 @@
 <div style="margin-top: 30px; background-color: #ccc; padding:30px;">
 <br>Your position: {{plat}}  {{plng}}
 <br>
-Map center latitude: 
+Map center latitude:
 <button @click="fix()">teste</button>
 <button @click="addMarker()">add</button>
 <button @center_changed="deleteMarker()">del</button>
@@ -123,10 +123,13 @@ import Vue from "vue";
 import * as VueGoogleMaps from "vue2-google-maps";
 Vue.use(VueGoogleMaps, {
   load: {
-    key: process.env.API_KEY_GOOGLE,
+    key: 'AIzaSyCoeKsbIdIIlv_lSsMi5eNLvX7NGagYTb4',
     libraries:'places',
     region: 'VI',
     language: 'pt-BR',
+  },
+  mounted(){
+    console.log('oi')
   }
 });
 
@@ -175,10 +178,10 @@ export default {
       this.reportedCenter.lat = this.place.geometry.location.lat();
       this.bairro = this.place.vicinity;
             this.endereco = this.place.name;
-           
 
 
-      
+
+
     },
     fix(){
       this.getlocation();
@@ -187,12 +190,12 @@ export default {
     },
     usePlace(place) {
       if (this.place) {
-        
+
             this.clat = this.place.geometry.location.lat(),
             this.clng = this.place.geometry.location.lng()
-            
-       
-        
+
+
+
       }
     },
     updateMapCenter(which, value) {
@@ -238,8 +241,8 @@ export default {
             }, {
           maximumAge: 3000, timeout: 30000, enableHighAccuracy: true
         }
-          )       
-       
+          )
+
         }
       },
     watchPosition(){
@@ -258,7 +261,7 @@ export default {
               this.reportedCenter.lng = position.coords.longitude,
               this.deleteMarker()
               this.addMarker()
-              
+
             },
             (error) => {
               this.plng = "WError..."
@@ -267,22 +270,22 @@ export default {
             }, {
           maximumAge: 3000, timeout: 30000, enableHighAccuracy: true
         }
-          )       
-       
+          )
+
         }
-    },  
+    },
     changeSelection() {
       this.selecao = !this.selecao;
       this.isBlink = !this.isBlink;
-    
-      
+
+
     },
     geoLocal(){
       axios.get('https://maps.googleapis.com/maps/api/geocode/json?',{
       params: {
         latlng: `${this.reportedCenter.lat},${this.reportedCenter.lng}`,
-        key: process.env.API_KEY_GOOGLE,
-      }}   
+        key: 'AIzaSyCoeKsbIdIIlv_lSsMi5eNLvX7NGagYTb4',
+      }}
       ).then(response => {
               console.log("oi")
               console.log(response)
@@ -292,10 +295,10 @@ export default {
 						}).catch(error => {
 				    			console.log(error)
 							})
-							
-				    
+
+
     },
-    
+
     addMarker() {
       this.markers.push({
         position: {
@@ -307,20 +310,20 @@ export default {
         animation: google.maps.Animation.DROP,
 
       });
-     
+
     },
 
     deleteMarker(){
       this.markers = [];
     }
 
-    
-    
+
+
   },
   mounted(){
     this.getlocation();
     this.watchPosition();
-    
+
 }
 };
 </script>
