@@ -7,43 +7,24 @@
       <div class="descricao">
         <p>Precisamos de algumas informações sobre a queimada.</p>
       </div>
-      <div class="camera">
-        <h5>
-          1º PASSO
-          <q-icon
-            v-show="!completo"
-            name="fas fa-circle"
-            class="text-grey-4"
-            style="font-size: 0.7em;  vertical-align: middle; "
-          />
-          <q-icon
-            v-show="completo"
-            name="fas fa-check-circle"
-            class="text-green"
-            style="font-size: 0.7em;  vertical-align: middle; "
-          />
-        </h5>
-        <q-btn outline style="color: #FB9727;" icon-right="add_a_photo" label="Tirar foto" />
-        <div v-show="!imgCam" class="camera_img">
-          <img src="http://portalamazonia.com/uploads/pics/queimada-diamantina-matogrosso-capa.jpg" width="250" placeholder-src="statics/quasar-logo.png" :alt="'Imagem: ' + imageSrc" id="photo" class="img_camera" />
-        </div>
-        <div class="descricao">
-          <p>Precisamos de algumas informações sobre a queimada.</p>
-        </div>
+
         <div class="camera">
           <h5>1º PASSO
           <q-icon v-show="!completo" name="fas fa-circle" class="text-grey-4" style="font-size: 0.7em;  vertical-align: middle; " />
           <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
                </h5>
                <q-btn  class="botao" outline style="color: #FB9727;" icon-right="add_a_photo" label="Tirar foto" />
-
+ <div v-show="!imgCam" class="camera_img">
+          <img src="http://portalamazonia.com/uploads/pics/queimada-diamantina-matogrosso-capa.jpg" width="250" placeholder-src="statics/quasar-logo.png" :alt="'Imagem: ' + imageSrc" id="photo" class="img_camera" />
+        </div>
         </div>
         <div class="gps">
             <h5>2º PASSO
               <q-icon v-show="!completo" name="fas fa-circle" class="text-grey-4" style="font-size: 0.7em;  vertical-align: middle; " />
               <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
             </h5>
-            <q-btn  class="botao" outline style="color: #FB9727;" icon-right="fas fa-map-marked-alt" label="Obter localização">
+            <q-btn  class="botao" outline style="color: #FB9727;" icon-right="fas fa-map-marked-alt" label="Obter localização" @click="dialog = true">
+                <!-- <q-btn label="Maximized" color="primary" @click="dialog = true" /> -->
 
             </q-btn>
           </div>
@@ -116,6 +97,7 @@
           label="Obter localizacao por GPS"
           @click="dialog = true"
         />
+
       </div>
       <div class="endereco">
         <h5>OU INFORME SEU ENDEREÇO</h5>
@@ -252,14 +234,6 @@
         </div>
         </div>
 
-         <div class="btn-denunciar">
-           <q-btn color="primary"  push>
-      <div class="row items-center no-wrap  botao-denuncia">
-        <div class="text-center text-white text-weight-bold">
-          Denunciar
-        </div>
-      </div>
-
       <div class="btn-denunciar">
         <q-btn color="primary" push>
           <div class="row items-center no-wrap botao-denuncia">
@@ -268,9 +242,12 @@
         </q-btn>
       </div>
 
+      </div>
+        </div>
+
       <div class="modal">
         <div class="q-pa-md q-gutter-sm">
-          <q-btn label="Maximized" color="primary" />
+
 
           <q-dialog
             v-model="dialog"
@@ -281,15 +258,13 @@
           >
             <q-card class="bg-primary text-white">
 
+
 <Map></Map>
-
-
             </q-card>
           </q-dialog>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -559,7 +534,7 @@ color: #858585;
 
 .img_camera{
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin-top: 20px; 
+  margin-top: 20px;
   border-width:2px;
   border-style: solid;
   border-color: #fb9727;
