@@ -8,71 +8,39 @@
         <p>Precisamos de algumas informações sobre a queimada.</p>
       </div>
 
-        <div class="camera">
-          <h5>1º PASSO
-          <q-icon v-show="!completo" name="fas fa-circle" class="text-grey-4" style="font-size: 0.7em;  vertical-align: middle; " />
-          <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
-               </h5>
-               <q-btn  class="botao" outline style="color: #FB9727;" icon-right="add_a_photo" label="Tirar foto" />
- <div v-show="!imgCam" class="camera_img">
-          <img src="http://portalamazonia.com/uploads/pics/queimada-diamantina-matogrosso-capa.jpg" width="250" placeholder-src="statics/quasar-logo.png" :alt="'Imagem: ' + imageSrc" id="photo" class="img_camera" />
+      <div class="camera">
+        <h5>
+          1º PASSO
+          <q-icon
+            v-show="!completo"
+            name="fas fa-circle"
+            class="text-grey-4"
+            style="font-size: 0.7em;  vertical-align: middle; "
+          />
+          <q-icon
+            v-show="completo"
+            name="fas fa-check-circle"
+            class="text-green"
+            style="font-size: 0.7em;  vertical-align: middle; "
+          />
+        </h5>
+        <q-btn
+          class="botao"
+          outline
+          style="color: #FB9727;"
+          icon-right="add_a_photo"
+          label="Tirar foto"
+        />
+        <div v-show="!imgCam" class="camera_img">
+          <img
+            src="http://portalamazonia.com/uploads/pics/queimada-diamantina-matogrosso-capa.jpg"
+            width="250"
+            placeholder-src="statics/quasar-logo.png"
+            :alt="'Imagem: ' + imageSrc"
+            id="photo"
+            class="img_camera"
+          />
         </div>
-        </div>
-        <div class="gps">
-            <h5>2º PASSO
-              <q-icon v-show="!completo" name="fas fa-circle" class="text-grey-4" style="font-size: 0.7em;  vertical-align: middle; " />
-              <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
-            </h5>
-            <q-btn  class="botao" outline style="color: #FB9727;" icon-right="fas fa-map-marked-alt" label="Obter localização" @click="dialog = true">
-                <!-- <q-btn label="Maximized" color="primary" @click="dialog = true" /> -->
-
-            </q-btn>
-          </div>
-
-        <div class="endereco">
-          <h5>Ou informe seu endereço</h5>
-           <q-input class="enderecoDigitar" rounded outlined label="Endereço" />
-        </div>
-        <div class="intensidade">
-          <p></p>
-          <h5>3º PASSO
-            <q-icon v-show="!completo" name="fas fa-circle" class="text-grey-4" style="font-size: 0.7em;  vertical-align: middle; " />
-          <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
-          </h5>
-          <p>Avalie a intencidade do fogo</p>
-          {{intensidade}}
-          <q-icon name="fas fa-fire" :class="{fogocinza: !fogo.um, fogovivo: fogo.um}" style="font-size: 2em;" @click="setIntensidade(1)"  />
-           <q-icon name="fas fa-fire" :class="{fogocinza: !fogo.dois, fogovivo: fogo.dois}" style="font-size: 2em;" @click="setIntensidade(2)"  />
-            <q-icon name="fas fa-fire" :class="{fogocinza: !fogo.tres, fogovivo: fogo.tres}" style="font-size: 2em;" @click="setIntensidade(3)"  />
-             <q-icon name="fas fa-fire" :class="{fogocinza: !fogo.quatro, fogovivo: fogo.quatro}" style="font-size: 2em;" @click="setIntensidade(4)"  />
-              <q-icon name="fas fa-fire" :class="{fogocinza: !fogo.cinco, fogovivo: fogo.cinco}" style="font-size: 2em;" @click="setIntensidade(5)"  />
-        </div>
-        <div class="observacao">
-          <h5>4º PASSO
-            <q-icon v-show="!completo" name="fas fa-circle" class="text-grey-4" style="font-size: 0.7em;  vertical-align: middle; " />
-          <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
-          </h5>
-          <p>Deseja deixar alguma observação sobre a queimada? </p>
-           <q-btn :outline="!mostrarObs" :class="{marcado: mostrarObs, nmarcado: !mostrarObs}" @click="selecionarObs()" label="Sim" />
-           <q-btn :outline="!ocultarObs" :class="{marcado: ocultarObs, nmarcado: !ocultarObs}" @click="selecionarObs()" label="Não" />
-  <q-input v-show="mostrarObs" rounded outlined label="Observação" type="textarea" class="obs"/>
-        </div>
-         <div class="identificacao">
-          <h5>5º PASSO
-            <q-icon v-show="!completo" name="fas fa-circle" class="text-grey-4" style="font-size: 0.7em;  vertical-align: middle; " />
-          <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
-          </h5>
-          <p>Deseja se identificar?</p>
-
-           <q-btn :outline="!mostrarDados" :class="{marcado: mostrarDados, nmarcado: !mostrarDados}" @click="selecionarDados()" label="Sim" />
-           <q-btn :outline="!ocultarDados" :class="{marcado: ocultarDados, nmarcado: !ocultarDados}" @click="selecionarDados()" label="Não" />
-   <div v-show="mostrarDados" class="dados">
-    <div class="titulo">
-          <h3>Dados pessoais</h3>
-        </div>
-        <div class="descricao">
-          <p>Informe alguns dados sobre você.</p>
-           <q-input v-model="text" label="Nome:" :dense="dense" />
       </div>
       <div class="gps">
         <h5>
@@ -91,17 +59,20 @@
           />
         </h5>
         <q-btn
+          class="botao"
           outline
           style="color: #FB9727;"
           icon-right="fas fa-map-marked-alt"
-          label="Obter localizacao por GPS"
+          label="Obter localização"
           @click="dialog = true"
-        />
-
+        >
+          <!-- <q-btn label="Maximized" color="primary" @click="dialog = true" /> -->
+        </q-btn>
       </div>
+
       <div class="endereco">
-        <h5>OU INFORME SEU ENDEREÇO</h5>
-        <q-input rounded outlined label="Endereço" />
+        <h5>Ou informe seu endereço</h5>
+        <q-input class="enderecoDigitar" rounded outlined label="Endereço" />
       </div>
       <div class="intensidade">
         <p></p>
@@ -120,7 +91,7 @@
             style="font-size: 0.7em;  vertical-align: middle; "
           />
         </h5>
-        <p>Avalie a intencidade do fogo/queimada</p>
+        <p>Avalie a intencidade do fogo</p>
         {{intensidade}}
         <q-icon
           name="fas fa-fire"
@@ -191,85 +162,85 @@
           class="obs"
         />
       </div>
-      <div class="identificacao">
-        <h5>
-          5º PASSO
-          <q-icon
-            v-show="!completo"
-            name="fas fa-circle"
-            class="text-grey-4"
-            style="font-size: 0.7em;  vertical-align: middle; "
-          />
-          <q-icon
-            v-show="completo"
-            name="fas fa-check-circle"
-            class="text-green"
-            style="font-size: 0.7em;  vertical-align: middle; "
-          />
-        </h5>
-        <p>Deseja se identificar?</p>
 
-        <q-btn
-          :outline="!mostrarDados"
-          :class="{marcado: mostrarDados, nmarcado: !mostrarDados}"
-          @click="selecionarDados()"
-          label="Sim"
-        />
-        <q-btn
-          :outline="!ocultarDados"
-          :class="{marcado: ocultarDados, nmarcado: !ocultarDados}"
-          @click="selecionarDados()"
-          label="Não"
-        />
-        <div v-show="mostrarDados" class="dados">
-          <div class="titulo">
-            <h3>Dados pessoais</h3>
+
+          <div class="identificacao">
+            <h5>
+              5º PASSO
+              <q-icon
+                v-show="!completo"
+                name="fas fa-circle"
+                class="text-grey-4"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+              <q-icon
+                v-show="completo"
+                name="fas fa-check-circle"
+                class="text-green"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+            </h5>
+            <p>Deseja se identificar?</p>
+
+            <q-btn
+              :outline="!mostrarDados"
+              :class="{marcado: mostrarDados, nmarcado: !mostrarDados}"
+              @click="selecionarDados()"
+              label="Sim"
+            />
+            <q-btn
+              :outline="!ocultarDados"
+              :class="{marcado: ocultarDados, nmarcado: !ocultarDados}"
+              @click="selecionarDados()"
+              label="Não"
+            />
+            <div v-show="mostrarDados" class="dados">
+              <div class="titulo">
+                <h3>Dados pessoais</h3>
+              </div>
+              <div class="descricao">
+                <p>Informe alguns dados sobre você.</p>
+                <q-input v-model="text" label="Nome:" :dense="dense" />
+                <q-input v-model="text" label="Telefone:" :dense="dense" />
+              </div>
+            </div>
           </div>
-          <div class="descricao">
-            <p>Informe alguns dados sobre você.</p>
-            <q-input v-model="text" label="Nome:" :dense="dense" />
-            <q-input v-model="text" label="Telefone:" :dense="dense" />
-          </div>
+
+          <div class="btn-denunciar">
+          <q-btn color="primary" push>
+            <div class="row items-center no-wrap botao-denuncia">
+              <div class="text-center text-white text-weight-bold">Denunciar</div>
+            </div>
+          </q-btn>
         </div>
         </div>
-        </div>
-
-      <div class="btn-denunciar">
-        <q-btn color="primary" push>
-          <div class="row items-center no-wrap botao-denuncia">
-            <div class="text-center text-white text-weight-bold">Denunciar</div>
-          </div>
-        </q-btn>
-      </div>
-
-      </div>
-        </div>
-
-      <div class="modal">
-        <div class="q-pa-md q-gutter-sm">
 
 
-          <q-dialog
-            v-model="dialog"
-            persistent
-            :maximized="maximizedToggle"
-            transition-show="slide-up"
-            transition-hide="slide-down"
-          >
-            <q-card class="bg-primary text-white">
 
+    <div class="modal">
+      <div class="q-pa-md q-gutter-sm">
+        <q-dialog
+          v-model="dialog"
+          persistent
+          :maximized="maximizedToggle"
+          transition-show="slide-up"
+          transition-hide="slide-down"
+        >
+          <q-card class="bg-primary text-white">
+ <p class="oi">oi</p>
+            <Map>
 
-<Map></Map>
-            </q-card>
-          </q-dialog>
-        </div>
+            </Map>
+          </q-card>
+        </q-dialog>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
-import Map from './Map';
-import { openURL, QInput,   QDialog, QCard } from "quasar";
+import Map from "./Map";
+import { openURL, QInput, QDialog, QCard } from "quasar";
 export default {
   name: "FormularioDenuncia",
   data() {
@@ -293,14 +264,14 @@ export default {
       dialog: false,
       maximizedToggle: true,
       imgCam: false,
-      imageSrc: '',
+      imageSrc: ""
     };
   },
   components: {
     QInput,
-      QDialog,
-      QCard,
-      Map
+    QDialog,
+    QCard,
+    Map
   },
   methods: {
     selecionarObs() {
@@ -344,18 +315,18 @@ export default {
         this.fogo.quatro = true;
         this.fogo.cinco = true;
       }
-
       this.intensidade = intensidade;
     },
-     captureImage () {
+    captureImage() {
       navigator.camera.getPicture(
-        data => { // Sucesso
-          this.imageSrc = `data:image/jpeg;base64, ${data}`
-          alert(this.imageSrc)
-
+        data => {
+          // Sucesso
+          this.imageSrc = `data:image/jpeg;base64, ${data}`;
+          alert(this.imageSrc);
         },
-        () => { // Falha
-          this.$q.notify('Não foi possível acessar a câmera do dispositivo.')
+        () => {
+          // Falha
+          this.$q.notify("Não foi possível acessar a câmera do dispositivo.");
         },
         {
           // Opções da Camera
@@ -369,7 +340,7 @@ export default {
           targetWidth: 300,
           targetHeight: 400
         }
-      )
+      );
     }
   }
 };
@@ -386,117 +357,115 @@ export default {
   flex-direction: column;
   text-align: center;
 }
-h3{
-font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-text-align: center;
-color: #605B57;
-}
-h5{
+h3 {
   font-family: Roboto;
-font-style: normal;
-font-weight: bold;
-font-size: 12px;
-line-height: 14px;
-align-items: center;
-text-align: center;
-color: #858585;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #605b57;
 }
-.descricao{
-font-family: Roboto;
-font-style: normal;
-font-weight: 300;
-font-size: 16
-px;
-line-height: 13px;
-align-items: center;
-color: #737373;
+h5 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  align-items: center;
+  text-align: center;
+  color: #858585;
 }
-.camera{
-font-family: Roboto;
-font-style: normal;
-font-weight: bold;
-font-size: 12px;
-line-height: 14px;
-align-items: center;
-text-align: center;
-color: #858585;
+.descricao {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16 px;
+  line-height: 13px;
+  align-items: center;
+  color: #737373;
 }
-.enderecoDigitar{
-width:  80%;
-height: 29px;
-top: 404px;
+.camera {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  align-items: center;
+  text-align: center;
+  color: #858585;
 }
-.botao{
-background: #FFFFFF;
-border: 2px solid #FFA948;
-box-sizing: border-box;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 10px;
-width: 245.21px;
-height: 50px;
+/* .enderecoDigitar {
+  width: 80%;
+  height: 29px;
+  top: 404px;
+} */
+.botao {
+  background: #ffffff;
+  border: 2px solid #ffa948;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 245.21px;
+  height: 50px;
 }
 
-btn-denunciar
-.gps{
-font-family: Roboto;
-font-style: normal;
-font-weight: bold;
-font-size: 12px;
-line-height: 14px;
-align-items: center;
-text-align: center;
-color: #858585;
-}
-.endereco{
+btn-denunciar .gps {
   font-family: Roboto;
-font-style: normal;
-font-weight: bold;
-font-size: 12px;
-line-height: 14px;
-text-align: center;
-color: #858585;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  align-items: center;
+  text-align: center;
+  color: #858585;
 }
-q-input{
-position: absolute;
-width: 245.21px;
-height: 29px;
-top: 404px;
-}
-.intensidade{
+.endereco {
   font-family: Roboto;
-font-style: normal;
-font-weight: bold;
-font-size: 12px;
-line-height: 14px;
-align-items: center;
-text-align: center;
-color: #858585;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  color: #858585;
 }
-.observacao{
+q-input {
+  position: absolute;
+  width: 245.21px;
+  height: 29px;
+  top: 404px;
+}
+.intensidade {
   font-family: Roboto;
-font-style: normal;
-font-weight: bold;
-font-size: 12px;
-line-height: 14px;
-align-items: center;
-text-align: center;
-color: #858585;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  align-items: center;
+  text-align: center;
+  color: #858585;
 }
-.identificacao{
- font-family: Roboto;
-font-style: normal;
-font-weight: bold;
-font-size: 12px;
-line-height: 14px;
-align-items: center;
-text-align: center;
-color: #858585;
+.observacao {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  align-items: center;
+  text-align: center;
+  color: #858585;
 }
-.card{
+.identificacao {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  align-items: center;
+  text-align: center;
+  color: #858585;
+}
+.card {
   justify-content: center;
   margin-top: 10px;
   width: 95vw;
@@ -515,7 +484,7 @@ color: #858585;
 }
 
 .marcado {
-  background: #FB9727;
+  background: #fb9727;
   color: white;
 }
 
@@ -532,11 +501,26 @@ color: #858585;
   color: #fb9727;
 }
 
-.img_camera{
+.img_camera {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-top: 20px;
-  border-width:2px;
+  border-width: 2px;
   border-style: solid;
   border-color: #fb9727;
 }
+.oi{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  margin-left: -15px;
+  margin-top: -30px;
+  height: 30px;
+  width: 30px;
+  font-size: 25px;
+  color: #333;
+  text-align: center;
+}
+
+
 </style>

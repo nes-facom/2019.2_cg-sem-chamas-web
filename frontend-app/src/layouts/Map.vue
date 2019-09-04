@@ -22,6 +22,9 @@
         @center_changed="update('reportedCenter', $event)"
       >
       <GmapAutocomplete class="search-bar" placeholder="   Digite a localização..." @place_changed="setPlace"></GmapAutocomplete>
+
+
+
         <button @click="usePlace">Add</button>
         <GmapMarker  :icon="{ url: 'https://lh4.ggpht.com/FRLzoxHDpRHxP6aFWxxQ1OUPlWnc55ZqnO7EpLtD8FBn6EK1zBerpF9P3BE3jJ6SFLNF7P0=w9-h9'}" v-for="(marker, index) in markers" :key="index" :position="marker.position" />
         <GmapMarker
@@ -177,12 +180,9 @@ export default {
       this.reportedCenter.lng = this.place.geometry.location.lng();
       this.reportedCenter.lat = this.place.geometry.location.lat();
       this.bairro = this.place.vicinity;
-            this.endereco = this.place.name;
-
-
-
-
+      this.endereco = this.place.name;
     },
+
     fix(){
       this.getlocation();
       this.clat = this.reportedCenter.lat;
