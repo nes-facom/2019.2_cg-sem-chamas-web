@@ -12,19 +12,22 @@
           <q-icon v-show="!completo" name="fas fa-circle" class="text-grey-4" style="font-size: 0.7em;  vertical-align: middle; " />
           <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
                </h5>
-               <q-btn outline style="color: #FB9727;" icon-right="add_a_photo" label="Tirar foto" />
+               <q-btn  class="botao" outline style="color: #FB9727;" icon-right="add_a_photo" label="Tirar foto" />
 
         </div>
         <div class="gps">
             <h5>2º PASSO
               <q-icon v-show="!completo" name="fas fa-circle" class="text-grey-4" style="font-size: 0.7em;  vertical-align: middle; " />
-          <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
+              <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
             </h5>
-          <q-btn outline style="color: #FB9727;" icon-right="fas fa-map-marked-alt" label="Tirar foto" />
-        </div>
+            <q-btn  class="botao" outline style="color: #FB9727;" icon-right="fas fa-map-marked-alt" label="Obter localização">
+
+            </q-btn>
+          </div>
+
         <div class="endereco">
-          <h5>OU INFORME SEU ENDEREÇO</h5>
-           <q-input rounded outlined label="Endereço" />
+          <h5>Ou informe seu endereço</h5>
+           <q-input class="enderecoDigitar" rounded outlined label="Endereço" />
         </div>
         <div class="intensidade">
           <p></p>
@@ -32,7 +35,7 @@
             <q-icon v-show="!completo" name="fas fa-circle" class="text-grey-4" style="font-size: 0.7em;  vertical-align: middle; " />
           <q-icon v-show="completo" name="fas fa-check-circle" class="text-green" style="font-size: 0.7em;  vertical-align: middle; " />
           </h5>
-          <p>Avalie a intencidade do fogo/queimada</p>
+          <p>Avalie a intencidade do fogo</p>
           {{intensidade}}
           <q-icon name="fas fa-fire" :class="{fogocinza: !fogo.um, fogovivo: fogo.um}" style="font-size: 2em;" @click="setIntensidade(1)"  />
            <q-icon name="fas fa-fire" :class="{fogocinza: !fogo.dois, fogovivo: fogo.dois}" style="font-size: 2em;" @click="setIntensidade(2)"  />
@@ -182,9 +185,19 @@ font-family: Roboto;
 font-style: normal;
 font-weight: 500;
 font-size: 16px;
-line-height: 19px;align-items: center;
+line-height: 19px;
 text-align: center;
 color: #605B57;
+}
+h5{
+  font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 12px;
+line-height: 14px;
+align-items: center;
+text-align: center;
+color: #858585;
 }
 .descricao{
 font-family: Roboto;
@@ -206,12 +219,22 @@ align-items: center;
 text-align: center;
 color: #858585;
 }
-.q-field{
-width: 245.21px;
+.enderecoDigitar{
+width:  80%;
 height: 29px;
-left: 38px;
 top: 404px;
 }
+.botao{
+background: #FFFFFF;
+border: 2px solid #FFA948;
+box-sizing: border-box;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+width: 245.21px;
+height: 50px;
+}
+
+btn-denunciar
 .gps{
 font-family: Roboto;
 font-style: normal;
@@ -228,9 +251,14 @@ font-style: normal;
 font-weight: bold;
 font-size: 12px;
 line-height: 14px;
-align-items: center;
 text-align: center;
 color: #858585;
+}
+q-input{
+position: absolute;
+width: 245.21px;
+height: 29px;
+top: 404px;
 }
 .intensidade{
   font-family: Roboto;
