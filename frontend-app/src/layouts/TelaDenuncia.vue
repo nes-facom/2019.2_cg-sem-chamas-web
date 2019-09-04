@@ -2,7 +2,7 @@
 
  <div class="container">
   <div class="logo">
-    <p class="titulo">CLIQUEIMADAS</p>
+    <p class="titulo">CLICG</p>
   </div>
   <div class="img-centro">
 
