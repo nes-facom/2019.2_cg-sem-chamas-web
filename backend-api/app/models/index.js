@@ -4,14 +4,16 @@ const path = require('path');
 const express = require("express");
 const app = express();
 const port = 3001;
+const bodyParser = require('body-parser')
 
-//const Sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 const config = require('../../config/database');
 
 const db = {};
-app.use(express.urlencoded({ extended: true }));
-//app.use(bodyParser.json());
 
+app.use(bodyParser.json());
+//app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.listen(port, () => console.log(`BACKEND is running in ${port}`));
 
 var Denuncia = require("./denunciaModel.js");
@@ -21,27 +23,27 @@ var denuncia1 = new Denuncia('a','Tom','b','c','T','f');
 console.log(denuncia1.geo);     
 
 //teste
-//const sequelize = new Sequelize(config);
+const sequelize = new Sequelize(config);
 
-//fs
-//  .readdirSync(__dirname)
-//  .filter(file => (file.indexOf('.') !== 0) && (file !== path.basename(__filename)) && (file.slice(-3) === '.js'))
-//  .forEach((file) => {
-//    const model = sequelize.import(path.join(__dirname, file));
-//    db[model.name] = model;
-//  });
-//
-//Object.keys(db).forEach((modelName) => {
-//  if (db[modelName].associate) {
-//    db[modelName].associate(db);
-//  }
-//});
+fs
+ .readdirSync(__dirname)
+ .filter(file => (file.indexOf('.') !== 0) && (file !== path.basename(__filename)) && (file.slice(-3) === '.js'))
+ .forEach((file) => {
+   const model = sequelize.import(path.join(__dirname, file));
+   db[model.name] = model;
+ });
 
-//db.sequelize = sequelize;
-//db.Sequelize = Sequelize;
+Object.keys(db).forEach((modelName) => {
+ if (db[modelName].associate) {
+   db[modelName].associate(db);
+ }
+});
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 app.use(express.json());
 
-//module.exports = db;
+module.exports = db;
 
 const denuncias = []
 
@@ -67,6 +69,30 @@ app.post('/denuncia', (req, res) => {
 
   console.log(denuncia1.geo);  
   return res.json(data);
+  //protocolo
+  //foto
+  //geo
+  //intensidade
+  //observacao
+  //data
+  
+});
+app.get('/denuncia/:index', (req, res) => {
+  const {index} = req.params;
+  
+  return res.json(denuncias(index));
+  //protocolo
+  //foto
+  //geo
+  //intensidade
+  //observacao
+  //data
+  
+});
+app.get('/denuncia/', (req, res) => {
+  
+  
+  return res.json(denuncias);
   //protocolo
   //foto
   //geo
