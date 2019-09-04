@@ -24,6 +24,9 @@
           />
         </h5>
         <q-btn outline style="color: #FB9727;" icon-right="add_a_photo" label="Tirar foto" />
+        <div v-show="!imgCam" class="camera_img">
+          <img src="http://portalamazonia.com/uploads/pics/queimada-diamantina-matogrosso-capa.jpg" width="250" placeholder-src="statics/quasar-logo.png" :alt="'Imagem: ' + imageSrc" id="photo" class="img_camera" />
+        </div>
       </div>
       <div class="gps">
         <h5>
@@ -239,7 +242,9 @@ export default {
         cinco: false
       },
       dialog: false,
-      maximizedToggle: true
+      maximizedToggle: true,
+      imgCam: false,
+      imageSrc: '',
     };
   },
   components: {
@@ -292,6 +297,30 @@ export default {
       }
 
       this.intensidade = intensidade;
+    },
+     captureImage () {
+      navigator.camera.getPicture(
+        data => { // Sucesso
+          this.imageSrc = `data:image/jpeg;base64, ${data}`
+          alert(this.imageSrc)
+
+        },
+        () => { // Falha
+          this.$q.notify('Não foi possível acessar a câmera do dispositivo.')
+        },
+        {
+          // Opções da Camera
+          quality: 50,
+          destinationType: navigator.camera.DestinationType.DATA_URL,
+          encodingType: navigator.camera.EncodingType.JPEG,
+          MEDIATYPE: navigator.camera.MediaType.PICTURE,
+          sourceType: navigator.camera.PictureSourceType.CAMERA,
+          mediaType: navigator.camera.MediaType.PICTURE,
+          cameraDirection: navigator.camera.Direction.BACK,
+          targetWidth: 300,
+          targetHeight: 400
+        }
+      )
     }
   }
 };
@@ -342,5 +371,13 @@ export default {
 
 .fogovivo {
   color: #fb9727;
+}
+
+.img_camera{
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-top: 20px; 
+  border-width:2px;
+  border-style: solid;
+  border-color: #fb9727;
 }
 </style>

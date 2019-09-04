@@ -3,8 +3,8 @@
   oi
     <q-btn color="primary" label="Tirar foto" @click="captureImage" />
     <q-btn color="positive" icon="add_photo_alternate" label="Pegar do álbum" @click="captureImage('PHOTOLIBRARY')"  />
-    <img :src="imageSrc" placeholder-src="statics/quasar-logo.png" :alt="'Imagem: ' + imageSrc" id="photo" />
-    
+
+
     </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
         data => { // Sucesso
           this.imageSrc = `data:image/jpeg;base64, ${data}`
           alert(this.imageSrc)
-         
+
         },
         () => { // Falha
           this.$q.notify('Não foi possível acessar a câmera do dispositivo.')

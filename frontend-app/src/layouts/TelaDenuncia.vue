@@ -33,6 +33,8 @@ export default {
 }
 </script>
 <style>
+
+
 .container{
   display: flex;
   background: #FB9727;
@@ -44,6 +46,8 @@ export default {
 
 }
 
+
+
 .logo{
 width: 320px;
 font-family: Roboto;
@@ -54,6 +58,16 @@ line-height: 21px;
 text-align: center;
 color: #FFFFFF;
 margin-top: 5%;
+border-color: #FB9720;
+border-width: 1px;
+border-style: solid;
+width: 80%;
+padding: 1px 10px;
+border-radius: 50px;
+}
+
+.titulo{
+  margin-top: 12px;
 }
 
 .img-centro{

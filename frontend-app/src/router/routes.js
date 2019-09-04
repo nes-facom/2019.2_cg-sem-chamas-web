@@ -8,7 +8,7 @@ const routes = [
     ]
   },
 {
-    path: '/',
+    path: '/tela',
     component: () => import('layouts/TelaDenuncia.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') }
