@@ -6,6 +6,27 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Index.vue') }
     ]
+  },
+{
+    path: '/',
+    component: () => import('layouts/TelaDenuncia.vue'),
+    children: [
+      { path: '', component: () => import('pages/Index.vue') }
+    ]
+  },
+{
+    path: '/map',
+    component: () => import('layouts/Map.vue'),
+    children: [
+      { path: '', component: () => import('pages/Index.vue') }
+    ]
+  },
+{
+    path: '/camera',
+    component: () => import('layouts/Camera.vue'),
+    children: [
+      { path: '', component: () => import('pages/Index.vue') }
+    ]
   }
 ]
 
