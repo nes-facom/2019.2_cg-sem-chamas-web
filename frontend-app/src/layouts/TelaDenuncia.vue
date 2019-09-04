@@ -20,7 +20,7 @@
     </q-btn>
   </div>
   <div class="login">
-    <a href="" class="login"></a>
+    <a href="" class="login">ENTRAR NA CONTA</a>
   </div>
  </div>
 
@@ -29,6 +29,7 @@
 import { openURL } from 'quasar'
 export default {
   name: 'TelaDenuncia',
+
 }
 </script>
 <style>
@@ -37,8 +38,12 @@ export default {
   background: #FB9727;
   width: 100vw;
   height: 100vh;
-  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
 }
+
 .logo{
 width: 320px;
 font-family: Roboto;
@@ -48,16 +53,23 @@ font-size: 18px;
 line-height: 21px;
 text-align: center;
 color: #FFFFFF;
-margin-top: 50px;
+margin-top: 5%;
 }
+
 .img-centro{
-background: url('https://image.freepik.com/vetores-gratis/artista-da-mulher-que-pinta-uma-paisagem-do-outono_1456-707.jpg');
+background-color: blue;
+background: url('https://i.imgur.com/D8fTL9E.png');
+width: 217px;
+height: 217px;
 border: 17px solid #FB9727;
 box-sizing: border-box;
 border-radius: 396px;
+
 }
-.frase{
-width: 320px;
+
+.frase p{
+margin-top: 8%;
+width: 300px;
 font-family: Roboto;
 font-style: normal;
 font-weight: normal;
@@ -67,23 +79,48 @@ text-align: center;
 color: #FFFFFF;
 }
 
-.btn-denuncia{
+.login a:link {
+  color:#fff;
+  text-decoration:none;
+}
+.login a:visited {
+  color:#fff;
+  text-decoration:none;
+}
+.login a:hover {
+  color:#fff;
+  text-decoration:underline;
+}
+.login a:active {
+  color:#fff;
+  text-decoration:underline;
+  background-color:#000000;
 }
 
-.btn-denuncia > button{
+
+.btn-denuncia button{
+border-color: #FB9727;
+margin-top: 10%;
 height: 55px;
-width: 200px;
+width: 250px;
 }
+
+
+
+
 .login{
+
 width: 320px;
 font-family: Roboto;
 font-style: normal;
 font-weight: 500;
 font-size: 14px;
 line-height: 16px;
-display: flex;
-align-items: center;
+margin-top: 5%;
 text-align: center;
+
 color: #FFFFFF;
 }
+
+
 </style>
