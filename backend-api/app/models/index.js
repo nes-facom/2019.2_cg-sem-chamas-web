@@ -43,7 +43,7 @@ app.use(express.json());
 
 //module.exports = db;
 
-//const denuncias = ['a','b']
+const denuncias = []
 
 app.post('/denuncia', (req, res) => {
   const {protocolo} = req.body;
@@ -62,7 +62,8 @@ app.post('/denuncia', (req, res) => {
 
   var Denuncia = require("./denunciaModel.js");
 
-  var denuncia1 = new Denuncia('a','Tom','b','c','T','f');
+  var denuncia1 = new Denuncia(protocolo,foto,geo,intensidade,
+    observacao,data);
 
   console.log(denuncia1.geo);  
   return res.json(data);
