@@ -6,7 +6,8 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'axios'
+      'axios',
+        'addressbar-color'
     ],
 
     css: [
@@ -29,6 +30,9 @@ module.exports = function (ctx) {
       config: {
         brand: {
           primary: '#FB9727',}
+        },
+        cordova: {
+          backButtonExit: true
         },
       // iconSet: 'ionicons-v4',
       // lang: 'de', // Quasar language

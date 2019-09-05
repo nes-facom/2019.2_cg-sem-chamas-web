@@ -1,33 +1,22 @@
 
 const routes = [
+ 
+{
+    path: '/denuncia',
+    component: () => import('layouts/TelaDenuncia.vue'),
+    
+  },
+ 
   {
     path: '/',
-    component: () => import('layouts/FormularioDenuncia.vue'),
+    component: () => import('pages/Index.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '/', component: () => import('layouts/FormularioDenuncia.vue'),
+     }
     ]
-  },
-{
-    path: '/tela',
-    component: () => import('layouts/TelaDenuncia.vue'),
-    children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ]
-  },
-{
-    path: '/map',
-    component: () => import('layouts/Map.vue'),
-    children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ]
-  },
-{
-    path: '/camera',
-    component: () => import('layouts/Camera.vue'),
-    children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ]
-  }
+      },
+
+
 ]
 
 // Always leave this as last one

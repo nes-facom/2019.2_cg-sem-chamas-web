@@ -1,14 +1,37 @@
 <template>
-  <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
-  </q-page>
-</template>
+  <q-layout view="hHh lpR fFf">
 
-<style>
-</style>
+    <q-header elevated class="bg-grey-8 text-white">
+      <q-toolbar>
+       
+        <q-btn flat round dense icon="menu" class="q-mr-sm" 
+       to="/denuncia"
+        />
+
+        <q-toolbar-title text-center style="font-size: 16px; margin-left: 60px">
+           DENUNCIAR
+        </q-toolbar-title>
+        
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer show-if-above v-model="left" side="left" elevated>
+      <!-- drawer content -->
+    </q-drawer>
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+
+  </q-layout>
+</template>
 
 <script>
 export default {
-  name: 'PageIndex'
+  data () {
+    return {
+      left: false
+    }
+  }
 }
 </script>

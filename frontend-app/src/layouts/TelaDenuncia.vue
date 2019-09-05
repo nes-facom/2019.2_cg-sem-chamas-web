@@ -11,7 +11,7 @@
 <p>Denuncie uma queimada e ajude a natureza</p>
   </div>
   <div class="btn-denuncia">
-   <q-btn color="white"  push>
+   <q-btn color="white" push>
       <div class="row items-center no-wrap  botao-denuncia">
         <div class="text-center text-primary text-weight-bold">
           Denunciar
@@ -27,9 +27,10 @@
 </template>
 <script>
 import { openURL } from 'quasar'
+import { AddressbarColor } from 'quasar'
 export default {
   name: 'TelaDenuncia',
-
+  
 }
 </script>
 <style>

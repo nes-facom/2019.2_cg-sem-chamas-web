@@ -1,5 +1,10 @@
 <template>
-  <div class="container">
+ <div>
+    <Map v-show="dialog"></Map>
+    <div
+      class="container"
+      v-show="!dialog"
+    >
     <div class="card">
       <div class="titulo">
         <h3>Informações de Queimada</h3>
@@ -10,7 +15,7 @@
 
       <div class="camera">
         <h5>
-          1º PASSO
+          1º PASSO 
           <q-icon
             v-show="!completo"
             name="fas fa-circle"
@@ -30,16 +35,11 @@
           style="color: #FB9727;"
           icon-right="add_a_photo"
           label="Tirar foto"
+          @click="captureImage"
         />
         <div v-show="!imgCam" class="camera_img">
-          <img
-            src="http://portalamazonia.com/uploads/pics/queimada-diamantina-matogrosso-capa.jpg"
-            width="250"
-            placeholder-src="statics/quasar-logo.png"
-            :alt="'Imagem: ' + imageSrc"
-            id="photo"
-            class="img_camera"
-          />
+              <img class="img_camera" :src="imageSrc" placeholder-src="statics/quasar-logo.png" :alt="'Imagem: ' + imageSrc" id="photo" />
+
         </div>
       </div>
       <div class="gps">
@@ -64,7 +64,7 @@
           style="color: #FB9727;"
           icon-right="fas fa-map-marked-alt"
           label="Obter localização"
-          @click="dialog = true"
+          @click="changeDialog()"
         >
           <!-- <q-btn label="Maximized" color="primary" @click="dialog = true" /> -->
         </q-btn>
@@ -72,7 +72,9 @@
 
       <div class="endereco">
         <h5>Ou informe seu endereço</h5>
-        <q-input class="obs" rounded outlined label="Endereço" />
+        
+        <q-input class="enderecoo" rounded outlined label="Endereço" v-model="enderecoS"/>
+        
       </div>
       <div class="intensidade">
         <p></p>
@@ -92,7 +94,7 @@
           />
         </h5>
         <p>Avalie a intencidade do fogo</p>
-        {{intensidade}}
+        <!-- {{intensidade}} -->
         <q-icon
           name="fas fa-fire"
           :class="{fogocinza: !fogo.um, fogovivo: fogo.um}"
@@ -208,7 +210,7 @@
           </div>
 
           <div class="btn-denunciar">
-          <q-btn color="primary" push>
+          <q-btn color="primary" push to="">
             <div class="row items-center no-wrap botao-denuncia">
               <div class="text-center text-white text-weight-bold">Denunciar</div>
             </div>
@@ -218,39 +220,23 @@
 
 
 
-    <div class="modal">
-      <div class="q-pa-md q-gutter-sm">
-        <q-dialog
-          v-model="dialog"
-          persistent
-          :maximized="maximizedToggle"
-          transition-show="slide-up"
-          transition-hide="slide-down"
-        >
-          <q-card class="bg-primary text-white">
- <p class="oi" @click="dialog = false" ><q-icon
-            v-show="!completo"
-            name="close"
-            class="text-ṕrimary"
-            style="font-size: 0.7em;  vertical-align: middle; "
-          /></p>
-            <Map>
-
-            </Map>
-          </q-card>
-        </q-dialog>
-      </div>
     </div>
   </div>
 </template>
+<script>
+  document.addEventListener('deviceready', () => {}, false)
+</script>
 
 <script>
+import  { mapState } from 'vuex'
+import { store } from '../store/index'
 import Map from "./Map";
 import { openURL, QInput, QDialog, QCard } from "quasar";
 export default {
   name: "FormularioDenuncia",
   data() {
     return {
+      endereco: "teste",
       text: "",
       ph: "",
       dense: false,
@@ -267,10 +253,10 @@ export default {
         quatro: false,
         cinco: false
       },
-      dialog: false,
+      
       maximizedToggle: true,
-      imgCam: false,
-      imageSrc: ""
+      imgCam: true,
+      imageSrc: ''
     };
   },
   components: {
@@ -280,6 +266,9 @@ export default {
     Map
   },
   methods: {
+    changeDialog(){
+      this.$store.commit('Dialog/changeDialogg', true)
+    },
     selecionarObs() {
       this.mostrarObs = !this.mostrarObs;
       this.ocultarObs = !this.ocultarObs;
@@ -323,32 +312,35 @@ export default {
       }
       this.intensidade = intensidade;
     },
-    captureImage() {
+    captureImage () {
       navigator.camera.getPicture(
-        data => {
-          // Sucesso
-          this.imageSrc = `data:image/jpeg;base64, ${data}`;
-          alert(this.imageSrc);
+        data => { // Sucesso
+          this.imageSrc = `data:image/jpeg;base64, ${data}`
+          this.imgCam = false;         
         },
-        () => {
-          // Falha
-          this.$q.notify("Não foi possível acessar a câmera do dispositivo.");
+        () => { // Falha
+          this.$q.notify('Não foi possível acessar a câmera do dispositivo.')
         },
         {
           // Opções da Camera
-          quality: 50,
+          quality: 90,
           destinationType: navigator.camera.DestinationType.DATA_URL,
           encodingType: navigator.camera.EncodingType.JPEG,
           MEDIATYPE: navigator.camera.MediaType.PICTURE,
           sourceType: navigator.camera.PictureSourceType.CAMERA,
           mediaType: navigator.camera.MediaType.PICTURE,
           cameraDirection: navigator.camera.Direction.BACK,
-          targetWidth: 300,
-          targetHeight: 400
+          targetWidth: 700,
+          correctOrientation: true,
         }
-      );
-    }
-  }
+      )
+    },
+  },
+   computed: {
+     ...mapState({enderecoS: state => state.Map.enderecoS,}),
+     ...mapState({dialog: state => state.Dialog.dialog,}),
+
+},
 };
 </script>
 
@@ -381,6 +373,7 @@ h5 {
   align-items: center;
   text-align: center;
   color: #858585;
+  margin-top: 50px;
 }
 .descricao {
   display: flex;
@@ -428,6 +421,8 @@ btn-denunciar .gps {
 .endereco {
   align-items: center;
   flex-direction: column;
+  display: flex;
+  justify-items: center;
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
@@ -439,6 +434,7 @@ btn-denunciar .gps {
 label {
   width: 80%;
   flex-wrap: center;
+  align-items: center;
 
 }
 .intensidade {
@@ -460,14 +456,16 @@ label {
   align-items: center;
   text-align: center;
   color: #858585;
-
+ 
 
 }
 
 .obs{
-  margin-top:  20px;
+  margin-top: 20px;
+  align-items: center;
+  flex-direction: column;
   display: flex;
-  justify-content: center;
+  justify-items: center;
 }
 
 
@@ -485,7 +483,6 @@ label {
   justify-content: center;
   margin-top: 10px;
   width: 95vw;
-  height: 90%;
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 19px;
@@ -495,6 +492,7 @@ label {
 .btn-denunciar button {
   border-color: #fb9727;
   margin-top: 10%;
+  margin-bottom: 30px;
   height: 55px;
   width: 250px;
 }
@@ -523,6 +521,7 @@ label {
   border-width: 2px;
   border-style: solid;
   border-color: #fb9727;
+  width: 80%;
 }
 .oi{
   position: absolute;
@@ -537,6 +536,10 @@ label {
   color: #fb9727;
   text-align: center;
   font-weight: bold;
+}
+
+.dados{
+  margin-top: 50px 
 }
 
 

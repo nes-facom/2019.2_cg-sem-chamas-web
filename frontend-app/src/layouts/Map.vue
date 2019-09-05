@@ -5,7 +5,7 @@
 
       <GmapMap
         :options="{
-   zoomControl: true,
+   zoomControl: false,
    mapTypeControl: false,
    scaleControl: false,
    streetViewControl: false,
@@ -47,11 +47,9 @@
 
 
       </div>
+    <q-btn v-show="!selecao" class="fix-position" @click="fix()" round color="white" text-color="grey" icon="my_location"  size="15px" />
 
-      <div class="fix-position" @click="fix()" >
 
-  <q-icon name="gps_fixed" class="text-grey-8" style="font-size: 1.7rem;"  />
-      </div>
 
 
       <div v-show="!selecao" class="gps-button">
@@ -67,15 +65,15 @@
         <div class="q-pa-md row items-start q-gutter-md">
           <q-card class="my-card bg-white text-primary">
             <q-card-section>
-              <div class="text-h6">Local selecionado está correto?</div>
+              <div class="text-h7">Deseja utilizar esse endereço?</div>
             </q-card-section>
 
-            <q-card-section>{{endereco}} , {{bairro}}</q-card-section>
+            <q-card-section>{{enderecoS}}</q-card-section>
 
             <q-separator primary />
 
             <q-card-actions align="center">
-              <q-btn flat>Sim</q-btn>
+              <q-btn flat @click="changeDialog()">Sim</q-btn >
               <q-btn flat @click="changeSelection()">Não</q-btn>
             </q-card-actions>
           </q-card>
@@ -121,6 +119,8 @@ import {
   QInput,
   QSeparator
 } from "quasar";
+import  { mapState } from 'vuex'
+import { store } from '../store/index'
 import axios from "axios";
 import Vue from "vue";
 import * as VueGoogleMaps from "vue2-google-maps";
@@ -179,8 +179,7 @@ export default {
       this.clng = this.place.geometry.location.lng(),
       this.reportedCenter.lng = this.place.geometry.location.lng();
       this.reportedCenter.lat = this.place.geometry.location.lat();
-      this.bairro = this.place.vicinity;
-      this.endereco = this.place.name;
+      
     },
 
     fix(){
@@ -236,10 +235,20 @@ export default {
             },
             (error) => {
               this.plng = "Error..."
-              this.$q.notify(`ERROR ${error.code} : ${error.message}`)
+              var message_error
+              if(error.code == 1){
+                message_error = "Você não permitiu que o acesso ao GPS, altere suas permissões."
+              }
+              else if(error.code == 2){
+                message_error = "Não foi possivel obter sua localização nesse momento."
+              }
+              else{error.code == 3}{
+                message_error = "Não foi possivel obter sua localização, verifique se seu GPS está ativado."
+              }
+              this.$q.notify(message_error)
               console.log(error)
             }, {
-          maximumAge: 3000, timeout: 30000, enableHighAccuracy: true
+          maximumAge: 3000, timeout: 50000, enableHighAccuracy: true
         }
           )
 
@@ -265,7 +274,7 @@ export default {
             },
             (error) => {
               this.plng = "WError..."
-              this.$q.notify(`WERROR ${error.code} : ${error.message}`)
+              // this.$q.notify(`WERROR ${error.code} : ${error.message}`)
               console.log(error)
             }, {
           maximumAge: 3000, timeout: 30000, enableHighAccuracy: true
@@ -280,6 +289,9 @@ export default {
 
 
     },
+    changeDialog(){
+      this.$store.commit('Dialog/changeDialogg', false)
+    },
     geoLocal(){
       axios.get('https://maps.googleapis.com/maps/api/geocode/json?',{
       params: {
@@ -291,6 +303,7 @@ export default {
               console.log(response)
               console.log(response.data.results[0].formatted_address)
               this.endereco = response.data.results[0].formatted_address
+              this.$store.commit('Map/updateEndereco', this.endereco)
 							this.changeSelection()
 						}).catch(error => {
 				    			console.log(error)
@@ -307,7 +320,6 @@ export default {
         },
         opacity: 1,
         enabled: true,
-        animation: google.maps.Animation.DROP,
 
       });
 
@@ -324,7 +336,12 @@ export default {
     this.getlocation();
     this.watchPosition();
 
-}
+},
+  computed:{
+    ...mapState({enderecoS: state => state.Map.enderecoS,}),
+    ...mapState({dialog: state => state.Dialog.dialog,}),
+    google: VueGoogleMaps.gmapApi
+  }
 };
 </script>
 
@@ -377,7 +394,7 @@ export default {
   font-size: 25px;
   color: #333;
   text-align: center;
-  border-radius: 2px;
+  border-radius: 50px;
 }
 
 .fix-positio{
@@ -392,7 +409,7 @@ export default {
   display: inherit !important;
 }
 .gps-button {
-  margin-top: -75px;
+  margin-top: -110px;
   font-size: 26px;
   display: flex;
   justify-content: center;
@@ -405,9 +422,9 @@ export default {
 }
 
 .my-card {
-  margin-top: -200px;
+  margin-top: -250px;
   width: 100vw;
-  max-width: 350px;
+  max-width: 280px;
 }
 
 .search-bar {
@@ -444,4 +461,12 @@ padding-right: 20px;
   -o-animation: fa-blink 0.75s linear infinite;
   animation: fa-blink 0.75s linear infinite;
 }
+
+.text-h7{
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 2rem;
+    letter-spacing: 0.0125em;
+}
+
 </style>
