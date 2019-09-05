@@ -72,7 +72,7 @@
 
       <div class="endereco">
         <h5>Ou informe seu endereço</h5>
-        <q-input class="enderecoDigitar" rounded outlined label="Endereço" />
+        <q-input class="obs" rounded outlined label="Endereço" />
       </div>
       <div class="intensidade">
         <p></p>
@@ -153,6 +153,7 @@
           @click="selecionarObs()"
           label="Não"
         />
+        <div class="obs">
         <q-input
           v-show="mostrarObs"
           rounded
@@ -162,7 +163,7 @@
           class="obs"
         />
       </div>
-
+      </div>
 
           <div class="identificacao">
             <h5>
@@ -227,7 +228,12 @@
           transition-hide="slide-down"
         >
           <q-card class="bg-primary text-white">
- <p class="oi">oi</p>
+ <p class="oi" @click="dialog = false" ><q-icon
+            v-show="!completo"
+            name="close"
+            class="text-ṕrimary"
+            style="font-size: 0.7em;  vertical-align: middle; "
+          /></p>
             <Map>
 
             </Map>
@@ -377,12 +383,15 @@ h5 {
   color: #858585;
 }
 .descricao {
+  display: flex;
+  justify-content: center;
   font-family: Roboto;
   font-style: normal;
   font-weight: 300;
   font-size: 16 px;
   line-height: 13px;
   align-items: center;
+  flex-direction: column;
   color: #737373;
 }
 .camera {
@@ -395,11 +404,7 @@ h5 {
   text-align: center;
   color: #858585;
 }
-/* .enderecoDigitar {
-  width: 80%;
-  height: 29px;
-  top: 404px;
-} */
+
 .botao {
   background: #ffffff;
   border: 2px solid #ffa948;
@@ -421,6 +426,8 @@ btn-denunciar .gps {
   color: #858585;
 }
 .endereco {
+  align-items: center;
+  flex-direction: column;
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
@@ -429,11 +436,10 @@ btn-denunciar .gps {
   text-align: center;
   color: #858585;
 }
-q-input {
-  position: absolute;
-  width: 245.21px;
-  height: 29px;
-  top: 404px;
+label {
+  width: 80%;
+  flex-wrap: center;
+
 }
 .intensidade {
   font-family: Roboto;
@@ -454,7 +460,17 @@ q-input {
   align-items: center;
   text-align: center;
   color: #858585;
+
+
 }
+
+.obs{
+  margin-top:  20px;
+  display: flex;
+  justify-content: center;
+}
+
+
 .identificacao {
   font-family: Roboto;
   font-style: normal;
@@ -510,16 +526,17 @@ q-input {
 }
 .oi{
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 5%;
+  left: 95%;
   z-index: 2;
   margin-left: -15px;
   margin-top: -30px;
   height: 30px;
   width: 30px;
   font-size: 25px;
-  color: #333;
+  color: #fb9727;
   text-align: center;
+  font-weight: bold;
 }
 
 
