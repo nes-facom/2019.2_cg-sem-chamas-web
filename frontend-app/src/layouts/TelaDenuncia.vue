@@ -11,16 +11,16 @@
 <p>Denuncie uma queimada e ajude a natureza</p>
   </div>
   <div class="btn-denuncia">
-   <q-btn color="white" push>
+   <a href="/denuncia"><q-btn color="white" push>
       <div class="row items-center no-wrap  botao-denuncia">
         <div class="text-center text-primary text-weight-bold">
-          Denunciar
+         Denunciar
         </div>
       </div>
-    </q-btn>
+    </q-btn></a> 
   </div>
   <div class="login">
-    <a href="" class="login">ENTRAR NA CONTA</a>
+    <a href="#" class="login">ENTRAR NA CONTA</a>
   </div>
  </div>
 
