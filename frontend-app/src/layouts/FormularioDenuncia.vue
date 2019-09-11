@@ -7,7 +7,7 @@
 
     >
     <div class="card">
-      <div class="titulo"style="height:50px">
+      <div class="titulo" style="height:50px">
         <h3>Informações de Queimada</h3>
 
         <p>Precisamos de algumas informações sobre a queimada.</p>
@@ -126,7 +126,7 @@
           @click="setIntensidade(5)"
         />
       </div>
-      <div class="observacao"style="height:70px">
+      <div class="observacao" style="height:70px">
         <h5>
           4º PASSO
           <q-icon

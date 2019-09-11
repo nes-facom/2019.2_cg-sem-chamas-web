@@ -1,47 +1,37 @@
 <template>
- <div class="vuex">
-   <div class="oi">
+  <q-layout view="hHh lpR fFf">
 
-     <button @click="console()">oi</button>
+    <q-header elevated class="bg-grey-8 text-white">
+      <q-toolbar>
+       
+        <q-btn flat round dense icon="menu" class="q-mr-sm" 
+       to="/denuncia"
+        />
 
-   {{enderecoS}}
-<input
-        type="text"
-        v-model="enderecoS"
-      />
-   </div>
- </div>
+        <q-toolbar-title text-center style="font-size: 16px; margin-left: 60px">
+           DENUNCIAR
+        </q-toolbar-title>
+        
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer show-if-above v-model="left" side="left" elevated>
+      <!-- drawer content -->
+    </q-drawer>
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+
+  </q-layout>
 </template>
 
 <script>
-import { openURL } from 'quasar'
-import  { mapState } from 'vuex'
-import { store } from '../store/index'
-
 export default {
-  name: 'MyLayout',
   data () {
     return {
-      novoEndereco: 'Novo endereço',
-      endereco: 'Novo enderecoaa',
-      
+      left: false
     }
-  },
-  methods: {
-    openURL,
-     console(){
-      this.$store.commit('Map/updateEndereco', this.endereco)
-    }
-  },
-  computed: {
-   
-  ...mapState({enderecoS: state => state.Map.enderecoS,})
-},
-  mounted(){
-   this.console();
   }
 }
 </script>
-
-<style>
-</style>
