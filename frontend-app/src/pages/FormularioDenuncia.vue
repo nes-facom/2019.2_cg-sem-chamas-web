@@ -7,13 +7,13 @@
 
     >
     <div class="card">
-      <div class="titulo" style="height:50px">
+      <div class="titulo">
         <h3>Informações de Queimada</h3>
 
         <p>Precisamos de algumas informações sobre a queimada.</p>
       </div>
 
-      <div class="camera" style="height:50px">
+      <div class="camera">
         <h5>
           1º PASSO 
           <q-icon
@@ -42,7 +42,7 @@
 
         </div>
       </div>
-      <div class="gps" style="height:50px">
+      <div class="gps">
         <h5>
           2º PASSO
           <q-icon
@@ -70,13 +70,13 @@
         </q-btn>
       </div>
 
-      <div class="endereco" style="height:105px">
+      <div class="endereco">
         <h5>Ou informe seu endereço</h5>
         
         <q-input class="enderecoo" rounded outlined label="Endereço" v-model="enderecoS"/>
         
       </div>
-      <div class="intensidade" style="height:50px">
+      <div class="intensidade">
         
         <h5>
           3º PASSO
@@ -126,7 +126,7 @@
           @click="setIntensidade(5)"
         />
       </div>
-      <div class="observacao" style="height:70px">
+      <div class="observacao">
         <h5>
           4º PASSO
           <q-icon
@@ -373,7 +373,6 @@ h5 {
   align-items: center;
   text-align: center;
   color: #858585;
-  margin-top: 50px;
 }
 p{
   display: flex;
@@ -407,6 +406,18 @@ p{
   border-radius: 10px;
   width: 245.21px;
   height: 50px;
+}
+.descricao {
+  display: flex;
+  justify-content: center;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16 px;
+  line-height: 13px;
+  align-items: center;
+  flex-direction: column;
+  color: #737373;
 }
 
 btn-denunciar .gps {
@@ -479,6 +490,7 @@ label {
   align-items: center;
   text-align: center;
   color: #858585;
+  align-items: center;
 }
 .card {
   justify-content: center;
