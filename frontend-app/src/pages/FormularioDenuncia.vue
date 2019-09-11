@@ -143,12 +143,13 @@
           />
         </h5>
         <p>Deseja deixar alguma observação sobre a queimada?</p>
-        <q-btn
+        <q-btn 
           :outline="!mostrarObs"
           :class="{marcado: mostrarObs, nmarcado: !mostrarObs}"
           @click="selecionarObs()"
           label="Sim"
         />
+        <span class="espaco"></span>
         <q-btn
           :outline="!ocultarObs"
           :class="{marcado: ocultarObs, nmarcado: !ocultarObs}"
@@ -190,7 +191,9 @@
               :class="{marcado: mostrarDados, nmarcado: !mostrarDados}"
               @click="selecionarDados()"
               label="Sim"
+              
             />
+          
             <q-btn
               :outline="!ocultarDados"
               :class="{marcado: ocultarDados, nmarcado: !ocultarDados}"
@@ -406,6 +409,7 @@ p{
   border-radius: 10px;
   width: 245.21px;
   height: 50px;
+  
 }
 .descricao {
   display: flex;
@@ -473,7 +477,7 @@ label {
 }
 
 .obs{
-  margin-top: 20px;
+  margin-top: 5px;
   align-items: center;
   flex-direction: column;
   display: flex;
@@ -552,8 +556,16 @@ label {
 }
 
 .dados{
-  margin-top: 50px 
+  margin-top: 30px 
 }
+.observacao .q-btn{
+  margin: 5px;
+}
+
+.identificacao .q-btn{
+  margin: 5px;
+}
+
 
 
 </style>
