@@ -11,7 +11,7 @@ const routes = [
     path: '/',
     component: () => import('pages/Index.vue'),
     children: [
-      { path: '/denuncia', component: () => import('layouts/FormularioDenuncia.vue'),
+      { path: '/denuncia', component: () => import('pages/FormularioDenuncia.vue'),
      }
     ]
       },
