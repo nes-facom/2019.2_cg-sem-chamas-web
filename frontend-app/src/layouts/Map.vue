@@ -12,7 +12,8 @@
    rotateControl: false,
    fullscreenControl: false,
    draggable: !isBlink,
-   gestureHandling: 'greedy'
+   gestureHandling: 'greedy',
+   disableDefaultUI: true
 
        }"
         :center="{lat:clat, lng:clng}"
@@ -21,12 +22,12 @@
         style="width: 100vw; height: 100vh"
         @center_changed="update('reportedCenter', $event)"
       >
-      <GmapAutocomplete class="search-bar" placeholder="   Digite a localização..." @place_changed="setPlace"></GmapAutocomplete>
+      <GmapAutocomplete class="search-bar" placeholder="    Digite a localização..." @place_changed="setPlace"></GmapAutocomplete>
 
 
 
         <button @click="usePlace">Add</button>
-        <GmapMarker  :icon="{ url: 'https://lh4.ggpht.com/FRLzoxHDpRHxP6aFWxxQ1OUPlWnc55ZqnO7EpLtD8FBn6EK1zBerpF9P3BE3jJ6SFLNF7P0=w9-h9'}" v-for="(marker, index) in markers" :key="index" :position="marker.position" />
+        <GmapMarker  :icon="{ url: './imagens/marker.jpg'}" v-for="(marker, index) in markers" :key="index" :position="marker.position" />
         <GmapMarker
           v-if="this.place"
           label="★"
@@ -38,12 +39,13 @@
       </GmapMap>
 
       <div class="google-map-marker">
-        <q-icon
+        <!-- <q-icon
           :class="{fablink: isBlink}"
           name="fas fa-fire-alt"
           class="text-red"
           style="font-size: 1em"
-        />
+        /> -->
+        <img src="../assets/imagens/marker.jpg" :class="{fablink: !isBlink}" alt="">
 
 
       </div>
@@ -179,7 +181,8 @@ export default {
       this.clng = this.place.geometry.location.lng(),
       this.reportedCenter.lng = this.place.geometry.location.lng();
       this.reportedCenter.lat = this.place.geometry.location.lat();
-      
+      this.endereco = `${this.place.name}, ${this.place.vinnicity}`
+      this.$store.commit('Map/updateEndereco', this.endereco)
     },
 
     fix(){
@@ -455,6 +458,7 @@ padding-right: 20px;
   }
 }
 .fablink {
+  
   -webkit-animation: fa-blink 0.75s linear infinite;
   -moz-animation: fa-blink 0.75s linear infinite;
   -ms-animation: fa-blink 0.75s linear infinite;
