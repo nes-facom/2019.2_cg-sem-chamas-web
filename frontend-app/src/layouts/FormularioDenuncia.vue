@@ -4,16 +4,16 @@
     <div
       class="container"
       v-show="!dialog"
+
     >
     <div class="card">
-      <div class="titulo">
+      <div class="titulo"style="height:50px">
         <h3>Informações de Queimada</h3>
-      </div>
-      <div class="descricao">
+
         <p>Precisamos de algumas informações sobre a queimada.</p>
       </div>
 
-      <div class="camera">
+      <div class="camera" style="height:50px">
         <h5>
           1º PASSO 
           <q-icon
@@ -42,7 +42,7 @@
 
         </div>
       </div>
-      <div class="gps">
+      <div class="gps" style="height:50px">
         <h5>
           2º PASSO
           <q-icon
@@ -70,14 +70,14 @@
         </q-btn>
       </div>
 
-      <div class="endereco">
+      <div class="endereco" style="height:105px">
         <h5>Ou informe seu endereço</h5>
         
         <q-input class="enderecoo" rounded outlined label="Endereço" v-model="enderecoS"/>
         
       </div>
-      <div class="intensidade">
-        <p></p>
+      <div class="intensidade" style="height:50px">
+        
         <h5>
           3º PASSO
           <q-icon
@@ -126,7 +126,7 @@
           @click="setIntensidade(5)"
         />
       </div>
-      <div class="observacao">
+      <div class="observacao"style="height:70px">
         <h5>
           4º PASSO
           <q-icon
@@ -375,7 +375,7 @@ h5 {
   color: #858585;
   margin-top: 50px;
 }
-.descricao {
+p{
   display: flex;
   justify-content: center;
   font-family: Roboto;
@@ -388,6 +388,7 @@ h5 {
   color: #737373;
 }
 .camera {
+  height: 100px;
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;

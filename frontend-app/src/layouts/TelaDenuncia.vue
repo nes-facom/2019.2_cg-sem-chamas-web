@@ -20,7 +20,7 @@
     </q-btn></a> 
   </div>
   <div class="login">
-    <a href="#" class="login">ENTRAR NA CONTA</a>
+    <a href="/" class="login">ENTRAR NA CONTA</a>
   </div>
  </div>
 
