@@ -48,23 +48,23 @@ class DenunciaController {
    * @param {Response} ctx.response
    */
   async store ({ request, session, response }) {
-    const rules = {
-      location: 'required',
-      image: 'required'
-    }
+    const data = request.only(["nome", "e-mail"]);
 
-    const validation = await validate(request.all(), rules)
+    const cliente = await Cliente.create(data);
 
-    if (validation.fails()) {
-      session
-        .withErrors(validation.messages())
-        .flashExcept(['password'])
-
-      return response.redirect('back')
-    }
-
-    return 'Validation passed'
+    return cliente;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
   /**
@@ -103,6 +103,13 @@ class DenunciaController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    // const cliente = await Cliente.findOrFail(params.id);
+    // const data = request.only(["nome", "e-mail"]);
+
+    // cliente.merge(data);
+    // await cliente.save();
+
+    // return cliente
   }
 
   /**
