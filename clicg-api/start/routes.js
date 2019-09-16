@@ -16,6 +16,21 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.get('/', () => {
+/*Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
-})
+})*/
+
+Route.post('denuncia', 'DenunciaController.store')
+
+Route.get('denuncia/:id', 'DenunciaController.show')
+
+Route.get('denuncias', 'DenunciaController.index')
+
+Route.put('denuncia/:id', 'DenunciaController.update')
+
+Route.delete('denuncia/:id', 'DenunciaController.destroy')
+
+
+
+
+
