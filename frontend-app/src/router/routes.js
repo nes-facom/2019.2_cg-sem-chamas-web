@@ -1,24 +1,19 @@
 const routes = [
-  // <<<<<<< HEAD
-
-  {
-    path: "/",
-    component: () => import("layouts/MyLayout.vue"),
+{
+    path: '/',
+    component: () => import('layouts/MyLayout.vue'),
     children: [
-      { path: "camera", component: () => import("pages/Camera.vue") },
-      { path: "gps", component: () => import("pages/Map.vue") },
-      {
-        path: "formulario",
-        component: () => import("pages/FormularioDenuncia.vue")
-      }
-    ]
-  },
-
+      { path: 'camera', component: () => import('pages/Camera.vue') },
+      { path: 'gps', component: () => import('pages/Map.vue') },
+      { path: 'formulario', component: () => import('pages/FormularioDenuncia.vue') }
+    ] 
+  }, 
   {
     path: "/denuncia",
     component: () => import("layouts/TelaDenuncia.vue")
   }
 ];
+// >>>>>>> develop
 
 // Always leave this as last one
 if (process.env.MODE !== "ssr") {
