@@ -48,11 +48,12 @@ class DenunciaController {
    * @param {Response} ctx.response
    */
   async store ({ request, session, response }) {
-    const data = request.only(["nome", "e-mail"]);
+    const data = request.only(["dUserDenuncia", "protocolo","foto","geo-lat","geo-lng","intensidade","observacao","data","ip","endereco"]);
 
-    const cliente = await Cliente.create(data);
 
-    return cliente;
+    const denuncia = await Denuncia.create(data);
+
+    return denuncia;
 }
 
 
