@@ -18,6 +18,7 @@ class DenunciaController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    return { greeting: 'TESTANO'}
   }
 
   /**
