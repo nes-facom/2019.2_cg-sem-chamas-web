@@ -7,6 +7,8 @@
 /**
  * Resourceful controller for interacting with denuncias
  */
+const Denuncia = use('App/Models/Denuncia')
+
 class DenunciaController {
   /**
    * Show a list of all denuncias.
@@ -18,7 +20,11 @@ class DenunciaController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    return { greeting: 'TESTANO'}
+
+      const denuncia = Denuncia.all()
+
+      return denuncia
+
   }
 
   /**
@@ -41,8 +47,25 @@ class DenunciaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
-  }
+  async store ({ request, session, response }) {
+    const rules = {
+      location: 'required',
+      image: 'required'
+    }
+
+    const validation = await validate(request.all(), rules)
+
+    if (validation.fails()) {
+      session
+        .withErrors(validation.messages())
+        .flashExcept(['password'])
+
+      return response.redirect('back')
+    }
+
+    return 'Validation passed'
+}
+
 
   /**
    * Display a single denuncia.
@@ -54,6 +77,9 @@ class DenunciaController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    const denuncia = await Denuncia.findOrFail(params.id)
+
+    return denuncia
   }
 
   /**
@@ -88,7 +114,14 @@ class DenunciaController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
-  }
+  //   const denuncia = await Denuncia.findOrFail(params.id)
+
+  //   if (Denuncia.user_id !== auth.user.id) {
+  //     return response.status(401).send({ error: 'Not authorized' })
+  //   }
+
+  //   await Denuncia.delete()
+   }
 }
 
 module.exports = DenunciaController
