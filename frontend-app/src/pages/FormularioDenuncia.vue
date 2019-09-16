@@ -23,22 +23,34 @@
             style="font-size: 0.7em;  vertical-align: middle; "
           />
           <q-icon
-            v-show="completo"
+            v-show="!completo"
             name="fas fa-check-circle"
             class="text-green"
             style="font-size: 0.7em;  vertical-align: middle; "
           />
+          <p>Inserir imagem</p>
+
         </h5>
+
         <q-btn
-          class="botao"
+          class="botaoCamera"
           outline
           style="color: #FB9727;"
           icon-right="add_a_photo"
-          label="Tirar foto"
+          label="Câmera"
           @click="captureImage"
         />
+        
+        <q-btn 
+          class="botaoCamera"
+          outline
+          style="color: #FB9727;"
+          icon-right="add_photo_alternate"
+          label="álbum" 
+          @click="captureImage('PHOTOLIBRARY')"  />
+
         <div v-show="!imgCam" class="camera_img">
-              <img class="img_camera" :src="imageSrc" placeholder-src="statics/quasar-logo.png" :alt="'Imagem: ' + imageSrc" id="photo" />
+          <img class="img_camera" :src="imageSrc" placeholder-src="statics/quasar-logo.png" :alt="'Imagem: ' + imageSrc" id="photo" />
 
         </div>
       </div>
@@ -73,7 +85,10 @@
       <div class="endereco">
         <h5>Ou informe seu endereço</h5>
         
-        <q-input class="enderecoo" rounded outlined label="Endereço" v-model="enderecoS"/>
+        <q-input class="enderecoo" 
+        rounded outlined label="Endereço" 
+        v-model="enderecoS"
+        :rules="[val => !!val || 'Field is required']"/>
         
       </div>
       <div class="intensidade">
@@ -256,6 +271,13 @@ export default {
         quatro: false,
         cinco: false
       },
+      denuncia:{
+        foto: "",
+        intensidade: "" ,
+        observacao: "",
+        endereco: ""
+        
+      },
       
       maximizedToggle: true,
       imgCam: true,
@@ -371,7 +393,7 @@ h5 {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 14px;
   align-items: center;
   text-align: center;
@@ -400,16 +422,35 @@ p{
   text-align: center;
   color: #858585;
 }
+.camera p{
+  margin: 0px;
 
+  
+}
 .botao {
   background: #ffffff;
   border: 2px solid #ffa948;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  width: 245.21px;
+  width: 263px;
   height: 50px;
   
+}
+.botaoCamera{
+  background: #ffffff;
+  border: 2px solid #ffa948;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 113px;
+  height: 50px;
+  margin-right: 18px;
+  margin-left: 18px;
+}
+.enderecoo{
+  width: 263px;
+
 }
 .descricao {
   display: flex;
@@ -472,8 +513,6 @@ label {
   align-items: center;
   text-align: center;
   color: #858585;
- 
-
 }
 
 .obs{
@@ -554,7 +593,11 @@ label {
   text-align: center;
   font-weight: bold;
 }
+.camera .q-btn .q-icon{
+  font-size: 1.3em;
+  margin-left: 1.5px;
 
+}
 .dados{
   margin-top: 30px 
 }

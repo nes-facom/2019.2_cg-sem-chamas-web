@@ -13,7 +13,7 @@ const routes = [
     component: () => import("layouts/TelaDenuncia.vue")
   }
 ];
-// >>>>>>> develop
+
 
 // Always leave this as last one
 if (process.env.MODE !== "ssr") {
