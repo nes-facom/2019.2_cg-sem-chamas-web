@@ -1,5 +1,5 @@
 const routes = [
-<<<<<<< HEAD
+// <<<<<<< HEAD
  
 {
     path: '/',
@@ -8,13 +8,10 @@ const routes = [
       { path: 'camera', component: () => import('pages/Camera.vue') },
       { path: 'gps', component: () => import('pages/Map.vue') },
       { path: 'formulario', component: () => import('pages/FormularioDenuncia.vue') }
-    ]
-    
-  },
+    ] 
+  }, 
 
-  
-]
-=======
+// =======
   {
     path: "/",
     component: () => import("layouts/TelaDenuncia.vue")
@@ -36,7 +33,7 @@ const routes = [
     ]
   }
 ];
->>>>>>> develop
+// >>>>>>> develop
 
 // Always leave this as last one
 if (process.env.MODE !== "ssr") {
