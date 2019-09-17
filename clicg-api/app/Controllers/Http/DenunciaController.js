@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -7,7 +7,7 @@
 /**
  * Resourceful controller for interacting with denuncias
  */
-const Denuncia = use('App/Models/Denuncia')
+const Denuncia = use("App/Models/Denuncia");
 
 class DenunciaController {
   /**
@@ -19,12 +19,10 @@ class DenunciaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index({ request, response, view }) {
+    const denuncia = Denuncia.all();
 
-      const denuncia = Denuncia.all()
-
-      return denuncia
-
+    return denuncia;
   }
 
   /**
@@ -36,8 +34,7 @@ class DenunciaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
-  }
+  async create({ request, response, view }) {}
 
   /**
    * Create/save a new denuncia.
@@ -47,26 +44,24 @@ class DenunciaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, session, response }) {
-    const data = request.only(["dUserDenuncia", "protocolo","foto","geo-lat","geo-lng","intensidade","observacao","data","ip","endereco"]);
-
+  async store({ request, session, response }) {
+    const data = request.only([
+      "protocolo",
+      "foto",
+      "geo-lat",
+      "geo-lng",
+      "intensidade",
+      "observacao",
+      "data",
+      "ip",
+      "endereco"
+    ]);
+    //"dUserDenuncia",
 
     const denuncia = await Denuncia.create(data);
 
     return denuncia;
-}
-
-
-
-
-
-
-
-
-
-
-
-
+  }
 
   /**
    * Display a single denuncia.
@@ -77,10 +72,10 @@ class DenunciaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
-    const denuncia = await Denuncia.findOrFail(params.id)
+  async show({ params, request, response, view }) {
+    const denuncia = await Denuncia.findOrFail(params.id);
 
-    return denuncia
+    return denuncia;
   }
 
   /**
@@ -92,8 +87,7 @@ class DenunciaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit ({ params, request, response, view }) {
-  }
+  async edit({ params, request, response, view }) {}
 
   /**
    * Update denuncia details.
@@ -103,13 +97,11 @@ class DenunciaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update({ params, request, response }) {
     // const cliente = await Cliente.findOrFail(params.id);
     // const data = request.only(["nome", "e-mail"]);
-
     // cliente.merge(data);
     // await cliente.save();
-
     // return cliente
   }
 
@@ -121,15 +113,13 @@ class DenunciaController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
-  //   const denuncia = await Denuncia.findOrFail(params.id)
-
-  //   if (Denuncia.user_id !== auth.user.id) {
-  //     return response.status(401).send({ error: 'Not authorized' })
-  //   }
-
-  //   await Denuncia.delete()
-   }
+  async destroy({ params, request, response }) {
+    //   const denuncia = await Denuncia.findOrFail(params.id)
+    //   if (Denuncia.user_id !== auth.user.id) {
+    //     return response.status(401).send({ error: 'Not authorized' })
+    //   }
+    //   await Denuncia.delete()
+  }
 }
 
-module.exports = DenunciaController
+module.exports = DenunciaController;
