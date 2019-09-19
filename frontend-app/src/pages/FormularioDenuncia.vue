@@ -224,8 +224,8 @@
             </div>
             <div class="descricao">
               <p>Informe alguns dados sobre você.</p>
-              <q-input v-model="text" label="Nome:" :dense="dense" />
-              <q-input v-model="text" label="Telefone:" :dense="dense" />
+              <q-input type="text" label="Nome:" :dense="dense" />
+              <q-input type="text" label="Telefone:" :dense="dense" />
             </div>
           </div>
         </div>
@@ -379,7 +379,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   background: #f3f3f3;
   width: 100vw;
