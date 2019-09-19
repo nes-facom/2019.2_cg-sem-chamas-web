@@ -24,7 +24,7 @@
               class="text-green"
               style="font-size: 0.7em;  vertical-align: middle; "
             />
-            <p>Inserir imagem</p>
+            <p style="margin-top: 10px;">Inserir imagem</p>
           </h5>
           <div class="media">
             <q-btn
