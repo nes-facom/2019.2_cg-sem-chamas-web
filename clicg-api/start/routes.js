@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /*
 |--------------------------------------------------------------------------
@@ -14,23 +14,20 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use('Route')
+const Route = use("Route");
 
 /*Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })*/
 
-Route.post('denuncia', 'DenunciaController.store')
+Route.post("denuncia", "DenunciaController.store");
 
-Route.get('denuncia/:id', 'DenunciaController.show')
+Route.get("denuncia/:id", "DenunciaController.show");
 
-Route.get('denuncias', 'DenunciaController.index')
+Route.get("protocolo/:protocolo", "DenunciaController.byProtocolo");
 
-Route.put('denuncia/:id', 'DenunciaController.update')
+Route.get("denuncias", "DenunciaController.index");
 
-Route.delete('denuncia/:id', 'DenunciaController.destroy')
+Route.put("denuncia/:id", "DenunciaController.update");
 
-
-
-
-
+Route.delete("denuncia/:id", "DenunciaController.destroy");

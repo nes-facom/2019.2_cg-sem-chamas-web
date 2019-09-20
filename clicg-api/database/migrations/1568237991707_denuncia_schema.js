@@ -15,16 +15,14 @@ class DenunciaSchema extends Schema {
         .bigInteger("protocolo")
         .notNullable()
         .unique();
-      table.string("foto", 256).notNullable();
+      table.text("foto").notNullable();
       table.decimal("geo-lat", 9, 6);
       table.decimal("geo-lng", 9, 6);
       table.integer("intensidade").defaultTo(1);
       table.string("observacao", 256);
-
-      table.date("data").notNullable();
       table.string("ip", 16);
       table.string("endereco", 256);
-
+      table.string("status", 100);
       table.timestamps();
     });
   }
