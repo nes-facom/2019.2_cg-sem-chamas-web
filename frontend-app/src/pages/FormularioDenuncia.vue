@@ -1,246 +1,248 @@
 <template>
-  <div>
-    <Map v-show="dialog"></Map>
-    <div class="container" v-show="!dialog">
-      <div class="card">
-        <div class="titulo">
-          <h3>Informações de Queimada</h3>
+  <transition
+    appear
+    enter-active-class="animated slideInRight"
+    leave-active-class="animated slideOutDown"
+  >
+    <div>
+      <Map v-show="dialogg"></Map>
 
-          <p>Precisamos de algumas informações sobre a queimada.</p>
-        </div>
+      <div class="container" v-show="!dialogg">
+        <div class="card">
+          <div class="titulo">
+            <h3>Informações de Queimada</h3>
 
-        <div class="camera">
-          <h5>
-            1º PASSO
-            <q-icon
-              v-show="!completo"
-              name="fas fa-circle"
-              class="text-grey-4"
-              style="font-size: 0.7em;  vertical-align: middle; "
-            />
-            <q-icon
-              v-show="completo"
-              name="fas fa-check-circle"
-              class="text-green"
-              style="font-size: 0.7em;  vertical-align: middle; "
-            />
-            <p style="margin-top: 10px;">Inserir imagem</p>
-          </h5>
-          <div class="media">
-            <q-btn
-              class="botaoCamera"
-              outline
-              style="color: #FB9727;"
-              icon-right="add_a_photo"
-              label="Câmera"
-              @click="captureImage"
-            />
-            <p>OU</p>
-            <q-btn
-              class="botaoCamera"
-              outline
-              style="color: #FB9727;"
-              icon-right="add_photo_alternate"
-              label="álbum"
-              @click="captureImage('PHOTOLIBRARY')"
-            />
+            <p>Precisamos de algumas informações sobre a queimada.</p>
           </div>
 
-          <div v-show="!imgCam" class="camera_img">
-            <img
-              class="img_camera"
-              :src="imageSrc"
-              placeholder-src="statics/quasar-logo.png"
-              :alt="'Imagem: ' + imageSrc"
-              id="photo"
-            />
+          <div class="camera">
+            <h5>
+              1º PASSO
+              <q-icon
+                v-show="!completo"
+                name="fas fa-circle"
+                class="text-grey-4"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+              <q-icon
+                v-show="completo"
+                name="fas fa-check-circle"
+                class="text-green"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+              <p style="margin-top: 10px;">Inserir imagem</p>
+            </h5>
+            <div class="media">
+              <q-btn
+                class="botaoCamera"
+                outline
+                style="color: #f4853e;"
+                icon-right="add_a_photo"
+                label="Câmera"
+                @click="captureImage()"
+              />
+              <p>OU</p>
+              <q-btn
+                class="botaoCamera"
+                outline
+                style="color: #f4853e;"
+                icon-right="add_photo_alternate"
+                label="álbum"
+                @click="getPhoto()"
+              />
+            </div>
           </div>
-        </div>
-        <div class="gps">
-          <h5>
-            2º PASSO
-            <q-icon
-              v-show="!completo"
-              name="fas fa-circle"
-              class="text-grey-4"
-              style="font-size: 0.7em;  vertical-align: middle; "
-            />
-            <q-icon
-              v-show="completo"
-              name="fas fa-check-circle"
-              class="text-green"
-              style="font-size: 0.7em;  vertical-align: middle; "
-            />
-          </h5>
-          <q-btn
-            class="botao"
-            outline
-            style="color: #FB9727;"
-            icon-right="fas fa-map-marked-alt"
-            label="Obter localização"
-            @click="changeDialog()"
-          >
-            <!-- <q-btn label="Maximized" color="primary" @click="dialog = true" /> -->
-          </q-btn>
-        </div>
+          <div v-show="imageV != null" class="camera_img" style="margin-top: 10px;">
+            <img class="img_camera" :src="imageV" :alt="'Imagem: ' + imageV" id="photo" />
+          </div>
+          <div class="gps">
+            <h5>
+              2º PASSO
+              <q-icon
+                v-show="!completo"
+                name="fas fa-circle"
+                class="text-grey-4"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+              <q-icon
+                v-show="completo"
+                name="fas fa-check-circle"
+                class="text-green"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+            </h5>
+            <q-btn
+              class="botao"
+              outline
+              style="color: #f4853e;"
+              icon-right="fas fa-map-marked-alt"
+              label="Obter localização"
+              to="/denuncia/gps"
+            >
+              <!-- <q-btn label="Maximized" color="primary" @click="dialog = true" /> -->
+            </q-btn>
+          </div>
 
-        <div class="endereco">
-          <h5>Ou informe seu endereço</h5>
+          <div class="endereco">
+            <h5>Ou informe seu endereço</h5>
 
-          <q-input
-            class="enderecoo"
-            rounded
-            outlined
-            label="Endereço"
-            v-model="enderecoS"
-            :rules="[val => !!val || 'Field is required']"
-          />
-        </div>
-        <div class="intensidade">
-          <h5>
-            3º PASSO
-            <q-icon
-              v-show="!completo"
-              name="fas fa-circle"
-              class="text-grey-4"
-              style="font-size: 0.7em;  vertical-align: middle; "
-            />
-            <q-icon
-              v-show="completo"
-              name="fas fa-check-circle"
-              class="text-green"
-              style="font-size: 0.7em;  vertical-align: middle; "
-            />
-          </h5>
-          <p>Avalie a intencidade do fogo</p>
-          <!-- {{intensidade}} -->
-          <q-icon
-            name="fas fa-fire"
-            :class="{fogocinza: !fogo.um, fogovivo: fogo.um}"
-            style="font-size: 2em;"
-            @click="setIntensidade(1)"
-          />
-          <q-icon
-            name="fas fa-fire"
-            :class="{fogocinza: !fogo.dois, fogovivo: fogo.dois}"
-            style="font-size: 2em;"
-            @click="setIntensidade(2)"
-          />
-          <q-icon
-            name="fas fa-fire"
-            :class="{fogocinza: !fogo.tres, fogovivo: fogo.tres}"
-            style="font-size: 2em;"
-            @click="setIntensidade(3)"
-          />
-          <q-icon
-            name="fas fa-fire"
-            :class="{fogocinza: !fogo.quatro, fogovivo: fogo.quatro}"
-            style="font-size: 2em;"
-            @click="setIntensidade(4)"
-          />
-          <q-icon
-            name="fas fa-fire"
-            :class="{fogocinza: !fogo.cinco, fogovivo: fogo.cinco}"
-            style="font-size: 2em;"
-            @click="setIntensidade(5)"
-          />
-        </div>
-        <div class="observacao">
-          <h5>
-            4º PASSO
-            <q-icon
-              v-show="!completo"
-              name="fas fa-circle"
-              class="text-grey-4"
-              style="font-size: 0.7em;  vertical-align: middle; "
-            />
-            <q-icon
-              v-show="completo"
-              name="fas fa-check-circle"
-              class="text-green"
-              style="font-size: 0.7em;  vertical-align: middle; "
-            />
-          </h5>
-          <p>Deseja deixar alguma observação sobre a queimada?</p>
-          <q-btn
-            :outline="!mostrarObs"
-            :class="{marcado: mostrarObs, nmarcado: !mostrarObs}"
-            @click="selecionarObs(true)"
-            label="Sim"
-          />
-          <span class="espaco"></span>
-          <q-btn
-            :outline="!ocultarObs"
-            :class="{marcado: ocultarObs, nmarcado: !ocultarObs}"
-            @click="selecionarObs(false)"
-            label="Não"
-          />
-          <div class="obs">
             <q-input
-              v-show="mostrarObs == true"
+              class="enderecoo"
               rounded
               outlined
-              label="Observação"
-              type="textarea"
-              class="obs"
+              label="Endereço"
+              v-model="enderecoS"
+              :rules="[val => !!val || 'Field is required']"
             />
           </div>
-        </div>
-
-        <div class="identificacao">
-          <h5>
-            5º PASSO
+          <div class="intensidade">
+            <h5>
+              3º PASSO
+              <q-icon
+                v-show="!completo"
+                name="fas fa-circle"
+                class="text-grey-4"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+              <q-icon
+                v-show="completo"
+                name="fas fa-check-circle"
+                class="text-green"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+            </h5>
+            <p>Avalie a intencidade do fogo</p>
+            <!-- {{intensidade}} -->
             <q-icon
-              v-show="!completo"
-              name="fas fa-circle"
-              class="text-grey-4"
-              style="font-size: 0.7em;  vertical-align: middle; "
+              name="fas fa-fire"
+              :class="{fogocinza: !fogo.um, fogovivo: fogo.um}"
+              style="font-size: 2em;"
+              @click="setIntensidade(1)"
             />
             <q-icon
-              v-show="completo"
-              name="fas fa-check-circle"
-              class="text-green"
-              style="font-size: 0.7em;  vertical-align: middle; "
+              name="fas fa-fire"
+              :class="{fogocinza: !fogo.dois, fogovivo: fogo.dois}"
+              style="font-size: 2em;"
+              @click="setIntensidade(2)"
             />
-          </h5>
-          <p>Deseja se identificar?</p>
-
-          <q-btn
-            :outline="!mostrarDados"
-            :class="{marcado: mostrarDados, nmarcado: !mostrarDados}"
-            @click="selecionarDados(true)"
-            label="Sim"
-          />
-
-          <q-btn
-            :outline="!ocultarDados"
-            :class="{marcado: ocultarDados, nmarcado: !ocultarDados}"
-            @click="selecionarDados(false)"
-            label="Não"
-          />
-          <div v-show="mostrarDados" class="dados">
-            <div class="titulo">
-              <h3>Dados pessoais</h3>
-            </div>
-            <div class="descricao">
-              <p>Informe alguns dados sobre você.</p>
-              <q-input type="text" label="Nome:" :dense="dense" />
-              <q-input type="text" label="Telefone:" :dense="dense" />
+            <q-icon
+              name="fas fa-fire"
+              :class="{fogocinza: !fogo.tres, fogovivo: fogo.tres}"
+              style="font-size: 2em;"
+              @click="setIntensidade(3)"
+            />
+            <q-icon
+              name="fas fa-fire"
+              :class="{fogocinza: !fogo.quatro, fogovivo: fogo.quatro}"
+              style="font-size: 2em;"
+              @click="setIntensidade(4)"
+            />
+            <q-icon
+              name="fas fa-fire"
+              :class="{fogocinza: !fogo.cinco, fogovivo: fogo.cinco}"
+              style="font-size: 2em;"
+              @click="setIntensidade(5)"
+            />
+          </div>
+          <div class="observacao">
+            <h5>
+              4º PASSO
+              <q-icon
+                v-show="!completo"
+                name="fas fa-circle"
+                class="text-grey-4"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+              <q-icon
+                v-show="completo"
+                name="fas fa-check-circle"
+                class="text-green"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+            </h5>
+            <p>Deseja deixar alguma observação sobre a queimada?</p>
+            <q-btn
+              :outline="!mostrarObs"
+              :class="{marcado: mostrarObs, nmarcado: !mostrarObs}"
+              @click="selecionarObs(true)"
+              label="Sim"
+            />
+            <span class="espaco"></span>
+            <q-btn
+              :outline="!ocultarObs"
+              :class="{marcado: ocultarObs, nmarcado: !ocultarObs}"
+              @click="selecionarObs(false)"
+              label="Não"
+            />
+            <div class="obs">
+              <q-input
+                v-show="mostrarObs == true"
+                rounded
+                outlined
+                label="Observação"
+                type="textarea"
+                class="obs"
+                v-model="denuncia.observacao"
+              />
             </div>
           </div>
-        </div>
 
-        <div class="btn-denunciar">
-          <q-btn color="primary" push to>
-            <div class="row items-center no-wrap botao-denuncia">
-              <div class="text-center text-white text-weight-bold">Denunciar</div>
+          <div class="identificacao">
+            <h5>
+              5º PASSO
+              <q-icon
+                v-show="!completo"
+                name="fas fa-circle"
+                class="text-grey-4"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+              <q-icon
+                v-show="completo"
+                name="fas fa-check-circle"
+                class="text-green"
+                style="font-size: 0.7em;  vertical-align: middle; "
+              />
+            </h5>
+            <p>Deseja se identificar?</p>
+
+            <q-btn
+              :outline="!mostrarDados"
+              :class="{marcado: mostrarDados, nmarcado: !mostrarDados}"
+              @click="selecionarDados(true)"
+              label="Sim"
+            />
+
+            <q-btn
+              :outline="!ocultarDados"
+              :class="{marcado: ocultarDados, nmarcado: !ocultarDados}"
+              @click="selecionarDados(false)"
+              label="Não"
+            />
+            <div v-show="mostrarDados" class="dados">
+              <div class="titulo">
+                <h3>Dados pessoais</h3>
+              </div>
+              <div class="descricao">
+                <p>Informe alguns dados sobre você.</p>
+                <q-input v-model="denuncia.nome" type="text" label="Nome:" />
+                <q-input v-model="denuncia.telefone" type="text" label="Telefone:" />
+              </div>
             </div>
-          </q-btn>
+          </div>
+
+          <div class="btn-denunciar">
+            <q-btn color="primary" push to>
+              <div class="row items-center no-wrap botao-denuncia">
+                <div class="text-center text-white text-weight-bold">Denunciar</div>
+              </div>
+            </q-btn>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
+
 <script>
 document.addEventListener("deviceready", () => {}, false);
 </script>
@@ -249,14 +251,14 @@ document.addEventListener("deviceready", () => {}, false);
 import { mapState } from "vuex";
 import { store } from "../store/index";
 import Map from "./Map";
-import { openURL, QInput, QDialog, QCard } from "quasar";
+import { openURL, QInput, QDialog, QCard, QSlideTransition } from "quasar";
 export default {
   name: "FormularioDenuncia",
   data() {
     return {
-      endereco: "teste",
-      text: "",
-      ph: "",
+      endereco: null,
+      text: null,
+      ph: null,
       dense: false,
       mostrarObs: false,
       ocultarObs: false,
@@ -272,22 +274,28 @@ export default {
         cinco: false
       },
       denuncia: {
-        foto: "",
-        intensidade: "",
-        observacao: "",
-        endereco: ""
+        nome: null,
+        endereco: null,
+        foto: null,
+        intensidade: null,
+        observacao: null,
+        endereco: null
       },
 
       maximizedToggle: true,
       imgCam: true,
-      imageSrc: ""
+      imageSrc: null
     };
   },
   components: {
     QInput,
     QDialog,
     QCard,
-    Map
+    Map,
+    QSlideTransition
+  },
+  beforeMount() {
+    this.$store.commit("Dialog/changeDialogg", false);
   },
   methods: {
     changeDialog() {
@@ -350,16 +358,19 @@ export default {
       navigator.camera.getPicture(
         data => {
           // Sucesso
-          this.imageSrc = `data:image/jpeg;base64, ${data}`;
+          const imageSrc = `data:image/jpeg;base64, ${data}`;
           this.imgCam = false;
+          this.$store.commit("Denuncia/setImage", imageSrc);
         },
         () => {
           // Falha
-          this.$q.notify("Não foi possível acessar a câmera do dispositivo.");
+          this.$q.notify(
+            "Não foi possível acessar a câmera do dispositivo, verifique as permissões."
+          );
         },
         {
           // Opções da Camera
-          quality: 90,
+          quality: 80,
           destinationType: navigator.camera.DestinationType.DATA_URL,
           encodingType: navigator.camera.EncodingType.JPEG,
           MEDIATYPE: navigator.camera.MediaType.PICTURE,
@@ -368,13 +379,41 @@ export default {
           cameraDirection: navigator.camera.Direction.BACK,
           targetWidth: 700,
           correctOrientation: true
+          // allowEdit: true
+        }
+      );
+    },
+    getPhoto() {
+      console.log("oi");
+      navigator.camera.getPicture(
+        data => {
+          // Sucesso
+          const imageSrc = `data:image/jpeg;base64, ${data}`;
+          this.imgCam = false;
+          this.$store.commit("Denuncia/setImage", imageSrc);
+        },
+        () => {
+          // Falha
+          this.$q.notify(
+            "Não foi possível acessar as imagens do dispositivo, verifique as permissões."
+          );
+        },
+        {
+          quality: 80,
+          encodingType: navigator.camera.EncodingType.JPEG,
+          mediaType: navigator.camera.MediaType.PICTURE,
+          targetWidth: 700,
+          correctOrientation: true,
+          destinationType: navigator.camera.DestinationType.DATA_URL,
+          sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
         }
       );
     }
   },
   computed: {
     ...mapState({ enderecoS: state => state.Map.enderecoS }),
-    ...mapState({ dialog: state => state.Dialog.dialog })
+    ...mapState({ imageV: state => state.Denuncia.image }),
+    ...mapState({ dialogg: state => state.Dialog.dialogg })
   }
 };
 </script>
@@ -437,7 +476,7 @@ p {
 }
 .botao {
   background: #ffffff;
-  border: 2px solid #ffa948;
+  border: 2px solid #f4853e;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -446,7 +485,7 @@ p {
 }
 .botaoCamera {
   background: #ffffff;
-  border: 2px solid #ffa948;
+  border: 2px solid #f4853e;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -550,7 +589,7 @@ label {
 }
 
 .btn-denunciar button {
-  border-color: #fb9727;
+  border-color: #f4853e;
   margin-top: 10%;
   margin-bottom: 30px;
   height: 55px;
@@ -558,21 +597,21 @@ label {
 }
 
 .marcado {
-  background: #fb9727;
+  background: #f4853e;
   color: white;
 }
 
 .nmarcado {
-  color: #fb9727;
+  color: #f4853e;
 }
 
 .fogocinza {
   color: #aaa;
-  border: #fb9727;
+  border: #f4853e;
 }
 
 .fogovivo {
-  color: #fb9727;
+  color: #f4853e;
 }
 
 .img_camera {
@@ -580,7 +619,7 @@ label {
   margin-top: 20px;
   border-width: 2px;
   border-style: solid;
-  border-color: #fb9727;
+  border-color: #f4853e;
   width: 80%;
 }
 .oi {
@@ -593,7 +632,7 @@ label {
   height: 30px;
   width: 30px;
   font-size: 25px;
-  color: #fb9727;
+  color: #f4853e;
   text-align: center;
   font-weight: bold;
 }

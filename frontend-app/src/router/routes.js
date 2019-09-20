@@ -1,19 +1,16 @@
 const routes = [
   {
-    path: "/",
+    path: "/denuncia",
     component: () => import("layouts/MyLayout.vue"),
     children: [
-      { path: "camera", component: () => import("pages/Denuncias.vue") },
+      { path: "denuncia", component: () => import("layouts/TelaDenuncia.vue") },
       { path: "gps", component: () => import("pages/Map.vue") },
-      {
-        path: "formulario",
-        component: () => import("pages/FormularioDenuncia.vue"),
-      },
-      { path: "denuncias", component: () => import("pages/Denuncias.vue") },
+      { path: "form", component: () => import("pages/FormularioDenuncia.vue") },
+      { path: "teste", component: () => import("pages/Denuncias.vue") },
     ],
   },
   {
-    path: "/denuncia",
+    path: "/",
     component: () => import("layouts/TelaDenuncia.vue"),
   },
 ];

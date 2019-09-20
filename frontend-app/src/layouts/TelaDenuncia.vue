@@ -1,21 +1,24 @@
 <template>
   <div class="container">
     <div class="logo">
-      <p class="titulo">CLICG</p>
+      <!-- <img src="https://i.imgur.com/RRsVyrd.png" width="120" /> -->
+      <p class="titulo">CG SEM CHAMAS</p>
     </div>
     <div class="img-centro"></div>
     <div class="frase">
       <p>Denuncie uma queimada e ajude a natureza</p>
     </div>
+
     <div class="btn-denuncia">
-      <q-btn color="white" push @click="$router.push('/formulario')">
+      <q-btn color="white" push @click="$router.push('/denuncia/form')">
         <div class="row items-center no-wrap botao-denuncia">
           <div class="text-center text-primary text-weight-bold">Denunciar</div>
         </div>
       </q-btn>
     </div>
+
     <div class="login">
-      <a href="/" class="login">ENTRAR NA CONTA</a>
+      <a href="#" class="login">ENTRAR NA CONTA</a>
     </div>
   </div>
 </template>
@@ -29,7 +32,7 @@ export default {
 <style scoped>
 .container {
   display: flex;
-  background: #fb9727;
+  background: #f4853e;
   width: 100vw;
   height: 100vh;
   align-items: center;
@@ -47,7 +50,7 @@ export default {
   text-align: center;
   color: #ffffff;
   margin-top: 5%;
-  border-color: #fb9720;
+  border-color: #f4853e;
   border-width: 1px;
   border-style: solid;
   width: 80%;
@@ -57,16 +60,17 @@ export default {
 
 .titulo {
   margin-top: 12px;
+  font-size: 1.2em;
 }
 
 .img-centro {
   background-color: blue;
-  background: url("https://i.imgur.com/D8fTL9E.png");
-  width: 217px;
-  height: 217px;
-  border: 17px solid #fb9727;
+  background: url("https://i.imgur.com/QietPPu.png");
+  background-size: 220px auto;
+  width: 250px;
+  height: 250px;
+  border: 17px solid #f4853e;
   box-sizing: border-box;
-  border-radius: 396px;
 }
 
 .frase p {
@@ -100,7 +104,7 @@ export default {
 }
 
 .btn-denuncia button {
-  border-color: #fb9727;
+  border-color: #f4853e;
   margin-top: 10%;
   height: 55px;
   width: 250px;
