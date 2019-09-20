@@ -19,13 +19,13 @@
             <h5>
               1º PASSO
               <q-icon
-                v-show="!completo"
+                v-show="imageV==null"
                 name="fas fa-circle"
                 class="text-grey-4"
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
               <q-icon
-                v-show="completo"
+                v-show="!imageV==null"
                 name="fas fa-check-circle"
                 class="text-green"
                 style="font-size: 0.7em;  vertical-align: middle; "
@@ -274,12 +274,12 @@ export default {
         cinco: false
       },
       denuncia: {
-        nome: null,
-        endereco: null,
-        foto: null,
-        intensidade: null,
-        observacao: null,
-        endereco: null
+        nome: "",
+        endereco: "",
+        foto: "",
+        intensidade: "",
+        observacao: "",
+        endereco: ""
       },
 
       maximizedToggle: true,
@@ -391,6 +391,7 @@ export default {
           const imageSrc = `data:image/jpeg;base64, ${data}`;
           this.imgCam = false;
           this.$store.commit("Denuncia/setImage", imageSrc);
+          console.log(imageSrc);
         },
         () => {
           // Falha

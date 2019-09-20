@@ -11,7 +11,7 @@ const routes = [
   },
   {
     path: "/",
-    component: () => import("layouts/TelaDenuncia.vue"),
+    component: () => import("pages/BuscarProtocolo.vue"),
   },
 ];
 

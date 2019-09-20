@@ -17,9 +17,14 @@
       <input type="text" v-model="denuncia.name" />
       <br />Endereço:
       <input type="text" v-model="denuncia.adress" />
-      <br />
+      <br />Salvar
       <input type="submit" @click="salvar()" />
+      Mostrar
       <input type="submit" @click="listar()" />
+      Exibir
+      <input type="submit" @click="mostrar(1)" />
+      Protocolo
+      <input type="submit" @click="procurarProtoloco(4)" />
     </div>
   </div>
 </template>
@@ -92,10 +97,30 @@ export default {
             this.errors = e.response.data.errors;
           });
       }
+    },
+    mostrar(denuncia) {
+      Denuncia.exibir(denuncia)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(e => {
+          this.errors = e.response.data.errors;
+          console.log(e.response.data.errors);
+        });
+    },
+    procurarProtoloco(denuncia) {
+      Denuncia.procurar(denuncia)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(e => {
+          this.errors = e.response.data.errors;
+          console.log(e.response.data.errors);
+        });
     }
   },
   mounted() {
-    this.listar();
+    // this.listar();
   }
 };
 </script>
