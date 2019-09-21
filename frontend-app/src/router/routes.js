@@ -10,8 +10,12 @@ const routes = [
     ],
   },
   {
-    path: "/",
+    path: "/buscar",
     component: () => import("pages/BuscarProtocolo.vue"),
+  },
+  {
+    path: "/",
+    component: () => import("layouts/TelaDenuncia.vue"),
   },
 ];
 

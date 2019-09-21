@@ -5,9 +5,7 @@
     leave-active-class="animated slideOutDown"
   >
     <div>
-      <Map v-show="dialogg"></Map>
-
-      <div class="container" v-show="!dialogg">
+      <div class="container">
         <div class="card">
           <div class="titulo">
             <h3>Informações de Queimada</h3>
@@ -25,7 +23,7 @@
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
               <q-icon
-                v-show="!imageV==null"
+                v-show="imageV!=null"
                 name="fas fa-check-circle"
                 class="text-green"
                 style="font-size: 0.7em;  vertical-align: middle; "
@@ -59,13 +57,13 @@
             <h5>
               2º PASSO
               <q-icon
-                v-show="!completo"
+                v-show="enderecoC==null"
                 name="fas fa-circle"
                 class="text-grey-4"
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
               <q-icon
-                v-show="completo"
+                v-show="enderecoC!=null"
                 name="fas fa-check-circle"
                 class="text-green"
                 style="font-size: 0.7em;  vertical-align: middle; "
@@ -85,27 +83,26 @@
 
           <div class="endereco">
             <h5>Ou informe seu endereço</h5>
-
             <q-input
               class="enderecoo"
               rounded
               outlined
               label="Endereço"
-              v-model="enderecoS"
-              :rules="[val => !!val || 'Field is required']"
+              v-model="enderecoC"
+              :rules="[val => !!val || 'Preencha o endereço...']"
             />
           </div>
           <div class="intensidade">
             <h5>
               3º PASSO
               <q-icon
-                v-show="!completo"
+                v-show="!completo.um"
                 name="fas fa-circle"
                 class="text-grey-4"
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
               <q-icon
-                v-show="completo"
+                v-show="completo.um"
                 name="fas fa-check-circle"
                 class="text-green"
                 style="font-size: 0.7em;  vertical-align: middle; "
@@ -148,13 +145,13 @@
             <h5>
               4º PASSO
               <q-icon
-                v-show="!completo"
+                v-show="!completo.dois"
                 name="fas fa-circle"
                 class="text-grey-4"
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
               <q-icon
-                v-show="completo"
+                v-show="completo.dois"
                 name="fas fa-check-circle"
                 class="text-green"
                 style="font-size: 0.7em;  vertical-align: middle; "
@@ -191,13 +188,13 @@
             <h5>
               5º PASSO
               <q-icon
-                v-show="!completo"
+                v-show="!completo.tres"
                 name="fas fa-circle"
                 class="text-grey-4"
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
               <q-icon
-                v-show="completo"
+                v-show="completo.tres"
                 name="fas fa-check-circle"
                 class="text-green"
                 style="font-size: 0.7em;  vertical-align: middle; "
@@ -264,7 +261,11 @@ export default {
       ocultarObs: false,
       mostrarDados: false,
       ocultarDados: false,
-      completo: false,
+      completo: {
+        um: false,
+        dois: false,
+        tres: false
+      },
       intensidade: 1,
       fogo: {
         um: true,
@@ -309,6 +310,7 @@ export default {
         this.mostrarObs = false;
         this.ocultarObs = true;
       }
+      this.completo.dois = true;
     },
     selecionarDados(dados) {
       if (dados == true) {
@@ -318,6 +320,7 @@ export default {
         this.mostrarDados = false;
         this.ocultarDados = true;
       }
+      this.completo.tres = true;
     },
     setIntensidade(intensidade) {
       this.intensidade = intensidade;
@@ -353,6 +356,7 @@ export default {
         this.fogo.cinco = true;
       }
       this.intensidade = intensidade;
+      this.completo.um = true;
     },
     captureImage() {
       navigator.camera.getPicture(
@@ -414,7 +418,15 @@ export default {
   computed: {
     ...mapState({ enderecoS: state => state.Map.enderecoS }),
     ...mapState({ imageV: state => state.Denuncia.image }),
-    ...mapState({ dialogg: state => state.Dialog.dialogg })
+    ...mapState({ dialogg: state => state.Dialog.dialogg }),
+    enderecoC: {
+      get() {
+        return this.enderecoS;
+      },
+      set(value) {
+        this.$store.commit("Map/updateEndereco", value);
+      }
+    }
   }
 };
 </script>
