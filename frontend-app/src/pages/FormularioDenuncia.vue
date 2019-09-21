@@ -226,13 +226,120 @@
               </div>
             </div>
           </div>
-
+          <!-- *************BOTAO NORMAL********** -->
+          <!--
           <div class="btn-denunciar">
             <q-btn color="primary" push to>
               <div class="row items-center no-wrap botao-denuncia">
                 <div class="text-center text-white text-weight-bold">Denunciar</div>
               </div>
             </q-btn>
+          </div>-->
+          <!-- <div class="btn-denunciar">
+          <q-btn color="primary" push to>
+            <div class="row items-center no-wrap botao-denuncia">
+              <div class="text-center text-white text-weight-bold">Denunciar</div>
+            </div>
+          </q-btn>
+          </div>-->
+
+          <!-- *************POPUP PEQUENO********** -->
+
+          <!-- <div class="btn-denunciar">
+          <q-btn label="Denunciar" color="primary" @click="inception = true" />
+
+          <q-dialog v-model="fullHeight">
+            <q-card>
+              <q-card-section>
+                <div class="popupDenunciaRegistrada">Denúncia registrada!</div>
+              </q-card-section>
+
+              <q-card-section>
+                <div class="textpopupDenunciaRegistrada">
+                  Enviada para o cômite de queimadas.
+                  <br />Número de Protocolo: XXXXXXXXXX
+                </div>
+              </q-card-section>
+
+              <q-card-actions align="middle" class="text-primary">
+                <q-btn flat label="Ligar para bombeiros" @click="secondDialog = true" />
+                <q-btn flat label="Fechar" v-close-popup />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
+
+          <q-dialog
+            v-model="secondDialog"
+            persistent
+            transition-show="scale"
+            transition-hide="scale"
+          >
+            <q-card class="bg-teal text-white" style="width: 300px">
+              <q-card-section>
+                <div class="text-h6">Persistent</div>
+              </q-card-section>
+
+              <q-card-section>Click/Tap on the backdrop.</q-card-section>
+
+              <q-card-actions align="right" class="bg-white text-teal">
+                <q-btn flat label="OK" v-close-popup />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
+          </div>-->
+
+          <div class="btn-denunciar">
+            <q-btn label="Denunciar" color="primary" @click="full = true" />
+            <q-dialog v-model="full" full-height>
+              <q-card>
+                <q-card-section>
+                  <div class="popupDenunciaRegistrada">Denúncia registrada!</div>
+                </q-card-section>
+                <q-card-section>
+                  <div
+                    class="textpopupDenunciaRegistrada"
+                  >Enviada para o cômite de queimadas. Número de Protocolo: XXXXXXXXXX</div>
+                </q-card-section>
+
+                <div class="imagePopup">
+                  <div class="col-4">
+                    <q-img src="https://placeimg.com/500/300/nature" :ratio="8/4" />
+                  </div>
+                </div>
+
+                <!-- <div class="botoesPop"> -->
+                <q-btn
+                  class="botaoPop"
+                  outline
+                  style="color: #FB9727;"
+                  icon="phone_"
+                  label="Ligar para bombeiros"
+                  @click="changeDialog()"
+                ></q-btn>
+
+                <q-btn
+                  class="botaoPop"
+                  outline
+                  style="color: #FB9727;"
+                  icon="add"
+                  label="Cadastrar-se"
+                  @click="changeDialog()"
+                ></q-btn>
+                <q-btn
+                  class="botaoPop"
+                  outline
+                  style="color: #FB9727;"
+                  icon="description"
+                  label="Notícias"
+                  @click="changeDialog()"
+                ></q-btn>
+                <!-- </div> -->
+
+                <!-- <q-card-actions align="right" class="bg-white text-teal">
+                <q-btn flat label="OK" v-close-popup />
+                </q-card-actions>-->
+              </q-card>
+            </q-dialog>
           </div>
         </div>
       </div>
@@ -248,7 +355,15 @@ document.addEventListener("deviceready", () => {}, false);
 import { mapState } from "vuex";
 import { store } from "../store/index";
 import Map from "./Map";
-import { openURL, QInput, QDialog, QCard, QSlideTransition } from "quasar";
+import {
+  openURL,
+  QInput,
+  QDialog,
+  QCard,
+  QSlideTransition,
+  QCardSection,
+  QImg
+} from "quasar";
 export default {
   name: "FormularioDenuncia",
   data() {
@@ -267,6 +382,13 @@ export default {
         tres: false
       },
       intensidade: 1,
+      inception: false,
+      secondDialog: false,
+      small: false,
+      medium: false,
+      fullWidth: false,
+      fullHeight: false,
+      full: false,
       fogo: {
         um: true,
         dois: false,
@@ -293,7 +415,9 @@ export default {
     QDialog,
     QCard,
     Map,
-    QSlideTransition
+    QSlideTransition,
+    QCardSection,
+    QImg
   },
   beforeMount() {
     this.$store.commit("Dialog/changeDialogg", false);
@@ -673,4 +797,60 @@ label {
 .media .q-btn {
   padding: 0;
 }
+.popupDenunciaRegistrada {
+  margin-top: 1em;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 25px;
+  align-items: center;
+  text-align: center;
+  color: #858585;
+  padding-top: 5px;
+}
+.textpopupDenunciaRegistrada {
+  display: flex;
+  justify-content: center;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 40px;
+  align-items: center;
+  flex-direction: column;
+  color: #737373;
+  margin: center;
+  padding: 2em;
+}
+.botaoPop {
+  background: #ffffff;
+  border: 2px solid #ffa948;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  width: 263px;
+  height: 30px;
+  margin-right: 25px;
+  margin-left: 35px;
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+.imagePopup {
+  padding: 2em;
+  margin-bottom: 75px;
+}
+/* .botoesPop {
+  background: #ffa948;
+  border: 2px solid #ffa948;
+  box-sizing: border-box;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 113px;
+  height: 50px;
+  margin-right: 25px;
+  margin-left: 35px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+} */
 </style>

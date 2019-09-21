@@ -51,7 +51,7 @@ module.exports = function(ctx) {
         "QItemLabel",
       ],
 
-      directives: ["Ripple"],
+      directives: ["Ripple", "ClosePopup"],
 
       // Quasar plugins
       plugins: ["Notify"],
