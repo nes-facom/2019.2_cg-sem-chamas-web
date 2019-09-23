@@ -54,7 +54,8 @@ class DenunciaController {
       "observacao",
       "data",
       "ip",
-      "endereco"
+      "endereco",
+      "status"
     ]);
     //"dUserDenuncia",
 
@@ -74,8 +75,23 @@ class DenunciaController {
    */
   async show({ params, request, response, view }) {
     const denuncia = await Denuncia.findOrFail(params.id);
-
     return denuncia;
+  }
+
+  async byProtocolo({ params, request, response, view }) {
+    const denuncia = await Denuncia.findBy("protocolo", params.protocolo);
+
+    //Separando dados que eu quero retornar (SEGURANÇA)
+    const { status, protocolo, created_at } = denuncia;
+
+    //Criar JSON de com os dados de retorno
+    const dados = {
+      protocolo: protocolo,
+      status: status,
+      data: created_at,
+    };
+
+    return dados;
   }
 
   /**

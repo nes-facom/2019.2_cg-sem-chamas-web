@@ -1,11 +1,11 @@
 export default {
-    namespaced: true,
-    state:{
-          dialog: false
+  namespaced: true,
+  state: {
+    dialogg: false,
+  },
+  mutations: {
+    changeDialogg(state, value) {
+      state.dialogg = value;
     },
-    mutations:{
-      changeDialogg(state, value){
-        state.dialog = value
-      }
-  }}
-  
+  },
+};

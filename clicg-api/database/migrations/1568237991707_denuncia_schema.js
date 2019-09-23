@@ -21,13 +21,20 @@ class DenunciaSchema extends Schema {
       table.string('ip', 16)
       table.string('endereco', 256)//.notNullable()
 
-      table.timestamps()
-    })
-  }
-
-
-  down () {
-    this.drop('denuncias')
+      table
+        .bigInteger("protocolo")
+        .notNullable()
+        .unique();
+      table.text("foto").notNullable();
+      table.decimal("geo-lat", 9, 6);
+      table.decimal("geo-lng", 9, 6);
+      table.integer("intensidade").defaultTo(1);
+      table.string("observacao", 256);
+      table.string("ip", 16);
+      table.string("endereco", 256);
+      table.string("status", 100);
+      table.timestamps();
+    });
   }
 }
 
