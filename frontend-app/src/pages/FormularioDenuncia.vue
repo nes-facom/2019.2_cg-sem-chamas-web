@@ -226,34 +226,40 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="btn-denunciar">
-          <q-btn label="Denunciar" color="primary" @click="full = true" />
-          <q-dialog v-model="full" full-height>
-            <!-- <div class="popup"> -->
-            <q-card>
-              <div class="denunciaRegistradaTopo">
-                <q-card-section>
-                  <q-icon
-                    class="iconDenunciaRegistrada"
-                    name="fas fa-check-circle"
-                    style="font-size: 65px;"
-                  ></q-icon>
-                  <div class="popupDenunciaRegistrada">Denúncia registrada!</div>
-                </q-card-section>
-              </div>
+          <div class="btn-denunciar">
+            <q-btn label="Denunciar" color="primary" @click="denunciar()" />
+            <q-dialog v-model="full" full-height>
+              <!-- <div class="popup"> -->
+              <q-card class="popProtocolo">
+                <div class="denunciaRegistradaTopo">
+                  <div class="closePop">
+                    <q-btn flat label="X" v-close-popup />
+                  </div>
+                  <q-card-section>
+                    <q-icon
+                      class="iconDenunciaRegistrada"
+                      name="fas fa-check-circle"
+                      style="font-size: 90px;"
+                    ></q-icon>
+                    <div class="popupDenunciaRegistrada">Denúncia registrada!</div>
+                  </q-card-section>
+                </div>
 
-              <!-- <q-card-section> -->
-              <div class="textNumProtocolo">Número do Protocolo:</div>
-              <div class="numberProtocol">1234567890</div>
-              <div class="textCadastrar">Anote o número ou cadastre-se para acompanhar sua denúncia.</div>
-              <!-- </q-card-section> -->
-              <div class="btn-cadastrar">
-                <q-btn label="Cadastrar-se" color="primary" @click="denunciar()" />
-              </div>
-            </q-card>
-            <!-- </div> -->
-          </q-dialog>
+                <!-- <q-card-section> -->
+                <div class="infoProtocolo">
+                  <div class="textNumProtocolo">Número do Protocolo:</div>
+                  <div class="numberProtocol">Q1569273929708</div>
+                  <div
+                    class="textCadastrar"
+                  >Anote o número ou cadastre-se para acompanhar sua denúncia.</div>
+                  <div class="btn-cadastrar">
+                    <q-btn label="Cadastrar-se" color="primary" @click="denunciar()" />
+                  </div>
+                </div>
+              </q-card>
+              <!-- </div> -->
+            </q-dialog>
+          </div>
         </div>
       </div>
     </div>
@@ -362,11 +368,14 @@ export default {
         .catch(e => {
           this.errors = e.response.data.errors;
         });
+
+      this.full = true;
     },
 
     gerarProtocolo() {
       const timeInMs = Date.now();
       const protocolo = `Q${timeInMs}`;
+      console.log(timeInMs, protocolo);
       const date = new Date();
       const d = date.toISOString({ timeZone: "America/Campo_Grande" });
       // const data = new Date().toLocaleString('pt-BR', {timeZone: 'America/Campo_Grande',});
@@ -640,7 +649,21 @@ p {
   flex-direction: column;
   color: #737373;
 }
-
+.popProtocolo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+.infoProtocolo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  padding: 10%;
+}
 btn-denunciar .gps {
   font-family: Roboto;
   font-style: normal;
@@ -726,21 +749,6 @@ label {
   height: 55px;
   width: 250px;
 }
-.btn-cadastrar {
-  margin: 2.5em;
-  border-color: #fb9727;
-}
-
-.btn-cadastrar .q-btn {
-  margin: 2.5em;
-  border-color: #fb9727;
-  margin-top: 200%;
-  margin-bottom: 15px;
-  height: 55px;
-  /* width: 250px; */
-  justify-content: center;
-}
-
 .marcado {
   background: #f4853e;
   color: white;
@@ -767,20 +775,6 @@ label {
   border-color: #f4853e;
   width: 80%;
 }
-.oi {
-  position: absolute;
-  top: 5%;
-  left: 95%;
-  z-index: 2;
-  margin-left: -15px;
-  margin-top: -30px;
-  height: 30px;
-  width: 30px;
-  font-size: 25px;
-  color: #f4853e;
-  text-align: center;
-  font-weight: bold;
-}
 .camera .q-btn .q-icon {
   font-size: 1.3em;
   /* margin-left: 1.5px; */
@@ -805,13 +799,34 @@ label {
 .media .q-btn {
   padding: 0;
 }
-.popupDenunciaRegistrada {
-  display: flex;
+/* CSS PROTOCOLO */
+.closePop {
+  text-align: end;
+  color: #ffffff;
+  font-size: 14px;
+}
+.btn-cadastrar .q-btn {
+  border-color: #f4853e;
+  border-color: #f4853e;
+  height: 55px;
   justify-content: center;
-  position: absolute;
-  left: 10.31%;
-  right: 10.31%;
-  top: 76.07%;
+  margin-top: 60%;
+}
+.textNumProtocolo {
+  width: 100%;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 23px;
+  text-align: center;
+  color: #4f4f4f;
+  margin-top: 80%;
+}
+.popupDenunciaRegistrada {
+  left: 10%;
+  right: 10%;
+  top: 100%;
   bottom: 0%;
   font-family: Roboto;
   font-style: normal;
@@ -822,99 +837,46 @@ label {
   color: #ffffff;
 }
 .textpopupDenunciaRegistrada {
-  display: flex;
-  justify-content: center;
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
-  line-height: 40px;
-  align-items: center;
-  flex-direction: column;
   color: #737373;
-  margin: center;
-  padding: 2em;
-}
-.imagePopup {
-  padding: 2em;
-  margin-bottom: 75px;
+  margin-left: 50px;
 }
 .denunciaRegistradaTopo {
   position: absolute;
   width: 100%;
-  height: 117px;
   left: 0px;
   top: 0px;
-  background-color: #ffa948;
+  background-color: #f4853e;
 }
 .fas .fa-check-circle {
-  position: absolute;
-  left: 39.69%;
-  right: 40%;
-  top: 16.24%;
-  bottom: 33.33%;
   background: #ffffff;
 }
 .iconDenunciaRegistrada {
   color: #ffffff;
-  width: 65px;
-  height: 59px;
-  position: center;
-  left: 39.69%;
-  right: 40%;
-  top: 16.24%;
-  bottom: 33.33%;
 }
-.textNumProtocolo {
-  position: absolute;
-  width: 254px;
-  height: 28px;
-  left: calc(50% - 254px / 2);
-  top: calc(50% - 28px / 2 - 41px);
 
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 23px;
-  text-align: center;
-
-  color: #4f4f4f;
-}
 .numberProtocol {
-  position: absolute;
-  width: 246px;
-  height: 43px;
-  left: calc(50% - 246px / 2 + 4px);
-  top: calc(50% - 43px / 2 - 0.5px);
-
+  width: 100%;
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 36px;
+  font-size: 24px;
   line-height: 42px;
   /* identical to box height */
-
   text-align: center;
-
-  color: #ff9e4f;
+  color: #f4853e;
 }
 .textCadastrar {
-  position: absolute;
-  width: 254px;
-  height: 56px;
-  left: calc(50% - 254px / 2 + 4px);
-  top: calc(50% - 56px / 2 + 40px);
-
+  width: 100%;
+  margin: 5%;
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 14px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-
   color: #737373;
 }
 </style>
