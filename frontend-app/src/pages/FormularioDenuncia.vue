@@ -229,113 +229,32 @@
             </div>
           </div>
         </div>
-
-        <!-- *************BOTAO NORMAL********** -->
-
-        <!-- <div class="btn-denunciar">
-          <q-btn color="primary" push to>
-            <div class="row items-center no-wrap botao-denuncia">
-              <div class="text-center text-white text-weight-bold">Denunciar</div>
-            </div>
-          </q-btn>
-        </div>-->
-
-        <!-- *************POPUP PEQUENO********** -->
-
-        <!-- <div class="btn-denunciar">
-          <q-btn label="Denunciar" color="primary" @click="inception = true" />
-
-          <q-dialog v-model="fullHeight">
-            <q-card>
-              <q-card-section>
-                <div class="popupDenunciaRegistrada">Denúncia registrada!</div>
-              </q-card-section>
-
-              <q-card-section>
-                <div class="textpopupDenunciaRegistrada">
-                  Enviada para o cômite de queimadas.
-                  <br />Número de Protocolo: XXXXXXXXXX
-                </div>
-              </q-card-section>
-
-              <q-card-actions align="middle" class="text-primary">
-                <q-btn flat label="Ligar para bombeiros" @click="secondDialog = true" />
-                <q-btn flat label="Fechar" v-close-popup />
-              </q-card-actions>
-            </q-card>
-          </q-dialog>
-
-          <q-dialog
-            v-model="secondDialog"
-            persistent
-            transition-show="scale"
-            transition-hide="scale"
-          >
-            <q-card class="bg-teal text-white" style="width: 300px">
-              <q-card-section>
-                <div class="text-h6">Persistent</div>
-              </q-card-section>
-
-              <q-card-section>Click/Tap on the backdrop.</q-card-section>
-
-              <q-card-actions align="right" class="bg-white text-teal">
-                <q-btn flat label="OK" v-close-popup />
-              </q-card-actions>
-            </q-card>
-          </q-dialog>
-        </div>-->
-
         <div class="btn-denunciar">
           <q-btn label="Denunciar" color="primary" @click="full = true" />
           <q-dialog v-model="full" full-height>
+            <!-- <div class="popup"> -->
             <q-card>
-              <q-card-section>
-                <div class="popupDenunciaRegistrada">Denúncia registrada!</div>
-              </q-card-section>
-              <q-card-section>
-                <div
-                  class="textpopupDenunciaRegistrada"
-                >Enviada para o cômite de queimadas. Número de Protocolo: XXXXXXXXXX</div>
-              </q-card-section>
-
-              <div class="imagePopup">
-                <div class="col-4">
-                  <q-img src="https://placeimg.com/500/300/nature" :ratio="8/4" />
-                </div>
+              <div class="denunciaRegistradaTopo">
+                <q-card-section>
+                  <q-icon
+                    class="iconDenunciaRegistrada"
+                    name="fas fa-check-circle"
+                    style="font-size: 65px;"
+                  ></q-icon>
+                  <div class="popupDenunciaRegistrada">Denúncia registrada!</div>
+                </q-card-section>
               </div>
 
-              <!-- <div class="botoesPop"> -->
-              <q-btn
-                class="botaoPop"
-                outline
-                style="color: #FB9727;"
-                icon="phone_"
-                label="Ligar para bombeiros"
-                @click="changeDialog()"
-              ></q-btn>
-
-              <q-btn
-                class="botaoPop"
-                outline
-                style="color: #FB9727;"
-                icon="add"
-                label="Cadastrar-se"
-                @click="changeDialog()"
-              ></q-btn>
-              <q-btn
-                class="botaoPop"
-                outline
-                style="color: #FB9727;"
-                icon="description"
-                label="Notícias"
-                @click="changeDialog()"
-              ></q-btn>
-              <!-- </div> -->
-
-              <!-- <q-card-actions align="right" class="bg-white text-teal">
-                <q-btn flat label="OK" v-close-popup />
-              </q-card-actions>-->
+              <!-- <q-card-section> -->
+              <div class="textNumProtocolo">Número do Protocolo:</div>
+              <div class="numberProtocol">1234567890</div>
+              <div class="textCadastrar">Anote o número ou cadastre-se para acompanhar sua denúncia.</div>
+              <!-- </q-card-section> -->
+              <div class="btn-cadastrar">
+                <q-btn label="Cadastrar-se" color="primary" @click />
+              </div>
             </q-card>
+            <!-- </div> -->
           </q-dialog>
         </div>
       </div>
@@ -656,6 +575,20 @@ label {
   height: 55px;
   width: 250px;
 }
+.btn-cadastrar {
+  margin: 2.5em;
+  border-color: #fb9727;
+}
+
+.btn-cadastrar .q-btn {
+  margin: 2.5em;
+  border-color: #fb9727;
+  margin-top: 200%;
+  margin-bottom: 15px;
+  height: 55px;
+  /* width: 250px; */
+  justify-content: center;
+}
 
 .marcado {
   background: #fb9727;
@@ -712,16 +645,20 @@ label {
   margin: 5px;
 }
 .popupDenunciaRegistrada {
-  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 10.31%;
+  right: 10.31%;
+  top: 76.07%;
+  bottom: 0%;
   font-family: Roboto;
   font-style: normal;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 20px;
   line-height: 25px;
-  align-items: center;
   text-align: center;
-  color: #858585;
-  padding-top: 5px;
+  color: #ffffff;
 }
 .textpopupDenunciaRegistrada {
   display: flex;
@@ -737,34 +674,86 @@ label {
   margin: center;
   padding: 2em;
 }
-.botaoPop {
-  background: #ffffff;
-  border: 2px solid #ffa948;
-  box-sizing: border-box;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 30px;
-  width: 263px;
-  height: 30px;
-  margin-right: 25px;
-  margin-left: 35px;
-  margin-top: 3px;
-  margin-bottom: 10px;
-}
 .imagePopup {
   padding: 2em;
   margin-bottom: 75px;
 }
-/* .botoesPop {
-  background: #ffa948;
-  border: 2px solid #ffa948;
-  box-sizing: border-box;
-  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  width: 113px;
-  height: 50px;
-  margin-right: 25px;
-  margin-left: 35px;
-  margin-top: 18px;
-  margin-bottom: 18px;
-} */
+.denunciaRegistradaTopo {
+  position: absolute;
+  width: 100%;
+  height: 117px;
+  left: 0px;
+  top: 0px;
+  background-color: #ffa948;
+}
+.fas .fa-check-circle {
+  position: absolute;
+  left: 39.69%;
+  right: 40%;
+  top: 16.24%;
+  bottom: 33.33%;
+  background: #ffffff;
+}
+.iconDenunciaRegistrada {
+  color: #ffffff;
+  width: 65px;
+  height: 59px;
+  position: center;
+  left: 39.69%;
+  right: 40%;
+  top: 16.24%;
+  bottom: 33.33%;
+}
+.textNumProtocolo {
+  position: absolute;
+  width: 254px;
+  height: 28px;
+  left: calc(50% - 254px / 2);
+  top: calc(50% - 28px / 2 - 41px);
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+
+  color: #4f4f4f;
+}
+.numberProtocol {
+  position: absolute;
+  width: 246px;
+  height: 43px;
+  left: calc(50% - 246px / 2 + 4px);
+  top: calc(50% - 43px / 2 - 0.5px);
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 42px;
+  /* identical to box height */
+
+  text-align: center;
+
+  color: #ff9e4f;
+}
+.textCadastrar {
+  position: absolute;
+  width: 254px;
+  height: 56px;
+  left: calc(50% - 254px / 2 + 4px);
+  top: calc(50% - 56px / 2 + 40px);
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #737373;
+}
 </style>
