@@ -7,6 +7,9 @@ export default {
     image: null,
     intensidade: 1,
     telefone: null,
+    status: "Aberto",
+    protocolo: null,
+    data: null,
   },
   mutations: {
     setEndereco(state, value) {
@@ -27,5 +30,17 @@ export default {
     setTelefone(state, value) {
       state.telefone = value;
     },
+    setProtocolo(state, value) {
+      state.protocolo = value;
+    },
+    setData(state, value) {
+      state.data = value;
+    },
+    setStatus(state, value){
+      state.status = value
+    }
   },
+  actions: {
+
+  }
 };

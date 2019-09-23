@@ -2,7 +2,7 @@
   <q-layout view="hHh lpR fFf">
     <q-header elevated class="bg-grey-8 text-white">
       <q-toolbar>
-        <q-btn flat round dense icon="arrow_back_ios" class="q-mr-sm" @click="$router.go(-1)" />
+        <q-btn flat round dense icon="arrow_back_ios" class="q-mr-sm" @click="voltar()" />
 
         <q-toolbar-title text-center style="font-size: 16px; margin-left: 60px">DENUNCIAR</q-toolbar-title>
       </q-toolbar>
@@ -24,6 +24,11 @@ export default {
     return {
       left: false
     };
+  },
+  methods: {
+    voltar() {
+      window.history.back();
+    }
   }
 };
 </script>
