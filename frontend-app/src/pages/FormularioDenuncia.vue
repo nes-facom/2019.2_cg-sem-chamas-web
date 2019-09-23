@@ -393,29 +393,31 @@ export default {
           "telefone": this.telefoneS,
           "status:": this.statusS,
           "protocolo": this.protocoloS,
-          "data": "10/10/10",
+          "data": this.dataS,
          };
 
          Denuncia.salvar(this.denuncia)
           .then(response => {
-            this.denuncia = {};
-            alert("Cadastrado com sucesso!");
-            this.listar();
+             alert("Cadastrado com sucesso!");
+            console.log(denuncia)
             this.errors = {};
           })
           .catch(e => {
             this.errors = e.response.data.errors;
           });
 
-         console.log(denuncia)
+
     },
 
       gerarProtocolo(){
       const timeInMs = Date.now();
       const protocolo = `Q${timeInMs}`;
-      const data = new Date().toLocaleString('pt-BR', {timeZone: 'America/Campo_Grande',});
+      const date = new Date();
+      const d = date.toISOString({timeZone: 'America/Campo_Grande'});
+      // const data = new Date().toLocaleString('pt-BR', {timeZone: 'America/Campo_Grande',});
       this.$store.commit("Denuncia/setProtocolo", timeInMs);
-      this.$store.commit("Denuncia/setData", data)
+      this.$store.commit("Denuncia/setData", d)
+
 
     },
     changeDialog() {
@@ -476,7 +478,7 @@ export default {
         this.fogo.cinco = true;
       }
       this.intensidade = intensidade;
-      this.$store.commit("Map/updateEndereco", intensidade);
+      this.$store.commit("Denuncia/setIntensidade", intensidade);
       this.completo.um = true;
     },
     captureImage() {
@@ -577,6 +579,7 @@ export default {
     observacaoC: {
       get() {
         console.log(this.observacaoS, this.nomeS, this.telefoneS, this.enderecoS, this.intensidadeS)
+
         return this.observacaoS;
       },
       set(value) {
