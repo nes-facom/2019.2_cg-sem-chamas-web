@@ -1,62 +1,126 @@
 <template>
   <div>
-    <div v-for="i of info" v-bind:key="i._id">{{i.name}} {{i.adress}}</div>
+    <div v-for="denuncia of denuncias" v-bind:key="denuncia._id">
+      {{denuncia._id}} {{denuncia.name}} {{denuncia.adress}}
+      <button
+        @click="editar(denuncia)"
+        class="waves-effect btn-small blue darken-1"
+      >
+        <i class="material-icons">create</i>
+      </button>
+      <button @click="remover(denuncia._id)" class="waves-effect btn-small red darken-1">
+        <i class="material-icons">delete_sweep</i>
+      </button>
+    </div>
     <div>
       <h6>Form</h6>Nome:
-      <input type="text" v-model="name" />
+      <input type="text" v-model="denuncia.name" />
       <br />Endereço:
-      <input type="text" v-model="adress" />
-      <br />
-      <img class="img_camera" :src="base64" width="100" />
-      <!-- <input type="file" id="file" ref="file" v-on:change="fileUpload()" /> -->
-      <input type="submit" @click="denunciar()" />
+      <input type="text" v-model="denuncia.adress" />
+      <br />Salvar
+      <input type="submit" @click="salvar()" />
+      Mostrar
+      <input type="submit" @click="listar()" />
+      Exibir
+      <input type="submit" @click="mostrar(1)" />
+      Protocolo
+      <input type="submit" @click="procurarProtoloco(4)" />
     </div>
   </div>
 </template>
 
 <script>
-import { denuncias } from "boot/axios";
+import Denuncia from "../boot/denuncia";
 export default {
   name: "Denuncias",
   data() {
     return {
-      count: 0,
       info: null,
-      name: "oi",
+      denuncia: {
+        _id: "",
+        name: "",
+        adress: ""
+      },
+
+      denuncias: [],
+      errors: []
     };
   },
   methods: {
-    fileUpload() {
-      this.file = this.$refs.file.files[0];
+    listar() {
+      Denuncia.listar()
+        .then(response => {
+          this.denuncias = response.data;
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+      console.log(this.denuncias);
     },
-    denunciar() {
-      // let formData = new FormData();
-      // formData.append("file", this.file);
-      let vm = this;
-      denuncias
-        .post("denuncias", {
-          name: this.name,
-          adress: this.adress
-        })
-        .then(function(response) {
+    salvar() {
+      if (!this.denuncia._id) {
+        Denuncia.salvar(this.denuncia)
+          .then(response => {
+            this.denuncia = {};
+            alert("Cadastrado com sucesso!");
+            this.listar();
+            this.errors = {};
+          })
+          .catch(e => {
+            this.errors = e.response.data.errors;
+          });
+      } else {
+        Denuncia.atualizar(this.denuncia)
+          .then(response => {
+            this.denuncia = {};
+            this.errors = {};
+            alert("Atualizado com sucesso!");
+            this.listar();
+          })
+          .catch(e => {
+            this.errors = e.response.data.errors;
+          });
+      }
+    },
+    editar(denuncia) {
+      this.denuncia = denuncia;
+    },
+    remover(denuncia) {
+      if (confirm("Deseja excluir o denuncia?")) {
+        Denuncia.apagar(denuncia)
+          .then(response => {
+            this.listar();
+            this.errors = {};
+          })
+          .catch(e => {
+            this.errors = e.response.data.errors;
+          });
+      }
+    },
+    mostrar(denuncia) {
+      Denuncia.exibir(denuncia)
+        .then(response => {
           console.log(response);
-          console.log("oi");
-          vm.listar();
         })
-        .catch(function(error) {
-          console.log(error);
+        .catch(e => {
+          this.errors = e.response.data.errors;
+          console.log(e.response.data.errors);
         });
     },
-    listar() {
-      denuncias
-        .get("denuncias")
-        .then(
-          response => ((this.info = response.data), console.log(response.data))
-        );
+    procurarProtoloco(denuncia) {
+      Denuncia.procurar(denuncia)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(e => {
+          this.errors = e.response.data.errors;
+          console.log(e.response.data.errors);
+        });
     }
   },
   mounted() {
-    this.listar();
+    // this.listar();
   }
 };
 </script>
