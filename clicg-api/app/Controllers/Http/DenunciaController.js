@@ -103,7 +103,9 @@ class DenunciaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async edit({ params, request, response, view }) {}
+  async edit({ params, request, response, view }) {
+
+  }
 
   /**
    * Update denuncia details.
@@ -119,6 +121,27 @@ class DenunciaController {
     // cliente.merge(data);
     // await cliente.save();
     // return cliente
+    const property = await Denuncia.findOrFail(params.id)
+
+    const data = request.only([
+      "protocolo",
+      "foto",
+      "geo-lat",
+      "geo-lng",
+      "intensidade",
+      "observacao",
+      "data",
+      "ip",
+      "endereco",
+      "status"
+    ])
+
+  property.merge(data)
+
+  await property.save()
+  //console.log("update")
+
+  return property
   }
 
   /**
@@ -130,11 +153,11 @@ class DenunciaController {
    * @param {Response} ctx.response
    */
   async destroy({ params, request, response }) {
-    //   const denuncia = await Denuncia.findOrFail(params.id)
-    //   if (Denuncia.user_id !== auth.user.id) {
-    //     return response.status(401).send({ error: 'Not authorized' })
-    //   }
-    //   await Denuncia.delete()
+      const denuncia = await Denuncia.findOrFail(params.id)
+      // if (Denuncia.id !== denuncia.id) {
+      //   return response.status(401).send({ error: 'Not authorized' })
+      // }
+      await denuncia.delete()
   }
 }
 
