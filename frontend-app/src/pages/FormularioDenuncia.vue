@@ -245,7 +245,7 @@
 
               <!-- <q-card-section> -->
               <div class="textNumProtocolo">Número do Protocolo:</div>
-              <div class="numberProtocol">1234567890</div>
+              <div class="numberProtocol">111111111111111-15</div>
               <div class="textCadastrar">Anote o número ou cadastre-se para acompanhar sua denúncia.</div>
               <!-- </q-card-section> -->
               <div class="btn-cadastrar">
@@ -728,16 +728,15 @@ label {
 }
 .btn-cadastrar {
   margin: 2.5em;
-  border-color: #fb9727;
+  border-color: #f4853e;
 }
 
 .btn-cadastrar .q-btn {
-  margin: 2.5em;
-  border-color: #fb9727;
-  margin-top: 200%;
-  margin-bottom: 15px;
+  margin: 2em;
+  border-color: #f4853e;
+  margin-top: 220%;
+  margin-bottom: 10px;
   height: 55px;
-  /* width: 250px; */
   justify-content: center;
 }
 
@@ -811,7 +810,7 @@ label {
   position: absolute;
   left: 10.31%;
   right: 10.31%;
-  top: 76.07%;
+  top: 130%;
   bottom: 0%;
   font-family: Roboto;
   font-style: normal;
@@ -835,24 +834,19 @@ label {
   margin: center;
   padding: 2em;
 }
-.imagePopup {
-  padding: 2em;
-  margin-bottom: 75px;
-}
 .denunciaRegistradaTopo {
   position: absolute;
   width: 100%;
-  height: 117px;
+  height: 160px;
   left: 0px;
   top: 0px;
-  background-color: #ffa948;
+  background-color: #f4853e;
 }
 .fas .fa-check-circle {
-  position: absolute;
+  position: flex;
   left: 39.69%;
   right: 40%;
-  top: 16.24%;
-  bottom: 33.33%;
+  top: 130px;
   background: #ffffff;
 }
 .iconDenunciaRegistrada {
@@ -862,7 +856,7 @@ label {
   position: center;
   left: 39.69%;
   right: 40%;
-  top: 16.24%;
+  top: 35px;
   bottom: 33.33%;
 }
 .textNumProtocolo {
@@ -871,11 +865,10 @@ label {
   height: 28px;
   left: calc(50% - 254px / 2);
   top: calc(50% - 28px / 2 - 41px);
-
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 15px;
   line-height: 23px;
   text-align: center;
 
@@ -887,17 +880,16 @@ label {
   height: 43px;
   left: calc(50% - 246px / 2 + 4px);
   top: calc(50% - 43px / 2 - 0.5px);
-
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 36px;
+  font-size: 20px;
   line-height: 42px;
   /* identical to box height */
 
   text-align: center;
 
-  color: #ff9e4f;
+  color: #f4853e;
 }
 .textCadastrar {
   position: absolute;
@@ -905,7 +897,6 @@ label {
   height: 56px;
   left: calc(50% - 254px / 2 + 4px);
   top: calc(50% - 56px / 2 + 40px);
-
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
@@ -914,6 +905,7 @@ label {
   display: flex;
   align-items: center;
   text-align: center;
+  margin-top: 18px;
 
   color: #737373;
 }
