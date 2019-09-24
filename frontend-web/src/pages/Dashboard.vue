@@ -1,6 +1,6 @@
 <template>
 
-        <div class="container">
+        <div class="container full-height">
             <div class="estatisticas">
                 <h1>Estatiscas de Denúncias</h1>
                 <div class="cartao">
@@ -13,18 +13,18 @@
     </div>
 
                 </div>
-                <div class="rodape">
+                <div class="rodape ">
 
-                        <div class="totais">
-                        <h3>23</h3>
+                        <div class="totais fit column wrap justify-center items-center content-center">
+                        <p class="h3">23</p>
                           <p>Total de denuncias</p>
                         </div>
-                        <div class="mes">
-                        <h3>23</h3>
+                        <div class="mes fit column wrap justify-center items-center content-center">
+                        <p class="h3">23</p>
                           <p>Denuncias no mes</p>
                         </div>
-                        <div class="dia">
-                        <h3>23</h3>
+                        <div class="dia fit column wrap justify-center items-center content-center">
+                        <p class="h3">23</p>
                         <p>Denuncias no dia</p>
                         </div>
                 </div>
@@ -155,7 +155,7 @@ background:#F3EEEE;
 
 }
 
-.totais h3 {
+.totais .h3 {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
@@ -171,11 +171,8 @@ background:#F3EEEE;
   line-height: 16px;
 }
 
-.mes {
 
-}
-
-.mes h3 {
+.mes .h3 {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
@@ -191,11 +188,9 @@ background:#F3EEEE;
   line-height: 16px;
 }
 
-.dia {
 
-}
 
-.dia h3 {
+.dia .h3 {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
@@ -224,8 +219,9 @@ background:#F3EEEE;
 .rodape{
    display: flex;
    flex-direction: row;
-
+margin-top: 25px;
 justify-content: center;
+
 
 }
 .dash{
@@ -244,8 +240,6 @@ justify-content: center;
 
 
 }
-
-
 
 .dashboard h2{
   font-family: Roboto;
