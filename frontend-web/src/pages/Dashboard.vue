@@ -6,8 +6,12 @@
                 <div class="cartao">
                     <h2>TOTAL DE DENÚNCIAS</h2>
                 </div>
+     <div class="grafico"> <apexchart  type="donut" :options="options" :series="series"></apexchart></div>
                 <div class="gerais">
                 <h3>ESTATISTICAS GERAIS</h3>
+      <div>
+    </div>
+
                 </div>
                 <div class="rodape">
 
@@ -33,16 +37,19 @@
             <div class="cartoes">
 
                     <div class="gerenciar cart">
-                        <h3>Gerenciar </h3>
-                        <p>Denúncias</p>
+                        <p>
+                        Gerenciar
+                          <strong>Denuncias</strong></p>
                     </div>
                     <div class="relatorio cart">
-                        <h3>Relatorio</h3>
-                        <p>Denuncia</p>
+                        <p>
+                        Relatorio
+                          <strong>Denuncias</strong></p>
                     </div>
                     <div class="cadastrar cart">
-                        <h3>Cadastrar </h3>
-                        <p>Denuncia</p>
+                        <p>
+                        Cadastrar
+                          <strong>Denuncia</strong></p>
                     </div>
                 </div>
             </div>
@@ -70,16 +77,40 @@
 
 
 <script>
+import VueApexCharts from 'vue-apexcharts'
+
 export default {
   name: "Dashboard",
+   components: {
+        apexchart: VueApexCharts,
+      },
   data() {
     return {
-        teste: 'olaaaaaaaaa'
+       options: {
+         colors: ['#F77726','#AAA'],
+          legend: {
+      show: false},
+         dataLabels: {
+    enabled: false},
+    pie: {
+      expandOnClick: false
     }
+       },
+      series: [20, 200],
+      labels: ["Mês", "Geral", "Ano"],
+
+
+
+  }
   }
 }
 </script>
 <style>
+
+p{
+  margin: 0;
+}
+
 .container{
 background:#F3EEEE;
     display: flex;
@@ -196,6 +227,7 @@ justify-content: center;
 .dash{
     width: 65%;
     padding: 0% 2%;
+margin-bottom: 100px;
 }
 
 
@@ -223,13 +255,17 @@ justify-content: center;
 }
 
 .cart {
-width: 25%;
+width: 31%;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 7px;
-height: 110px;
+height: 130px;
 text-align: center;
 text-transform:uppercase;
 margin-right: 2%;
+justify-content: center;
+align-items: center;
+display: flex;
+
 
 }
 
@@ -245,7 +281,7 @@ margin-right: 2%;
   font-weight: normal;
   font-size: 26px;
   line-height: 30px;
-
+max-width: 100px;
 
 
 
@@ -269,6 +305,7 @@ margin-right: 2%;
    line-height: 23px;
    text-align: center;
    color: #FFFFFF;
+   max-width: 100px;
 }
 
 .gerenciar{
@@ -284,9 +321,7 @@ margin-right: 2%;
 
 }
 
-.titulo {
 
-}
 
 .titulo h3 {
   font-family: Roboto;
@@ -302,18 +337,20 @@ margin-right: 2%;
 .recentes{
     background: #FFFFFF;
 border-radius: 19px;
-width: 90%;
-padding: 3%;
+width: 98%;
+padding: 1% 3%;
 align-items: end;
 display: flex;
 flex-direction: column;
+margin-top: 20px;
 }
 
 .lista {
   display: flex;
   flex-direction: row;
-  padding: 1%;
+  padding: 2% 1%;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .endereco {
@@ -354,5 +391,11 @@ flex-direction: column;
   margin-left: 60px;
 }
 
+.grafico{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 </style>
