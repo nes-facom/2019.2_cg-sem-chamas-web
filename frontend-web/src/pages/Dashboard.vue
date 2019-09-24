@@ -67,6 +67,7 @@
                        <div class="lista">
                     <p class="data">23/09/2019 21:00</p>  <p class="endereco">Avenida afonso pena 3098</p> <p class="protocolo"> Q12345678901234</p>
                    </div>
+
             </div>
         </div>
         </div>
@@ -115,6 +116,8 @@ p{
 background:#F3EEEE;
     display: flex;
     flex-direction: row;
+    align-items: center;
+
 
 
 }
@@ -123,7 +126,8 @@ background:#F3EEEE;
     text-align: center;
 
  background: #ddd;
- padding-top: 15px;
+ padding: 3% 2%;
+ height: 100%;
 
 }
 
@@ -226,8 +230,7 @@ justify-content: center;
 }
 .dash{
     width: 65%;
-    padding: 0% 2%;
-margin-bottom: 100px;
+    padding: 0% 4%;
 }
 
 
@@ -242,9 +245,7 @@ margin-bottom: 100px;
 
 }
 
-.dashboard{
 
-}
 
 .dashboard h2{
   font-family: Roboto;
@@ -252,6 +253,7 @@ margin-bottom: 100px;
   font-weight: bold;
   font-size: 39px;
   line-height: 46px;
+  margin-top: 10px;
 }
 
 .cart {
