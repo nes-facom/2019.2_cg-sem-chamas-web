@@ -2,13 +2,13 @@
 
         <div class="container full-height">
             <div class="estatisticas">
-                <h1>Estatiscas de Denúncias</h1>
+                <h1>Estatísticas de Denúncias</h1>
                 <div class="cartao">
                     <h2>TOTAL DE DENÚNCIAS</h2>
                 </div>
      <div class="grafico"> <apexchart  type="donut" :options="options" :series="series"></apexchart></div>
                 <div class="gerais">
-                <h3>ESTATISTICAS GERAIS</h3>
+                <h3>ESTATÍSTICAS GERAIS</h3>
       <div>
     </div>
 
@@ -17,15 +17,15 @@
 
                         <div class="totais fit column wrap justify-center items-center content-center">
                         <p class="h3">23</p>
-                          <p>Total de denuncias</p>
+                          <p>Total de Denúncias</p>
                         </div>
                         <div class="mes fit column wrap justify-center items-center content-center">
                         <p class="h3">23</p>
-                          <p>Denuncias no mes</p>
+                          <p>Denúncias no mês</p>
                         </div>
                         <div class="dia fit column wrap justify-center items-center content-center">
                         <p class="h3">23</p>
-                        <p>Denuncias no dia</p>
+                        <p>Denúncias no dia</p>
                         </div>
                 </div>
                 <div class="botao">
@@ -39,17 +39,17 @@
                     <div class="gerenciar cart">
                         <p>
                         Gerenciar
-                          <strong>Denuncias</strong></p>
+                          <strong>Denúncias</strong></p>
                     </div>
                     <div class="relatorio cart">
                         <p>
-                        Relatorio
-                          <strong>Denuncias</strong></p>
+                        Relatório
+                          <strong>Denúncias</strong></p>
                     </div>
                     <div class="cadastrar cart">
                         <p>
                         Cadastrar
-                          <strong>Denuncia</strong></p>
+                          <strong>Denúncia</strong></p>
                     </div>
                 </div>
             </div>
