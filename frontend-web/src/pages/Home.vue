@@ -1,5 +1,5 @@
 <template>
-   <div class="container full-height">
+   <div class="container" style="height: 100vh">
             <div class="estatisticas">
                 <h1>Estatísticas de Denúncias</h1>
                 <div class="cartao">
@@ -33,6 +33,9 @@
                         </div>
                 </div>
                 <div class="botao">
+                         <q-btn color="primary" text-color="white" label="MOSTRAR DENUNCIAS" class="q-mt-md">
+      <q-tooltip>I'm a tooltip</q-tooltip>
+    </q-btn>
                 </div>
             </div>
           <div class="dash">
@@ -71,6 +74,13 @@
                        <div class="lista">
                     <p class="data">23/09/2019 21:00</p>  <p class="endereco">Avenida afonso pena 3098</p> <p class="protocolo"> Q12345678901234</p>
                    </div>
+                    <div class="lista">
+                    <p class="data">23/09/2019 21:00</p>  <p class="endereco">Avenida afonso pena 3098</p> <p class="protocolo"> Q12345678901234</p>
+                   </div>
+                    <div class="lista">
+                    <p class="data">23/09/2019 21:00</p>  <p class="endereco">Avenida afonso pena 3098</p> <p class="protocolo"> Q12345678901234</p>
+                   </div>
+
 
             </div>
         </div>
@@ -112,10 +122,10 @@ p{
 }
 
 .container{
-background:#F3EEEE;
     display: flex;
     flex-direction: row;
     align-items: center;
+background:#F3EEEE;
 
 
 
@@ -125,7 +135,7 @@ background:#F3EEEE;
     text-align: center;
  background: #ddd;
  padding: 3% 2%;
- height: 100%;
+
 
 }
 
@@ -215,6 +225,8 @@ justify-content: center;
 
 }
 .dash{
+background:#F3EEEE;
+
     width: 65%;
     padding: 0% 4%;
 }
