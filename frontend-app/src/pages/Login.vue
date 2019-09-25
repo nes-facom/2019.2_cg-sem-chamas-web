@@ -1,15 +1,33 @@
 <template>
-  <div class="login">
-    <h1>Login</h1>
-    <q-input type="text" placeholder="Email"></q-input>
-    <q-input type="password" placeholder="Senha"></q-input>
-    <div class="btn-login">
-      <q-btn>Login</q-btn>
+  <div class="login" style="height: 100vh;
+  width: 100vw;">
+    <h4>CG sem chamas</h4>
+
+    <div class="loginIn">
+      <h6>Login</h6>
+
+      <div class="inputs">
+        <q-input standout v-model="text" label="Email">
+          <template v-slot:prepend>
+            <q-icon name="mail" />
+          </template>
+        </q-input>
+
+        <q-input standout v-model="text" label="Senha">
+          <template v-slot:prepend>
+            <q-icon name="lock" />
+          </template>
+        </q-input>
+      </div>
+
+      <div class="btn-login">
+        <q-btn color="primary">ENTRAR</q-btn>
+      </div>
+      <p>
+        Não possui uma conta?
+        <a href>Criar conta</a>
+      </p>
     </div>
-    <p>
-      Você não tem conta?
-      <a href>Crie uma conta</a>
-    </p>
   </div>
 </template>
 
@@ -25,7 +43,13 @@ export default {
 
 <style scoped>
 .container {
-  margin-top: 40px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 }
 .login {
   display: flex;
@@ -33,31 +57,46 @@ export default {
   align-items: center;
   justify-items: center;
   text-align: center;
+  background-color: #f4853e;
 }
-input {
-  margin: 10px 0;
-  width: 20%;
-  padding: 15px;
+.loginIn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  background-color: #ffffff;
+  width: 88%;
+  border-radius: 5%;
+  margin-top: 20%;
+}
+h4 {
+  font-family: "Robotos lab";
+  font-weight: bolder;
+  color: #ffffff;
+}
+.inputs .q-input {
+  margin-top: 1%;
+  margin-bottom: 5%;
+  width: 250px;
+}
+.inputs .q-icon {
+  color: #f4853e;
+  margin-top: 5%;
 }
 button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4caf50;
-  border: 0;
-  padding: 15px;
-  color: #ffffff;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
+  border-color: #f4853e;
+  margin-top: 10%;
+  height: 55px;
+  width: 250px;
 }
 p {
+  color: #737373;
   margin-top: 40px;
   font-size: 13px;
 }
-p a {
-  text-decoration: underline;
-  cursor: pointer;
+h6 {
+  color: #737373;
+  margin: 3%;
 }
 </style>
