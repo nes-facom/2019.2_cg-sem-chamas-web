@@ -1,14 +1,18 @@
 <template>
-
-        <div class="container full-height">
+   <div class="container full-height">
             <div class="estatisticas">
                 <h1>Estatísticas de Denúncias</h1>
                 <div class="cartao">
                     <h2>TOTAL DE DENÚNCIAS</h2>
                 </div>
-     <div class="grafico"> <apexchart  type="donut" :options="options" :series="series"></apexchart></div>
+     <div class="grafico">
+        <apexchart  type="donut" :options="options" :series="series">
+
+       </apexchart>
+
+       </div>
                 <div class="gerais">
-                <h3>ESTATÍSTICAS GERAIS</h3>
+                <h3>ESTATÍSTICAS GERAIS TESTE</h3>
       <div>
     </div>
 
@@ -71,11 +75,7 @@
             </div>
         </div>
         </div>
-
-
-        </template>
-
-
+</template>
 
 <script>
 import VueApexCharts from 'vue-apexcharts'
@@ -106,8 +106,7 @@ export default {
   }
 }
 </script>
-<style>
-
+<style lang="stylus" scoped>
 p{
   margin: 0;
 }
@@ -124,7 +123,6 @@ background:#F3EEEE;
 .estatisticas{
     width: 35%;
     text-align: center;
-
  background: #ddd;
  padding: 3% 2%;
  height: 100%;
@@ -139,20 +137,12 @@ background:#F3EEEE;
   line-height: 40px;
 }
 
-.gerais {
-
-}
-
 .gerais h3 {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
   line-height: 21px;
-}
-
-.totais {
-
 }
 
 .totais .h3 {
@@ -250,6 +240,62 @@ justify-content: center;
   margin-top: 10px;
 }
 
+
+
+.lista {
+  display: flex;
+  flex-direction: row;
+  padding: 2% 1%;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.endereco {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: 20px;
+}
+
+.data {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #aaa;
+
+}
+
+.protocolo {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #F4853E;
+  margin-left: 60px;
+}
+
+.grafico{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// oi
 .cart {
 width: 31%;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -335,63 +381,10 @@ max-width: 100px;
 border-radius: 19px;
 width: 98%;
 padding: 1% 3%;
-align-items: end;
+
 display: flex;
 flex-direction: column;
 margin-top: 20px;
-}
-
-.lista {
-  display: flex;
-  flex-direction: row;
-  padding: 2% 1%;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.endereco {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 19px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin-left: 20px;
-}
-
-.data {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #aaa;
-
-}
-
-.protocolo {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 19px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #F4853E;
-  margin-left: 60px;
-}
-
-.grafico{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 </style>
