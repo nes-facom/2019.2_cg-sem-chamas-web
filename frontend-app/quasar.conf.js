@@ -18,17 +18,17 @@ module.exports = function(ctx) {
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
       "roboto-font", // optional, you are not bound to it
-      "material-icons", // optional, you are not bound to it
+      "material-icons" // optional, you are not bound to it
     ],
 
     framework: {
       config: {
         brand: {
-          primary: "#f4853e",
-        },
+          primary: "#f4853e"
+        }
       },
       cordova: {
-        backButtonExit: false,
+        backButtonExit: false
       },
       // iconSet: 'ionicons-v4',
       // lang: 'de', // Quasar language
@@ -49,12 +49,13 @@ module.exports = function(ctx) {
         "QItem",
         "QItemSection",
         "QItemLabel",
+        "QInput"
       ],
 
       directives: ["Ripple", "ClosePopup"],
 
       // Quasar plugins
-      plugins: ["Notify"],
+      plugins: ["Notify"]
     },
 
     supportIE: false,
@@ -66,20 +67,20 @@ module.exports = function(ctx) {
       // gzip: true,
       // analyze: true,
       // extractCSS: false,
-      extendWebpack(cfg) {},
+      extendWebpack(cfg) {}
     },
 
     devServer: {
       https: true,
       // port: 8080,
-      open: true, // opens browser window automatically
+      open: true // opens browser window automatically
     },
 
     // animations: 'all', // --- includes all animations
     animations: "all",
 
     ssr: {
-      pwa: false,
+      pwa: false
     },
 
     pwa: {
@@ -97,30 +98,30 @@ module.exports = function(ctx) {
           {
             src: "statics/icons/icon-128x128.png",
             sizes: "128x128",
-            type: "image/png",
+            type: "image/png"
           },
           {
             src: "statics/icons/icon-192x192.png",
             sizes: "192x192",
-            type: "image/png",
+            type: "image/png"
           },
           {
             src: "statics/icons/icon-256x256.png",
             sizes: "256x256",
-            type: "image/png",
+            type: "image/png"
           },
           {
             src: "statics/icons/icon-384x384.png",
             sizes: "384x384",
-            type: "image/png",
+            type: "image/png"
           },
           {
             src: "statics/icons/icon-512x512.png",
             sizes: "512x512",
-            type: "image/png",
-          },
-        ],
-      },
+            type: "image/png"
+          }
+        ]
+      }
     },
 
     cordova: {
@@ -150,7 +151,7 @@ module.exports = function(ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
         // appId: 'frontend-app'
-      },
-    },
+      }
+    }
   };
 };
