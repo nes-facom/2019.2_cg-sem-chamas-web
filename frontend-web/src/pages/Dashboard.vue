@@ -219,7 +219,7 @@ background:#F3EEEE;
 .rodape{
    display: flex;
    flex-direction: row;
-margin-top: 25px;
+margin-top: 40px;
 justify-content: center;
 
 
