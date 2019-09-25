@@ -27,6 +27,13 @@ export default {
 .container {
   margin-top: 40px;
 }
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
 input {
   margin: 10px 0;
   width: 20%;
