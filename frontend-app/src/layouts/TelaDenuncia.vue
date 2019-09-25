@@ -18,7 +18,7 @@
     </div>
 
     <div class="login">
-      <a href="#" class="login">ENTRAR NA CONTA</a>
+      <a href="pages/login" class="login" to="/login">ENTRAR NA CONTA</a>
     </div>
   </div>
 </template>
