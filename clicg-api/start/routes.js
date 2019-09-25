@@ -26,6 +26,8 @@ Route.get("denuncia/:id", "DenunciaController.show");
 
 Route.get("protocolo/:protocolo", "DenunciaController.byProtocolo");
 
+Route.get("total/", "DenunciaController.count");
+
 Route.get("denuncias", "DenunciaController.index");
 
 Route.put("denuncia/:id", "DenunciaController.update");

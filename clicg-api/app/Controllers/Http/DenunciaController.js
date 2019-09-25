@@ -26,6 +26,21 @@ class DenunciaController {
   }
 
   /**
+   * Show a list of all denuncias.
+   * GET denuncias
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {View} ctx.view
+   */
+  async count({ request, response, view }) {
+    const denuncia = Denuncia.getCount()
+
+    return denuncia;
+  }
+
+  /**
    * Render a form to be used for creating a new denuncia.
    * GET denuncias/create
    *
