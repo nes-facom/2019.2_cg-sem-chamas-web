@@ -57,6 +57,13 @@
 export default {
   data () {
     return {
+       denuncia: {
+        id: "",
+        endereco: "",
+        protocolo: ""
+      },
+
+      denuncias: [],
       selected: [],
       filter: '',
       columns: [
@@ -75,13 +82,7 @@ export default {
 
       ],
       data: [
-        {
-          protocolo: 'Q12312312431224',
-          endereco: 'Avenida Afonso pena',
-          data: '12/12/12 22:22',
-          status: 'Em aberto',
 
-        }
       ]
     }
   },
@@ -89,9 +90,19 @@ export default {
     getSelectedString () {
       return this.selected.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.data.length}`
     },
-    mostrar(){
+    mostraar(){
      console.log(this.selected[0])
-    }
+    },
+    mostrar(denuncia) {
+      Denuncia.exibir(denuncia)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(e => {
+          this.errors = e.response.data.errors;
+          console.log(e.response.data.errors);
+        });
+    },
   }
 }
 </script>
