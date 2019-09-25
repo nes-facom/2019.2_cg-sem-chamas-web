@@ -14,10 +14,13 @@ const routes = [
     component: () => import("pages/BuscarProtocolo.vue")
   },
   {
-    path: "/denuncia",
+    path: "/",
     component: () => import("layouts/TelaDenuncia.vue"),
-    children: [{ path: "login", component: () => import("pages/Login.vue") }]
-  }
+
+  },
+  {path: "/login",
+  component: () => import('pages/Login.vue')
+}
 ];
 
 // Always leave this as last one
