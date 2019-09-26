@@ -4,15 +4,56 @@
     style="height: 100vh"
   >
     <div class="estatisticas">
+
+
+
       <div class="dados" v-show="dados!=null">
+            <h1>Dados da Denúncias</h1>
         <div v-if="dados!=null">
-          Protocolo: {{dados.protocolo}}
-          Endereço: {{dados.endereco}}
-          Data: {{dados.data}}
-        </div>
 
 
+        <q-card class="my-card">
 
+      <img src="https://s2.glbimg.com/P7cxtIPs1JjjUvEt3NwWD9hJ0KM=/0x0:870x580/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/I/C/El0D1AQt2UCXXfiGpjdw/queimada-br-319-foto-de-esio-mendes-39-870x580.jpg">
+
+      <q-list>
+        <q-item clickable>
+          <q-item-section avatar>
+            <q-icon color="primary" name="calendar_today" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>{{dados.created_at}}</q-item-label>
+            <q-item-label caption>Data</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable>
+          <q-item-section avatar>
+            <q-icon color="red" name="insert_drive_file" />
+          </q-item-section>
+<q-separator />
+          <q-item-section>
+            <q-item-label>{{dados.protocolo}}</q-item-label>
+            <q-item-label caption>Protocolo</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable>
+          <q-item-section avatar>
+            <q-icon color="amber" name="business" />
+          </q-item-section>
+
+          <q-item-section>
+            <q-item-label>{{dados.endereco}}</q-item-label>
+            <q-item-label caption>Endereço</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-card>
+
+
+ </div>
 
       </div>
     </div>
@@ -182,6 +223,14 @@ p {
   background: #F3EEEE;
   display: flex;
   flex-direction: row;
+}
+
+.estatisticas h1{
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 34px;
+  line-height: 40px;
 }
 
 .estatisticas {
