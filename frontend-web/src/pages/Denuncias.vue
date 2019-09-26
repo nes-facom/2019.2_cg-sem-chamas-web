@@ -23,6 +23,8 @@
       <input type="submit" @click="listar()" />
       Exibir
       <input type="submit" @click="mostrar(1)" />
+      Apagar
+      <input type="submit" @click="remover(1)" />
       Protocolo
       <input type="submit" @click="procurarProtoloco(4)" />
     </div>

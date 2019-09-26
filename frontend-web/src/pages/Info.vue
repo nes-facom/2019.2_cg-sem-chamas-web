@@ -20,7 +20,6 @@
       <div class="dashboard">
 
         <h2>Denúncias</h2>
-
         <div class="tabela">
           <q-table
             class="my-sticky-column-table"
@@ -41,9 +40,12 @@
           </q-td>
           <q-td key="protocolo" :props="props">{{ props.row.protocolo }}</q-td>
           <q-td key="endereco" :props="props">{{ props.row.endereco }}</q-td>
-          <q-td key="data" :props="props">{{ props.row.data }}</q-td>
+          <q-td key="created_at" :props="props">{{ props.row.created_at }}</q-td>
           <q-td key="status" :props="props">
             <q-badge square color="green">{{ props.row.status }}</q-badge>
+          </q-td>
+          <q-td key="acoes" :props="props">
+            <q-btn color="red" icon="delete"  @click="remover(props.row.id)" />
           </q-td>
           </q-tr>
            </template>
@@ -71,6 +73,7 @@
 </template>
 
 <script>
+import Denuncia from "../boot/denuncia";
 export default {
   data () {
     return {
@@ -96,8 +99,9 @@ export default {
           sortable: true
         },
         { name: 'endereco', align: 'left', label: 'Endereço', field: 'endereco', sortable: true },
-        { name: 'data', align: 'left', label: 'Data', field: 'data', sortable: true },
+        { name: 'created_at', align: 'left', label: 'Data', field: 'created_at', sortable: true },
         { name: 'status',  align: 'center', label: 'Status', field: 'status', sortable: true },
+        { name: 'acoes',  align: 'center', label: 'Ações', field: 'acoes', sortable: false },
 
       ],
       data: [
@@ -130,26 +134,44 @@ export default {
     getSelectedString () {
       return this.selected.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.data.length}`
     },
-    mostraar(){
-     console.log(this.selected[0])
-    },
+
     linhaSelecionada(dados){
       console.log(dados)
       this.dados = dados
-    }
     },
-    mostrar(denuncia) {
-      Denuncia.exibir(denuncia)
+     mostrar(denuncia) {
+      Denuncia.listar(denuncia)
         .then(response => {
-          console.log(response);
+          console.log(response.data);
+          this.data = response.data
+
         })
         .catch(e => {
           this.errors = e.response.data.errors;
           console.log(e.response.data.errors);
         });
     },
+     remover(denuncia) {
+      if (confirm("Deseja excluir o denuncia?")) {
+        Denuncia.apagar(denuncia)
+          .then(response => {
+           this.mostrar();
+            this.errors = {};
+          })
+          .catch(e => {
+            this.errors = e.response.data.errors;
+          });
+      }
+    },
+
+    },
+    mounted() {
+       this.mostrar();
+    }
+
   }
-}
+
+
 </script>
 <style lang="stylus" scoped>
 p {

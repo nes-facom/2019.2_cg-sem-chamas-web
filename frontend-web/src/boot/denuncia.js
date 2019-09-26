@@ -6,7 +6,7 @@ export default {
   },
 
   atualizar: denuncia => {
-    return http.put("denuncia", denuncia);
+    return http.put("denuncia/" + denuncia, denuncia);
   },
 
   listar: () => {
@@ -14,7 +14,7 @@ export default {
   },
 
   apagar: denuncia => {
-    return http.delete("denuncia", { data: denuncia });
+    return http.delete("denuncia/" + denuncia, { data: denuncia });
   },
 
   exibir: denuncia => {
