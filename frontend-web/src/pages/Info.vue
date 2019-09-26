@@ -5,55 +5,63 @@
   >
     <div class="estatisticas">
 
-
-
-      <div class="dados" v-show="dados!=null">
-            <h1>Dados da Denúncias</h1>
+      <div
+        class="dados"
+        v-show="dados!=null"
+      >
+        <h1>Dados da Denúncias</h1>
         <div v-if="dados!=null">
 
+          <q-card class="my-card">
 
-        <q-card class="my-card">
+            <img src="https://s2.glbimg.com/P7cxtIPs1JjjUvEt3NwWD9hJ0KM=/0x0:870x580/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/I/C/El0D1AQt2UCXXfiGpjdw/queimada-br-319-foto-de-esio-mendes-39-870x580.jpg">
 
-      <img src="https://s2.glbimg.com/P7cxtIPs1JjjUvEt3NwWD9hJ0KM=/0x0:870x580/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/I/C/El0D1AQt2UCXXfiGpjdw/queimada-br-319-foto-de-esio-mendes-39-870x580.jpg">
+            <q-list>
+              <q-item clickable>
+                <q-item-section avatar>
+                  <q-icon
+                    color="primary"
+                    name="calendar_today"
+                  />
+                </q-item-section>
 
-      <q-list>
-        <q-item clickable>
-          <q-item-section avatar>
-            <q-icon color="primary" name="calendar_today" />
-          </q-item-section>
+                <q-item-section>
+                  <q-item-label>{{dados.created_at | formatData}}</q-item-label>
+                  <q-item-label caption>Data</q-item-label>
+                </q-item-section>
+              </q-item>
 
-          <q-item-section>
-            <q-item-label>{{dados.created_at}}</q-item-label>
-            <q-item-label caption>Data</q-item-label>
-          </q-item-section>
-        </q-item>
+              <q-item clickable>
+                <q-item-section avatar>
+                  <q-icon
+                    color="red"
+                    name="insert_drive_file"
+                  />
+                </q-item-section>
+                <q-separator />
+                <q-item-section>
+                  <q-item-label>{{dados.protocolo}}</q-item-label>
+                  <q-item-label caption>Protocolo</q-item-label>
+                </q-item-section>
+              </q-item>
 
-        <q-item clickable>
-          <q-item-section avatar>
-            <q-icon color="red" name="insert_drive_file" />
-          </q-item-section>
-<q-separator />
-          <q-item-section>
-            <q-item-label>{{dados.protocolo}}</q-item-label>
-            <q-item-label caption>Protocolo</q-item-label>
-          </q-item-section>
-        </q-item>
+              <q-item clickable>
+                <q-item-section avatar>
+                  <q-icon
+                    color="amber"
+                    name="business"
+                  />
+                </q-item-section>
 
-        <q-item clickable>
-          <q-item-section avatar>
-            <q-icon color="amber" name="business" />
-          </q-item-section>
+                <q-item-section>
+                  <q-item-label>{{dados.endereco}}</q-item-label>
+                  <q-item-label caption>Endereço</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-card>
 
-          <q-item-section>
-            <q-item-label>{{dados.endereco}}</q-item-label>
-            <q-item-label caption>Endereço</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-card>
-
-
- </div>
+        </div>
 
       </div>
     </div>
@@ -73,24 +81,51 @@
             :selected.sync="selected"
             :filter="filter"
           >
-           <template v-slot:body="props">
-          <q-tr :props="props"  @click.native="linhaSelecionada(props.row)">
-          <q-td auto-width>
-                          <q-checkbox dense v-model="props.selected"  />
+            <template v-slot:body="props">
+              <q-tr
+                :props="props"
+                @click.native="linhaSelecionada(props.row)"
+              >
+                <q-td auto-width>
+                  <q-checkbox
+                    dense
+                    v-model="props.selected"
+                  />
 
-          </q-td>
-          <q-td key="protocolo" :props="props">{{ props.row.protocolo }}</q-td>
-          <q-td key="endereco" :props="props">{{ props.row.endereco }}</q-td>
-          <q-td key="created_at" :props="props">{{ props.row.created_at }}</q-td>
-          <q-td key="status" :props="props">
-            <q-badge square color="green">{{ props.row.status }}</q-badge>
-          </q-td>
-          <q-td key="acoes" :props="props">
-            <q-btn color="red" icon="delete"  @click="remover(props.row.id)" />
-          </q-td>
-          </q-tr>
-           </template>
-
+                </q-td>
+                <q-td
+                  key="protocolo"
+                  :props="props"
+                >{{ props.row.protocolo }}</q-td>
+                <q-td
+                  key="endereco"
+                  :props="props"
+                >{{ props.row.endereco }}</q-td>
+                <q-td
+                  key="created_at"
+                  :props="props"
+                >{{ props.row.created_at | formatData}}</q-td>
+                <q-td
+                  key="status"
+                  :props="props"
+                >
+                  <q-badge
+                    square
+                    color="green"
+                  >{{ props.row.status }}</q-badge>
+                </q-td>
+                <q-td
+                  key="acoes"
+                  :props="props"
+                >
+                  <q-btn
+                    color="red"
+                    icon="delete"
+                    @click="remover(props.row.id)"
+                  />
+                </q-td>
+              </q-tr>
+            </template>
 
             <template v-slot:top-right>
               <q-input
@@ -118,7 +153,7 @@ import Denuncia from "../boot/denuncia";
 export default {
   data () {
     return {
-       denuncia: {
+      denuncia: {
         id: "",
         endereco: "",
         protocolo: ""
@@ -141,8 +176,8 @@ export default {
         },
         { name: 'endereco', align: 'left', label: 'Endereço', field: 'endereco', sortable: true },
         { name: 'created_at', align: 'left', label: 'Data', field: 'created_at', sortable: true },
-        { name: 'status',  align: 'center', label: 'Status', field: 'status', sortable: true },
-        { name: 'acoes',  align: 'center', label: 'Ações', field: 'acoes', sortable: false },
+        { name: 'status', align: 'center', label: 'Status', field: 'status', sortable: true },
+        { name: 'acoes', align: 'center', label: 'Ações', field: 'acoes', sortable: false },
 
       ],
       data: [
@@ -153,7 +188,7 @@ export default {
           status: 'Em aberto',
 
         },
-         {
+        {
           protocolo: 'Q98765432101234',
           endereco: 'Avenida Manuel da Costa Lima, 123',
           data: '10/10/11 22:22',
@@ -171,16 +206,23 @@ export default {
       ]
     }
   },
+  filters: {
+    formatData: (data) => {
+      const dat = new Date(data);
+      const formatData = dat.toLocaleString("pt-BR", { timeZone: "UTC" });
+      return formatData
+    }
+  },
   methods: {
     getSelectedString () {
       return this.selected.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.data.length}`
     },
 
-    linhaSelecionada(dados){
+    linhaSelecionada (dados) {
       console.log(dados)
       this.dados = dados
     },
-     mostrar(denuncia) {
+    mostrar (denuncia) {
       Denuncia.listar(denuncia)
         .then(response => {
           console.log(response.data);
@@ -192,11 +234,11 @@ export default {
           console.log(e.response.data.errors);
         });
     },
-     remover(denuncia) {
+    remover (denuncia) {
       if (confirm("Deseja excluir o denuncia?")) {
         Denuncia.apagar(denuncia)
           .then(response => {
-           this.mostrar();
+            this.mostrar();
             this.errors = {};
           })
           .catch(e => {
@@ -205,12 +247,12 @@ export default {
       }
     },
 
-    },
-    mounted() {
-       this.mostrar();
-    }
-
+  },
+  mounted () {
+    this.mostrar();
   }
+
+}
 
 
 </script>
@@ -225,7 +267,7 @@ p {
   flex-direction: row;
 }
 
-.estatisticas h1{
+.estatisticas h1 {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
@@ -248,7 +290,6 @@ p {
   width: 65%;
   padding: 0% 4%;
   margin-top: 50px;
-
 }
 
 .dashboard h2 {
