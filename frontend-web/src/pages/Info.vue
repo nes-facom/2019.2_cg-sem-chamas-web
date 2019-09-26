@@ -4,18 +4,21 @@
     style="height: 100vh"
   >
     <div class="estatisticas">
-      <div class="foto"></div>
-      <div class="endereco"><p>{{selected[0].endereco}}</p></div>
-      <div class="data"><p>{{selected[0].data}}</p> </div>
-      <div class="protocolo"><p>{{selected[0].protocolo}}</p>
-        <input type="submit" class="" @click="mostrar()">
+      <div class="dados" v-show="dados!=null">
+        <div v-if="dados!=null">
+          Protocolo: {{dados.protocolo}}
+          Endereço: {{dados.endereco}}
+          Data: {{dados.data}}
+        </div>
+
+
+
+
       </div>
     </div>
     <div class="dash">
       <div class="dashboard">
-         <div class="q-mt-md">lec
-              Selected: {{ JSON.stringify(selected) }}
-            </div>
+
         <h2>Denúncias</h2>
 
         <div class="tabela">
@@ -24,12 +27,26 @@
             title="Produção"
             :data="data"
             :columns="columns"
-            row-key="name"
+            row-key="protocolo"
             :selected-rows-label="getSelectedString"
-            selection="single"
+            selection="multiple"
             :selected.sync="selected"
             :filter="filter"
           >
+           <template v-slot:body="props">
+          <q-tr :props="props"  @click.native="linhaSelecionada(props.row)">
+          <q-td auto-width>
+                          <q-checkbox dense v-model="props.selected"  />
+
+          </q-td>
+          <q-td key="protocolo" :props="props">{{ props.row.protocolo }}</q-td>
+          <q-td key="endereco" :props="props">{{ props.row.endereco }}</q-td>
+          <q-td key="data" :props="props">{{ props.row.data }}</q-td>
+          <q-td key="status" :props="props">
+            <q-badge square color="green">{{ props.row.status }}</q-badge>
+          </q-td>
+          </q-tr>
+           </template>
 
 
             <template v-slot:top-right>
@@ -59,6 +76,8 @@ export default {
     return {
       selected: [],
       filter: '',
+      select: [],
+      dados: null,
       columns: [
         {
           name: 'protocolo',
@@ -76,12 +95,27 @@ export default {
       ],
       data: [
         {
-          protocolo: 'Q12312312431224',
-          endereco: 'Avenida Afonso pena',
+          protocolo: 'Q12312312431225',
+          endereco: 'Avenida Afonso Pena, 987',
           data: '12/12/12 22:22',
           status: 'Em aberto',
 
+        },
+         {
+          protocolo: 'Q98765432101234',
+          endereco: 'Avenida Manuel da Costa Lima, 123',
+          data: '10/10/11 22:22',
+          status: 'Em aberto',
+
+        },
+        {
+          protocolo: 'Q93483948394873',
+          endereco: 'Avenida Mato Grosso, 542',
+          data: '10/10/10 22:22',
+          status: 'Em aberto',
+
         }
+
       ]
     }
   },
@@ -91,6 +125,10 @@ export default {
     },
     mostrar(){
      console.log(this.selected[0])
+    },
+    linhaSelecionada(dados){
+      console.log(dados)
+      this.dados = dados
     }
   }
 }
