@@ -211,9 +211,7 @@ export default {
         backgroundColor: 'orange',
         message: 'Atualizando dados do servidor...',
         messageColor: 'black',
-        delay: 300000
       })
-      this.$q.loading.hide()
       Denuncia.listar(denuncia)
         .then(response => {
           console.log(response.data);

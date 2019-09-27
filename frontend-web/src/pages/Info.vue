@@ -258,9 +258,7 @@ export default {
         backgroundColor: 'orange',
         message: 'Atualizando dados do servidor...',
         messageColor: 'black',
-        delay: 300000
       })
-      this.$q.loading.hide()
 
       Denuncia.listar(denuncia)
         .then(response => {
@@ -318,7 +316,7 @@ p {
 }
 
 .estatisticas {
-  width: 23%;
+  width: 25%;
   text-align: center;
   background: #fff;
   padding: 1% 2%;
@@ -331,7 +329,9 @@ p {
 }
 
 .dash {
-  padding: 0% 4%;
+  width: 75%;
+
+  padding: 0% 1%;
   margin-top: 20px;
 }
 

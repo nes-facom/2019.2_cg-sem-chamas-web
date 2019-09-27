@@ -227,7 +227,7 @@
             </div>
           </div>
           <div class="btn-denunciar">
-            <q-btn label="Denunciar" color="primary" @click="denunciar()" />
+            <q-btn label="Denunciar" color="primary" :disable="disable" @click="denunciar()" />
             <q-dialog v-model="full" full-height>
               <!-- <div class="popup"> -->
               <q-card class="popProtocolo">
@@ -253,7 +253,7 @@
                     class="textCadastrar"
                   >Anote o número ou cadastre-se para acompanhar sua denúncia.</div>
                   <div class="btn-cadastrar">
-                    <q-btn label="Cadastrar-se" color="primary" @click="denunciar()" />
+                    <q-btn label="Cadastrar-se" color="primary" />
                   </div>
                 </div>
               </q-card>
@@ -288,6 +288,7 @@ export default {
   name: "FormularioDenuncia",
   data() {
     return {
+      disable: false,
       endereco: null,
       text: null,
       ph: null,
@@ -347,6 +348,7 @@ export default {
   methods: {
     denunciar() {
       const vm = this
+      this.disable = true;
       this.gerarProtocolo();
       this.denuncia = {
         observacao: this.observacaoS,
@@ -360,16 +362,26 @@ export default {
         data: this.dataS
       };
 
+
       Denuncia.salvar(this.denuncia)
         .then(response => {
           console.log(response);
 
           vm.full = true;
+          vm.disable = true;
           this.errors = {};
-
+          const value = '';
+          vm.$store.commit("Map/updateEndereco", null);
+          vm.$store.commit("Denuncia/setNome", null);
+          vm.$store.commit("Denuncia/setObservacao", null);
+          vm.$store.commit("Denuncia/setImage", 1);
+          vm.$store.commit("Denuncia/setIntensidade", 1);
+          vm.$store.commit("Denuncia/setData", null);
+          vm.$store.commit("Denuncia/setTelefone", null);
 
         })
         .catch(e => {
+          vm.disable = false;
           vm.$q.notify(e);
           this.errors = e;
         });
