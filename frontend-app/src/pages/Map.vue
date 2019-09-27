@@ -252,7 +252,7 @@ export default {
               message_error =
                 "Não foi possivel obter sua localização, verifique se seu GPS está ativado.";
             }
-            this.$q.notify(message_error);
+            // this.$q.notify(message_error);
             console.log(error);
           },
           {

@@ -14,8 +14,8 @@
 
           <q-card class="my-card">
 
-            <img src="https://s2.glbimg.com/P7cxtIPs1JjjUvEt3NwWD9hJ0KM=/0x0:870x580/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/I/C/El0D1AQt2UCXXfiGpjdw/queimada-br-319-foto-de-esio-mendes-39-870x580.jpg">
-
+ <img v-if="dados.foto==1" src="https://s2.glbimg.com/P7cxtIPs1JjjUvEt3NwWD9hJ0KM=/0x0:870x580/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/I/C/El0D1AQt2UCXXfiGpjdw/queimada-br-319-foto-de-esio-mendes-39-870x580.jpg">
+            <img v-else :src="dados.foto">
             <q-list>
               <q-item clickable>
                 <q-item-section avatar>
@@ -72,7 +72,7 @@
         <div class="tabela">
           <q-table
             class="my-sticky-column-table"
-            title="Produção"
+            title="Denúncias"
             :data="data"
             :columns="columns"
             row-key="protocolo"
@@ -80,6 +80,10 @@
             selection="multiple"
             :selected.sync="selected"
             :filter="filter"
+          :rows-per-page-options="[0]"
+    :pagination.sync="pagination"
+
+
           >
             <template v-slot:body="props">
               <q-tr
@@ -153,6 +157,12 @@ import Denuncia from "../boot/denuncia";
 export default {
   data () {
     return {
+  pagination: {
+         page: 1,
+         rowsPerPage: 7,
+         descending: true,
+         sortBy: 'protocolo',
+     },
       denuncia: {
         id: "",
         endereco: "",
@@ -209,7 +219,8 @@ export default {
   filters: {
     formatData: (data) => {
       const dat = new Date(data);
-      const formatData = dat.toLocaleString("pt-BR", { timeZone: "UTC" });
+      const formatData = dat.toLocaleString("pt-BR", {timeZone: 'America/Anchorage',});
+
       return formatData
     }
   },
