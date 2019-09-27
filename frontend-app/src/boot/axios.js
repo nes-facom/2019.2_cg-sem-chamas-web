@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-    baseURL: "http://157.245.216.139/"
+    baseURL: "https://absolutier.com.br/"
 });
 
 export default async({ Vue }) => {

@@ -370,6 +370,7 @@ export default {
 
         })
         .catch(e => {
+          vm.$q.notify(e);
           this.errors = e;
         });
 
