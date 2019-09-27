@@ -3,19 +3,31 @@
     class="container"
     style="height: 100vh"
   >
-    <div class="estatisticas">
+    <div class="estatisticas"
+        v-show="dados!=null"
 
+    >
+      <!-- <q-btn color="primary" icon="check" label="OK" @click="load()" /> -->
       <div
         class="dados"
-        v-show="dados!=null"
       >
         <h1>Dados da Denúncias</h1>
         <div v-if="dados!=null">
 
-          <q-card class="my-card">
+          <q-card
+            flat
+            square
+            class="my-card"
+          >
 
- <img v-if="dados.foto==1" src="https://s2.glbimg.com/P7cxtIPs1JjjUvEt3NwWD9hJ0KM=/0x0:870x580/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/I/C/El0D1AQt2UCXXfiGpjdw/queimada-br-319-foto-de-esio-mendes-39-870x580.jpg">
-            <img v-else :src="dados.foto">
+            <img
+              v-if="dados.foto==1"
+              src="https://s2.glbimg.com/P7cxtIPs1JjjUvEt3NwWD9hJ0KM=/0x0:870x580/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/I/C/El0D1AQt2UCXXfiGpjdw/queimada-br-319-foto-de-esio-mendes-39-870x580.jpg"
+            >
+            <img
+              v-else
+              :src="dados.foto"
+            >
             <q-list>
               <q-item clickable>
                 <q-item-section avatar>
@@ -71,6 +83,8 @@
         <h2>Denúncias</h2>
         <div class="tabela">
           <q-table
+          :grid="$q.screen.xs"
+            flat
             class="my-sticky-column-table"
             title="Denúncias"
             :data="data"
@@ -80,10 +94,8 @@
             selection="multiple"
             :selected.sync="selected"
             :filter="filter"
-          :rows-per-page-options="[0]"
-    :pagination.sync="pagination"
-
-
+            :rows-per-page-options="[0]"
+            :pagination.sync="pagination"
           >
             <template v-slot:body="props">
               <q-tr
@@ -157,12 +169,12 @@ import Denuncia from "../boot/denuncia";
 export default {
   data () {
     return {
-  pagination: {
-         page: 1,
-         rowsPerPage: 7,
-         descending: true,
-         sortBy: 'protocolo',
-     },
+      pagination: {
+        page: 1,
+        rowsPerPage: 6,
+        descending: true,
+        sortBy: 'protocolo',
+      },
       denuncia: {
         id: "",
         endereco: "",
@@ -194,21 +206,21 @@ export default {
         {
           protocolo: 'Q12312312431225',
           endereco: 'Avenida Afonso Pena, 987',
-          data: '12/12/12 22:22',
+          created_at: '10/10/2011 18:22:00',
           status: 'Em aberto',
 
         },
         {
           protocolo: 'Q98765432101234',
           endereco: 'Avenida Manuel da Costa Lima, 123',
-          data: '10/10/11 22:22',
+          created_at: '10/10/2011 18:22:00',
           status: 'Em aberto',
 
         },
         {
           protocolo: 'Q93483948394873',
           endereco: 'Avenida Mato Grosso, 542',
-          data: '10/10/10 22:22',
+          created_at: '10/10/2011 18:22:00',
           status: 'Em aberto',
 
         }
@@ -219,7 +231,7 @@ export default {
   filters: {
     formatData: (data) => {
       const dat = new Date(data);
-      const formatData = dat.toLocaleString("pt-BR", {timeZone: 'America/Anchorage',});
+      const formatData = dat.toLocaleString("pt-BR", { timeZone: 'America/Anchorage', });
 
       return formatData
     }
@@ -233,16 +245,35 @@ export default {
       console.log(dados)
       this.dados = dados
     },
+    load () {
+      this.$q.loading.show({
+        backgroundColor: 'orange',
+        message: 'Atualizando dados do servidor...',
+        messageColor: 'black'
+      })
+    },
     mostrar (denuncia) {
+      const vm = this;
+      this.$q.loading.show({
+        backgroundColor: 'orange',
+        message: 'Atualizando dados do servidor...',
+        messageColor: 'black',
+        delay: 300000
+      })
+      this.$q.loading.hide()
+
       Denuncia.listar(denuncia)
         .then(response => {
           console.log(response.data);
           this.data = response.data
+          vm.$q.loading.hide()
 
         })
         .catch(e => {
           this.errors = e.response.data.errors;
           console.log(e.response.data.errors);
+          vm.$q.loading.hide()
+
         });
     },
     remover (denuncia) {
@@ -282,25 +313,26 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 34px;
+  font-size: 24px;
   line-height: 40px;
 }
 
 .estatisticas {
-  width: 35%;
+  width: 23%;
   text-align: center;
-  background: #ddd;
-  padding: 3% 2%;
+  background: #fff;
+  padding: 1% 2%;
   height: 100%;
+   overflow:auto;
+   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
 }
 
 .estatisticas h1 {
 }
 
 .dash {
-  width: 65%;
   padding: 0% 4%;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .dashboard h2 {
@@ -310,5 +342,9 @@ p {
   font-size: 39px;
   line-height: 46px;
   margin-top: 10px;
+}
+
+.q-card {
+  border: none;
 }
 </style>
