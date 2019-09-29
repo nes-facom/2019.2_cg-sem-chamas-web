@@ -1,13 +1,14 @@
 <template>
   <div
     class="container"
-    style="height: 100vh"
+    style="height: 92vh"
   >
     <div class="estatisticas"
         v-show="dados!=null"
 
     >
       <!-- <q-btn color="primary" icon="check" label="OK" @click="load()" /> -->
+      <q-scroll-area style="height: 100%; max-width: 100%;">
       <div
         class="dados"
       >
@@ -21,6 +22,7 @@
           >
 
             <img
+            class="foto"
               v-if="dados.foto==1"
               src="https://s2.glbimg.com/P7cxtIPs1JjjUvEt3NwWD9hJ0KM=/0x0:870x580/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/I/C/El0D1AQt2UCXXfiGpjdw/queimada-br-319-foto-de-esio-mendes-39-870x580.jpg"
             >
@@ -76,7 +78,10 @@
         </div>
 
       </div>
+      </q-scroll-area>
     </div>
+      <q-scroll-area style="height: 100%; max-width: 100%; width: 100%;">
+
     <div class="dash">
       <div class="dashboard">
 
@@ -84,7 +89,6 @@
         <div class="tabela">
           <q-table
           :grid="$q.screen.xs"
-            flat
             class="my-sticky-column-table"
             title="Denúncias"
             :data="data"
@@ -94,7 +98,6 @@
             selection="multiple"
             :selected.sync="selected"
             :filter="filter"
-            :rows-per-page-options="[0]"
             :pagination.sync="pagination"
           >
             <template v-slot:body="props">
@@ -136,6 +139,8 @@
                 >
                   <q-btn
                     color="red"
+                    style="font-size: 0.9em; width: 5px; height: 5px"
+
                     icon="delete"
                     @click="remover(props.row.id)"
                   />
@@ -161,6 +166,7 @@
 
       </div>
     </div>
+      </q-scroll-area>
   </div>
 </template>
 
@@ -171,7 +177,7 @@ export default {
     return {
       pagination: {
         page: 1,
-        rowsPerPage: 6,
+        rowsPerPage: 5,
         descending: true,
         sortBy: 'protocolo',
       },
@@ -328,24 +334,39 @@ p {
   line-height: 40px;
 }
 
+.dados{
+  padding: 1% 8%;
+
+}
+
 .estatisticas {
-  width: 25%;
+  width: 35%;
   text-align: center;
   background: #fff;
-  padding: 1% 2%;
   height: 100%;
+
    overflow:auto;
    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+.foto{
+   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+
 }
 
 .estatisticas h1 {
 }
 
 .dash {
-  width: 75%;
-
-  padding: 0% 1%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
+}
+
+.dashboard{
+   display: flex;
+   flex-direction: column;
 }
 
 .dashboard h2 {
@@ -359,5 +380,14 @@ p {
 
 .q-card {
   border: none;
+  margin-bottom: 55px;
+  margin-top: 15px;
 }
+
+.q-table td {
+    padding: 7px 10px;
+  font-size: 10px;
+
+}
+
 </style>
