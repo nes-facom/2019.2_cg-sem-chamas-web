@@ -36,12 +36,7 @@ class DenunciaController {
    */
   async count({ request, response, view }) {
     const denuncia = await Denuncia.getCount()
-    
-    const total = {
-       total: denuncia
-    };
-
-    return total;
+    return denuncia;
   }
 
   /**
