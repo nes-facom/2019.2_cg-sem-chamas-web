@@ -8,10 +8,10 @@
       <div class="container">
         <div class="card">
           <div class="titulo">
-            <h3>Consultar por protocólo</h3>
+            <h3>Consultar por protocolo</h3>
 
             <p>Informe o <strong>
-              número do protocólo
+              número do protocolo
               </strong>
                para obter
               informações do andamento da denúncia.</p>
@@ -32,7 +32,7 @@
       outlined
       bottom-slots
       v-model="protocolo"
-      label="Insira o protocólo"
+      label="Insira o protocolo"
       style="width:250px"
     />
 
