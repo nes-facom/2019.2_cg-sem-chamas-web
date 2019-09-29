@@ -24,4 +24,8 @@ export default {
   procurar: denuncia => {
     return http.get("protocolo/" + denuncia, { data: denuncia });
   },
+
+  contar: () => {
+    return http.get("total");
+  },
 };

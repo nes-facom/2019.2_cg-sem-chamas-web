@@ -80,7 +80,7 @@
     <div class="dash">
       <div class="dashboard">
 
-        <h2>Denúncias</h2>
+        <h2>Denúncias </h2>
         <div class="tabela">
           <q-table
           :grid="$q.screen.xs"
@@ -274,6 +274,19 @@ export default {
 
         });
     },
+
+    total(denuncia){
+      Denuncia.contar(denuncia)
+      .then(response => {
+          console.log(response.data);
+
+        })
+        .catch(e => {
+          console.log(e.response.data.errors);
+
+        });
+    },
+
     remover (denuncia) {
       if (confirm("Deseja excluir o denuncia?")) {
         Denuncia.apagar(denuncia)

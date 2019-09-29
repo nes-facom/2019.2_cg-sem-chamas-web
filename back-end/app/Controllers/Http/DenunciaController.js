@@ -35,8 +35,7 @@ class DenunciaController {
    * @param {View} ctx.view
    */
   async count({ request, response, view }) {
-    const denuncia = Denuncia.getCount()
-
+    const denuncia = await Denuncia.getCount()
     return denuncia;
   }
 
@@ -70,7 +69,9 @@ class DenunciaController {
       "data",
       "ip",
       "endereco",
-      "status"
+      "status",
+      "nome",
+      "telefone",
     ]);
     //"dUserDenuncia",
 
@@ -148,7 +149,9 @@ class DenunciaController {
       "data",
       "ip",
       "endereco",
-      "status"
+      "status",
+      "nome",
+      "telefone",
     ])
 
   property.merge(data)
