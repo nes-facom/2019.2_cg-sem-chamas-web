@@ -10,7 +10,10 @@
           <div class="titulo">
             <h3>Consultar por protocólo</h3>
 
-            <p>Informe o número do protocolo para obter
+            <p>Informe o <strong>
+              número do protocólo
+              </strong>
+               para obter
               informações do andamento da denúncia.</p>
           </div>
           <div class="img">
@@ -147,16 +150,13 @@ h5 {
   color: #858585;
 }
 p {
-  display: flex;
-  justify-content: center;
   font-family: Roboto;
   font-style: normal;
   font-weight: 300;
   font-size: 16 px;
-  line-height: 13px;
-  align-items: center;
-  flex-direction: column;
+  line-height: 20px;
   color: #9c9997;
+  width: 95%;
 }
 
 .card {
@@ -195,6 +195,10 @@ line-height: 19px;
   letter-spacing: 0.24em;
 text-align: center;
 color: #D5D5D5;
+}
+
+.titulo{
+  padding-top: 10px;
 }
 
 
