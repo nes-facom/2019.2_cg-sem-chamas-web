@@ -21,7 +21,7 @@ class DenunciaSchema extends Schema {
       table.string('ip', 16)
       table.string('endereco', 256)//.notNullable()
       table.string('status', 256)//.notNullable()
-      table.integer('telefone', 20)
+      table.string('telefone', 20)
       table.string('nome', 40)
       table.timestamps()
     })
