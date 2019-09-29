@@ -1,5 +1,6 @@
 <template>
-  <div class="fixed-center text-center">
+  <div class="container text-center">
+    <div class="pesquisar"><h4>Buscar denúncia</h4>
     <q-input
       outlined
       bottom-slots
@@ -11,20 +12,29 @@
         <q-icon name="search" @click="procurarProtoloco(protocolo)" />
       </template>
     </q-input>
+    </div>
 
     <div v-show="pesquisa" class="resultado">
       <q-item>
         <q-item-section>
-          <q-item-label>Denuncia {{denuncia.protocolo}}</q-item-label>
+          <q-item-label>
+            <strong>
+
+            Resultado
+            </strong>
+            </q-item-label>
           <q-item-label caption>
-            A sua denuncia do protocolo
-            {{denuncia.protocolo}} realizada em {{denuncia.data}} e se encontra no estado:
-            {{denuncia.status}}.
+            A denuncia de protocolo
+            <strong  class="text-primary">{{denuncia.protocolo}}</strong> se encontra
+            <strong>
+
+            {{denuncia.status}}
+            </strong>
           </q-item-label>
         </q-item-section>
 
         <q-item-section side top>
-          <q-badge color="red" :label="denuncia.status" />
+          <q-badge color="green" :label="denuncia.status" />
         </q-item-section>
       </q-item>
     </div>
@@ -71,5 +81,21 @@ export default {
   border: 1px solid #ccc;
   margin-top: 10px;
   box-shadow: 0px 1px 5px #ccc;
+  display: flex;
+width: 80%;
+
+}
+
+.container{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.pesquisar{
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
 }
 </style>

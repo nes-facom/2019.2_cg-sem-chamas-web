@@ -27,7 +27,8 @@ export default {
           alert(this.imageSrc)
 
         },
-        () => { // Falha
+        error => { // Falha
+        console.log(error)
           this.$q.notify('Não foi possível acessar a câmera do dispositivo.')
         },
         {

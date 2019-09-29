@@ -12,10 +12,9 @@
         />
 
         <q-toolbar-title>
-          Quasar App
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>CG SEM CHAMAS</div>
       </q-toolbar>
     </q-header>
 

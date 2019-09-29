@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-    baseURL: "http://localhost:3333/"
+    baseURL: "https://absolutier.com.br/"
 });
 
 export default async({ Vue }) => {

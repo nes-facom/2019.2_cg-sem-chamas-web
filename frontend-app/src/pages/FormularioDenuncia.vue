@@ -17,13 +17,13 @@
             <h5>
               1º PASSO
               <q-icon
-                v-show="imageS==null"
+                v-show="imageS==1"
                 name="fas fa-circle"
                 class="text-grey-4"
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
               <q-icon
-                v-show="imageS!=null"
+                v-show="imageS!=1"
                 name="fas fa-check-circle"
                 class="text-green"
                 style="font-size: 0.7em;  vertical-align: middle; "
@@ -50,7 +50,7 @@
               />
             </div>
           </div>
-          <div v-show="imageS != null" class="camera_img" style="margin-top: 10px;">
+          <div v-show="imageS !=1" class="camera_img" style="margin-top: 10px;">
             <img class="img_camera" :src="imageS" :alt="'Imagem: ' + imageS" id="photo" />
           </div>
           <div class="gps">
@@ -222,18 +222,18 @@
               <div class="descricao">
                 <p>Informe alguns dados sobre você.</p>
                 <q-input v-model="nomeC" type="text" label="Nome:" />
-                <q-input v-model="telefoneC" type="text" label="Telefone:" />
+                <q-input v-model="telefoneC" type="number" label="Telefone:" />
               </div>
             </div>
           </div>
           <div class="btn-denunciar">
-            <q-btn label="Denunciar" color="primary" @click="denunciar()" />
+            <q-btn label="Denunciar" color="primary" :disable="disable" @click="denunciar()" />
             <q-dialog v-model="full" full-height>
               <!-- <div class="popup"> -->
               <q-card class="popProtocolo">
                 <div class="denunciaRegistradaTopo">
                   <div class="closePop">
-                    <q-btn flat label="X" v-close-popup />
+                    <q-btn flat label="X" v-close-popup to="/denuncia/buscar"/>
                   </div>
                   <q-card-section>
                     <q-icon
@@ -248,12 +248,12 @@
                 <!-- <q-card-section> -->
                 <div class="infoProtocolo">
                   <div class="textNumProtocolo">Número do Protocolo:</div>
-                  <div class="numberProtocol">Q1569273929708</div>
+                  <div v-show="protocoloS!=null" class="numberProtocol">{{protocoloS}}</div>
                   <div
                     class="textCadastrar"
                   >Anote o número ou cadastre-se para acompanhar sua denúncia.</div>
                   <div class="btn-cadastrar">
-                    <q-btn label="Cadastrar-se" color="primary" @click="denunciar()" />
+                    <q-btn label="Cadastrar-se" color="primary" to="/404"/>
                   </div>
                 </div>
               </q-card>
@@ -288,6 +288,7 @@ export default {
   name: "FormularioDenuncia",
   data() {
     return {
+      disable: false,
       endereco: null,
       text: null,
       ph: null,
@@ -346,30 +347,46 @@ export default {
   },
   methods: {
     denunciar() {
+      const vm = this
+      this.disable = true;
       this.gerarProtocolo();
       this.denuncia = {
         observacao: this.observacaoS,
         nome: this.nomeS,
-        foto: 1,
+        foto: this.imageS,
         endereco: this.enderecoS,
         intensidade: this.intensidadeS,
         telefone: this.telefoneS,
-        "status:": this.statusS,
+        status: this.statusS,
         protocolo: this.protocoloS,
         data: this.dataS
       };
 
+
       Denuncia.salvar(this.denuncia)
         .then(response => {
-          alert("Cadastrado com sucesso!");
-          console.log(denuncia);
+          console.log(response);
+
+          vm.full = true;
+          vm.disable = true;
           this.errors = {};
+          const value = '';
+          vm.$store.commit("Map/updateEndereco", null);
+          vm.$store.commit("Denuncia/setNome", null);
+          vm.$store.commit("Denuncia/setObservacao", null);
+          vm.$store.commit("Denuncia/setImage", 1);
+          vm.$store.commit("Denuncia/setIntensidade", 1);
+          vm.$store.commit("Denuncia/setData", null);
+          vm.$store.commit("Denuncia/setTelefone", null);
+
         })
         .catch(e => {
-          this.errors = e.response.data.errors;
+          vm.disable = false;
+          vm.$q.notify(e);
+          this.errors = e;
         });
 
-      this.full = true;
+
     },
 
     gerarProtocolo() {
@@ -455,7 +472,7 @@ export default {
           console.log(error);
           // Falha
           this.$q.notify(
-            "Não foi possível acessar a câmera do dispositivo, verifique as permissões."
+            error
           );
         },
         {
@@ -483,10 +500,11 @@ export default {
           this.$store.commit("Denuncia/setImage", imageSrc);
           console.log(imageSrc);
         },
-        () => {
+        error => {
+          console.log(error, error.code)
           // Falha
           this.$q.notify(
-            "Não foi possível acessar as imagens do dispositivo, verifique as permissões."
+            error
           );
         },
         {
@@ -511,7 +529,6 @@ export default {
     ...mapState({ statusS: state => state.Denuncia.status }),
     ...mapState({ protocoloS: state => state.Denuncia.protocolo }),
     ...mapState({ dataS: state => state.Denuncia.data }),
-
     ...mapState({ dialogg: state => state.Dialog.dialogg }),
     enderecoC: {
       get() {
@@ -545,7 +562,8 @@ export default {
           this.nomeS,
           this.telefoneS,
           this.enderecoS,
-          this.intensidadeS
+          this.intensidadeS,
+          this.dataS
         );
 
         return this.observacaoS;

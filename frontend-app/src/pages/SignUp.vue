@@ -1,12 +1,17 @@
 <template>
-  <div class="login" style="height: 100vh;
+  <div class="sign-up" style="height: 100vh;
   width: 100vw;">
     <h4>CG sem chamas</h4>
 
-    <div class="loginIn">
-      <h6>Login</h6>
+    <div class="SignUp">
+      <h6>Cadastrar-se</h6>
 
       <div class="inputs">
+        <q-input outlined v-model="text" label="Nome completo">
+          <template v-slot:prepend>
+            <q-icon name="person_add" />
+          </template>
+        </q-input>
         <q-input outlined v-model="text" label="Email">
           <template v-slot:prepend>
             <q-icon name="mail" />
@@ -18,28 +23,21 @@
             <q-icon name="lock" />
           </template>
         </q-input>
+
+        <q-input outlined v-model="text" label="Confirmar senha">
+          <template v-slot:prepend>
+            <q-icon name="lock" />
+          </template>
+        </q-input>
       </div>
 
-      <div class="btn-login">
-        <q-btn color="primary">ENTRAR</q-btn>
+      <div class="btn-registrar">
+        <q-btn color="primary">REGISTRAR</q-btn>
       </div>
-      <p>
-        Não possui uma conta?
-        <a href="/registrar" class="registrar" to="/registrar">CRIAR CONTA</a>
-      </p>
+      <a href="/login" class="login" to="/login">RETORNAR LOGIN</a>
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: "Login",
-  data() {
-    return {};
-  },
-  methods: {}
-};
-</script>
 
 <style scoped>
 .container {
@@ -51,7 +49,7 @@ export default {
   flex-direction: column;
   text-align: center;
 }
-.login {
+.sign-up {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,7 +57,7 @@ export default {
   text-align: center;
   background-color: #f4853e;
 }
-.loginIn {
+.SignUp {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,6 +72,8 @@ h4 {
   font-family: "Robotos lab";
   font-weight: bolder;
   color: #ffffff;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
 .inputs .q-input {
   margin-top: 1%;
@@ -86,7 +86,8 @@ h4 {
 }
 button {
   border-color: #f4853e;
-  margin-top: 10%;
+  margin-top: 3%;
+  margin-bottom: 3%;
   height: 55px;
   width: 250px;
 }
@@ -94,9 +95,13 @@ p {
   color: #737373;
   margin-top: 40px;
   font-size: 13px;
+  margin: 4%;
 }
 h6 {
   color: #737373;
-  margin: 3%;
+  margin: 4%;
+}
+a {
+  margin: 4%;
 }
 </style>
