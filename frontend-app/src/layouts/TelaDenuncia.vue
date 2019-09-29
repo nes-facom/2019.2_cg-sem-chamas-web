@@ -65,7 +65,7 @@ export default {
 
 .img-centro {
   background-color: blue;
-  background: url("https://i.imgur.com/QietPPu.png");
+  background: url("https://i.imgur.com/sV8gZBV.png");
   background-size: 220px auto;
   width: 250px;
   height: 250px;
