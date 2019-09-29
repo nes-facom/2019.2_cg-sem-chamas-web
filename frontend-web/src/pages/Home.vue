@@ -1,7 +1,7 @@
 <template>
   <div
     class="container"
-    style="height: 100vh"
+    style="height: 120vh"
   >
     <div class="estatisticas">
       <h1>Estatísticas de Denúncias</h1>
@@ -26,16 +26,16 @@
       </div>
       <div class="rodape ">
 
-        <div class="totais fit column wrap justify-center items-center content-center">
-          <p class="h3">23</p>
+        <div class="totais fit column justify-center items-center content-center">
+          <p class="h3">{{totalDenuncias}}</p>
           <p>Total de Denúncias</p>
         </div>
-        <div class="mes fit column wrap justify-center items-center content-center">
-          <p class="h3">23</p>
+        <div class="mes fit column justify-center items-center content-center">
+          <p class="h3">{{totalDenuncias}}</p>
           <p>Denúncias no mês</p>
         </div>
-        <div class="dia fit column wrap justify-center items-center content-center">
-          <p class="h3">23</p>
+        <div class="dia fit column justify-center items-center content-center">
+          <p class="h3">{{totalDenuncias}}</p>
           <p>Denúncias no dia</p>
         </div>
       </div>
@@ -56,7 +56,10 @@
 
         <div class="cartoes">
 
-          <div class="gerenciar cart" @click="($router.push('/info'))">
+          <div
+            class="gerenciar cart"
+            @click="($router.push('/info'))"
+          >
             <p>
               Gerenciar
               <strong>Denúncias</strong></p>
@@ -130,6 +133,7 @@ export default {
   },
   data () {
     return {
+      totalDenuncias: 0,
       options: {
         colors: ['#F77726', '#AAA'],
         legend: {
@@ -142,15 +146,15 @@ export default {
 
 
       },
-      series: [20, 200],
+      series: [0, 100],
       labels: ["Mês", "Geral", "Ano"],
-           pagination: {
-         page: 1,
-         rowsPerPage: 4,
-         descending: true,
-         sortBy: 'protocolo',
-     },
- dados: null,
+      pagination: {
+        page: 1,
+        rowsPerPage: 6,
+        descending: true,
+        sortBy: 'protocolo',
+      },
+      dados: null,
       columns: [
         {
           name: 'protocolo',
@@ -196,7 +200,7 @@ export default {
 
     }
   },
-    filters: {
+  filters: {
     formatData: (data) => {
       const dat = new Date(data);
       const formatData = dat.toLocaleString("pt-BR", { timeZone: 'America/Anchorage', });
@@ -217,17 +221,29 @@ export default {
           console.log(response.data);
           this.data = response.data
           vm.$q.loading.hide()
-
+          this.total();
         })
         .catch(e => {
-          this.errors = e.response.data.errors;
-          console.log(e.response.data.errors);
+          console.log(e);
           vm.$q.loading.hide()
 
         });
     },
+    total (denuncia) {
+      Denuncia.contar(denuncia)
+        .then(response => {
+          console.log(response.data);
+          this.totalDenuncias = response.data;
+          this.series[0] = response.data;
+
+        })
+        .catch(e => {
+          console.log(e);
+
+        });
+    },
   },
-   mounted () {
+  mounted () {
     this.mostrar();
   }
 }
@@ -237,7 +253,7 @@ p {
   margin: 0;
 }
 
-.botao .q-btn{
+.botao .q-btn {
   margin-top: 30px;
   width: 50%;
   height: 50px;
@@ -250,14 +266,12 @@ p {
 }
 
 .estatisticas {
-
   width: 30%;
   text-align: center;
   background: #ddd;
   padding: 3% 2%;
   height: 100%;
-   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
-
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
 }
 
 .estatisticas h1 {
@@ -414,8 +428,6 @@ p {
   justify-content: center;
 }
 
-
-
 .cart {
   width: 31%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -484,7 +496,6 @@ p {
 .cadastrar {
   background: #FBC22B;
 }
-
 
 .cadastrar:hover {
   background: #FFCD45;

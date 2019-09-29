@@ -80,7 +80,6 @@
     <div class="dash">
       <div class="dashboard">
 
-        <q-btn color="primary" icon="check" label="OK" @click="total()" />
         <h2>Denúncias </h2>
         <div class="tabela">
           <q-table
