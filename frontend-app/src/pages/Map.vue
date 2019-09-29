@@ -55,7 +55,11 @@
           class="text-red"
           style="font-size: 1em"
           />-->
-          <img src="https://i.imgur.com/ZAqhuNs.png" :class="{fablink: isBlink}" alt />
+          <img
+            src="https://i.imgur.com/ZAqhuNs.png"
+            :class="{fablink: isBlink}"
+            alt
+          />
         </div>
         <q-btn
           v-show="!selecao"
@@ -68,8 +72,16 @@
           size="15px"
         />
 
-        <div v-show="!selecao" class="gps-button">
-          <q-btn push color="primary" label="Selecionar posição" @click="geoLocal()" />
+        <div
+          v-show="!selecao"
+          class="gps-button"
+        >
+          <q-btn
+            push
+            color="primary"
+            label="Selecionar posição"
+            @click="geoLocal()"
+          />
         </div>
 
         <div
@@ -90,9 +102,15 @@
 
               <q-card-actions align="center">
                 <!-- <q-btn flat @click="changeDialog()">Sim</q-btn> -->
-                <q-btn flat @click="$router.go(-1)">Sim</q-btn>
+                <q-btn
+                  flat
+                  @click="$router.go(-1)"
+                >Sim</q-btn>
 
-                <q-btn flat @click="changeSelection()">Não</q-btn>
+                <q-btn
+                  flat
+                  @click="changeSelection()"
+                >Não</q-btn>
               </q-card-actions>
             </q-card>
           </div>
@@ -116,7 +134,7 @@
   </transition>
 </template>
 <script>
-document.addEventListener("deviceready", () => {}, false);
+document.addEventListener("deviceready", () => { }, false);
 
 import {
   openURL,
@@ -142,14 +160,14 @@ Vue.use(VueGoogleMaps, {
     region: "VI",
     language: "pt-BR"
   },
-  mounted() {
+  mounted () {
     console.log("oi");
   }
 });
 
 export default {
   name: "Map",
-  data() {
+  data () {
     return {
       endereco: null,
       bairro: null,
@@ -181,10 +199,10 @@ export default {
     QSeparator
   },
   methods: {
-    setDescription(description) {
+    setDescription (description) {
       this.description = description;
     },
-    setPlace(place) {
+    setPlace (place) {
       this.place = place;
       (this.clat = this.place.geometry.location.lat()),
         (this.clng = this.place.geometry.location.lng()),
@@ -194,19 +212,19 @@ export default {
       this.$store.commit("Map/updateEndereco", this.endereco);
     },
 
-    fix() {
+    fix () {
       this.getlocation();
       this.clat = this.reportedCenter.lat;
       this.clng = this.reportedCenter.lng;
     },
 
-    updateMapCenter(which, value) {
+    updateMapCenter (which, value) {
       this.center = _.clone(this.reportedCenter);
     },
-    changeCenter(which, value) {
+    changeCenter (which, value) {
       this.center = _.clone(this.reportedCenter);
     },
-    update(field, event) {
+    update (field, event) {
       if (field === "reportedCenter") {
         this.reportedCenter = {
           lat: event.lat(),
@@ -218,7 +236,7 @@ export default {
         this.$set(this, field, event);
       }
     },
-    getlocation() {
+    getlocation () {
       if (navigator.geolocation) {
         this.plat = null;
         this.plng = "Buscando...";
@@ -263,7 +281,7 @@ export default {
         );
       }
     },
-    watchPosition() {
+    watchPosition () {
       if (navigator.geolocation) {
         this.plat = null;
         this.plng = "WBuscando...";
@@ -273,10 +291,11 @@ export default {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-            (this.plat = position.coords.latitude),
+
+              (this.plat = position.coords.latitude),
               (this.plng = position.coords.longitude),
-              (this.reportedCenter.lat = position.coords.latitude),
-              (this.reportedCenter.lng = position.coords.longitude),
+              // (this.reportedCenter.lat = position.coords.latitude),
+              // (this.reportedCenter.lng = position.coords.longitude),
               this.deleteMarker();
             this.addMarker();
           },
@@ -293,14 +312,14 @@ export default {
         );
       }
     },
-    changeSelection() {
+    changeSelection () {
       this.selecao = !this.selecao;
       this.isBlink = !this.isBlink;
     },
-    changeDialog() {
+    changeDialog () {
       this.$store.commit("Dialog/changeDialogg", false);
     },
-    geoLocal() {
+    geoLocal () {
       axios
         .get("https://maps.googleapis.com/maps/api/geocode/json?", {
           params: {
@@ -321,7 +340,7 @@ export default {
         });
     },
 
-    addMarker() {
+    addMarker () {
       this.markers.push({
         position: {
           lat: this.plat,
@@ -332,11 +351,11 @@ export default {
       });
     },
 
-    deleteMarker() {
+    deleteMarker () {
       this.markers = [];
     }
   },
-  mounted() {
+  mounted () {
     this.watchPosition();
     this.getlocation();
     console.log(window.history);

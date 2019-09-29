@@ -233,7 +233,7 @@
               <q-card class="popProtocolo">
                 <div class="denunciaRegistradaTopo">
                   <div class="closePop">
-                    <q-btn flat label="X" v-close-popup to="/buscar"/>
+                    <q-btn flat label="X" v-close-popup to="/denuncia/buscar"/>
                   </div>
                   <q-card-section>
                     <q-icon
