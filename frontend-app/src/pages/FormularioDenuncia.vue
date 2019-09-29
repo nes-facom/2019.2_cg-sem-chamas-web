@@ -253,7 +253,7 @@
                     class="textCadastrar"
                   >Anote o número ou cadastre-se para acompanhar sua denúncia.</div>
                   <div class="btn-cadastrar">
-                    <q-btn label="Cadastrar-se" color="primary" />
+                    <q-btn label="Cadastrar-se" color="primary" to="/404"/>
                   </div>
                 </div>
               </q-card>
