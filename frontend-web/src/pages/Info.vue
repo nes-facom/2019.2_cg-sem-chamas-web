@@ -74,20 +74,6 @@
               </q-item>
 
 
-              <q-item v-show="dados.observacao!=null" clickable>
-                <q-item-section avatar>
-                  <q-icon
-                    color="primary"
-                    name="mode_comment"
-                  />
-                </q-item-section>
-
-                <q-item-section>
-                  <q-item-label>{{dados.observacao}}</q-item-label>
-                  <q-item-label caption>Observação</q-item-label>
-                </q-item-section>
-              </q-item>
-
 
               <q-item clickable>
                 <q-item-section avatar>
@@ -102,6 +88,49 @@
                   <q-item-label caption>Intensidade</q-item-label>
                 </q-item-section>
               </q-item>
+
+                <q-item v-show="dados.observacao!=null" clickable>
+                <q-item-section avatar>
+                  <q-icon
+                    color="primary"
+                    name="comment"
+                  />
+                </q-item-section>
+
+                <q-item-section>
+                  <q-item-label>{{dados.observacao}}</q-item-label>
+                  <q-item-label caption>Observação</q-item-label>
+                </q-item-section>
+              </q-item>
+
+  <q-item v-show="dados.nome!=null" clickable>
+                <q-item-section avatar>
+                  <q-icon
+                    color="amber"
+                    name="person"
+                  />
+                </q-item-section>
+
+                <q-item-section>
+                  <q-item-label>{{dados.nome}}</q-item-label>
+                  <q-item-label caption>Nome</q-item-label>
+                </q-item-section>
+              </q-item>
+
+                <q-item v-show="dados.telefone!=null" clickable>
+                <q-item-section avatar>
+                  <q-icon
+                    color="primary"
+                    name="phone"
+                  />
+                </q-item-section>
+
+                <q-item-section>
+                  <q-item-label>{{dados.telefone}}</q-item-label>
+                  <q-item-label caption>Telefone</q-item-label>
+                </q-item-section>
+              </q-item>
+
             </q-list>
           </q-card>
 

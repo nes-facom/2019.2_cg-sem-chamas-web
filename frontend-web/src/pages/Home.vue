@@ -146,7 +146,7 @@ export default {
 
 
       },
-      series: [0, 100],
+      series: [0, 25],
       labels: ["Mês", "Geral", "Ano"],
       pagination: {
         page: 1,
