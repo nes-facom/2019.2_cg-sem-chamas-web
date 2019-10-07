@@ -108,7 +108,7 @@
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
             </h5>
-            <p>Avalie a intencidade do fogo</p>
+            <p>Avalie a intensidade do fogo</p>
             <!-- {{intensidade}} -->
             <q-icon
               name="fas fa-fire"
