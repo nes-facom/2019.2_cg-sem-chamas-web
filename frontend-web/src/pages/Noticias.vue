@@ -28,7 +28,7 @@
       ]"
     />
   </div>
-      <q-btn class="glossy" rounded color="deep-orange" label="Enviar" />
+      <q-btn class="glossy" label="Enviar" />
       </div>
      </div>
 
@@ -58,6 +58,20 @@ export default {
   padding: 3% 4%;;
   text-align: center;
   height: 100%;
+}
+
+
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  background:#F4853E;
+  width: 100%;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
 }
 
 </style>
