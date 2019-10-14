@@ -69,10 +69,13 @@
               Relatório
               <strong>Denúncias</strong></p>
           </div>
-          <div class="cadastrar cart">
+          <div
+            class="gerenciar cart"
+            @click="($router.push('/Noticias'))"
+          >
             <p>
               Cadastrar
-              <strong>Denúncia</strong></p>
+              <strong>Noticia</strong></p>
           </div>
         </div>
       </div>
