@@ -4,8 +4,8 @@
 
         <h3>Entrar</h3>
         <div class="img-centro"></div>
-        <q-input outlined label="username" :dense="dense"/>
-       <q-input outlined label="password" :dense="dense"/>
+        <q-input class="qinput" filled  label="Username" :dense="dense"/>
+       <q-input class="qinput"  filled label="Password" :dense="dense"/>
         <button type="button" onclick="login()">Login</button>
         </div>
         </div>
@@ -29,11 +29,10 @@ export default {
 .form {
   margin-top: 5%;
   background: #FFFFFF;
-  max-width: 360px;
-  padding: 45px;
+  width: 30%;
+  padding: 30px 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  margin-bottom: 5%
 }
 
 .form h3
@@ -50,6 +49,10 @@ export default {
   margin: 15px;
   padding: 15px;
   font-size: 14px;
+}
+
+.qinput{
+  margin: 2% 0;
 }
 .form button {
   font-family: "Roboto", sans-serif;

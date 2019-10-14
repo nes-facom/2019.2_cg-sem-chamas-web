@@ -28,7 +28,7 @@
       ]"
     />
   </div>
-      <q-btn class="glossy" label="Enviar" />
+      <q-btn class="glossy" rounded color="deep-orange" label="Enviar" />
       </div>
      </div>
 
@@ -47,9 +47,9 @@ export default {
 <style lang="stylus" scoped>
 
 .container{
-  display:flex;
-  justify-content :center;
-  align-items:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
