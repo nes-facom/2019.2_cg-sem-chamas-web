@@ -1,8 +1,9 @@
 <template>
      <div class="container" style="height: 120vh">
-       <div><h2>Noticias</h2></div>
+
 
     <div class="form">
+      <div><h2>Noticias</h2></div>
       <q-input outlined label="Título" :dense="dense" v-model="titulo" />
       <div class="q-pa-md q-gutter-sm">
     <q-editor
@@ -44,6 +45,13 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+
+.container{
+  display:flex;
+  justify-content :center;
+  align-items:center;
+}
+
 
 .form{
   width: 70%;
