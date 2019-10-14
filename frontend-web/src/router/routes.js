@@ -9,7 +9,8 @@ const routes = [
       { path: 'denuncias', component: () => import('pages/Denuncias.vue') },
       { path: 'noticias', component: () => import('pages/Noticias.vue') }
     ]
-  }
+  },
+  { path: '/login', component: () => import('pages/Login.vue') }
 ]
 
 // Always leave this as last one

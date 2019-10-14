@@ -1,5 +1,9 @@
 <template>
      <div class="container" style="height: 120vh">
+       <div><h2>Noticias</h2></div>
+
+    <div class="form">
+      <q-input outlined label="Título" :dense="dense" v-model="titulo" />
       <div class="q-pa-md q-gutter-sm">
     <q-editor
       v-model="editor"
@@ -7,7 +11,7 @@
         save: {
           tip: 'Save your work',
           icon: 'save',
-          label: 'Save',
+          label: 'Salvar',
           handler: saveWork
         },
         upload: {
@@ -23,5 +27,29 @@
       ]"
     />
   </div>
+      <q-btn class="glossy" rounded color="deep-orange" label="Enviar" />
+      </div>
      </div>
-</template
+
+</template>
+
+<script>
+export default {
+  data(){return{
+     titulo,
+  }
+
+  }
+}
+</script>
+
+<style lang="stylus" scoped>
+
+.form{
+  width: 70%;
+  padding: 3% 4%;;
+  text-align: center;
+  height: 100%;
+}
+
+</style>
