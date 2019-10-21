@@ -1,0 +1,23 @@
+{
+  "name": "queimadas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sonar-project.js",
+  "dependencies": {},
+  "devDependencies": {
+    "sonarqube-scanner": "^2.5.0"
+  },
+  "scripts": {
+    "sonar": "node sonar-project.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paulo-Reis243/Queimadas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Paulo-Reis243/Queimadas/issues"
+  },
+  "homepage": "https://github.com/Paulo-Reis243/Queimadas#readme"
+}

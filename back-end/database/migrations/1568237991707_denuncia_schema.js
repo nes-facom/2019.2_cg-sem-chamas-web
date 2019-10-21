@@ -10,7 +10,7 @@ class DenunciaSchema extends Schema {
       table.increments()
       //table.bigInteger('idUserDenuncia').notNullable().unique()
       //table.bigInteger('idUserDenuncia').notNullable()//.unsigned().references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
-
+      table.integer('user_id').unsigned().references('id').inTable('users')
       table.bigInteger('protocolo').unique()
       table.text('foto').notNullable()
       table.decimal('geo-lat', 9, 6)//.notNullable()
