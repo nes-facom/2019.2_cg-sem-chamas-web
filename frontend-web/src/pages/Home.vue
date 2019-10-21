@@ -1,13 +1,14 @@
 <template>
   <div
     class="container"
-    style="height: 120vh"
+    style="height: 100vh"
   >
     <div class="estatisticas">
       <h1>Estatísticas de Denúncias</h1>
       <div class="cartao">
         <h2>TOTAL DE DENÚNCIAS</h2>
       </div>
+      <div class="graf">
       <div class="grafico">
         <apexchart
           type="donut"
@@ -17,6 +18,7 @@
 
         </apexchart>
 
+      </div>
       </div>
       <div class="gerais">
         <h3>ESTATÍSTICAS GERAIS</h3>
@@ -45,7 +47,7 @@
           text-color="white"
           label="MOSTRAR DENUNCIAS"
           to="info"
-          class="q-mt-md"
+          class="q-mt-md mostrar-denuncia"
         >
         </q-btn>
       </div>
@@ -81,9 +83,14 @@
       </div>
 
       <div class="recentes">
-        <div class="titulo">
+       <div class="recentes-titulo">
+          <div class="titulo">
           <h3>Denúncias Recentes</h3>
         </div>
+        <div class="titulo">
+        <a @click="mostrar()"><q-icon name="refresh" class="text-green" size="sm" style="padding: 30px;" /></a>
+        </div>
+       </div>
 
         <q-table
           flat
@@ -99,7 +106,9 @@
           hide-header
         >
           <template v-slot:body="props">
-            <q-tr :props="props">
+            <q-tr
+             @click.native="$router.push('/info')"
+            :props="props">
               <q-td
                 key="created_at"
                 :props="props"
@@ -153,7 +162,7 @@ export default {
       labels: ["Mês", "Geral", "Ano"],
       pagination: {
         page: 1,
-        rowsPerPage: 6,
+        rowsPerPage: 5,
         descending: true,
         sortBy: 'protocolo',
       },
@@ -212,6 +221,10 @@ export default {
     }
   },
   methods: {
+    reload(){
+      console.log('teste');
+      window.location.reload();
+    },
     mostrar (denuncia) {
       const vm = this;
       this.$q.loading.show({
@@ -258,7 +271,7 @@ p {
 
 .botao .q-btn {
   margin-top: 30px;
-  width: 50%;
+  width: 60%;
   height: 50px;
 }
 
@@ -272,7 +285,7 @@ p {
   width: 30%;
   text-align: center;
   background: #ddd;
-  padding: 3% 2%;
+  padding: 1% 1%;
   height: 100%;
   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
 }
@@ -281,7 +294,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 34px;
+  font-size: 31px;
   line-height: 40px;
 }
 
@@ -289,16 +302,16 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 15px;
   line-height: 21px;
-  margin-top: 10%;
+
 }
 
 .totais .h3 {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 36px;
+  font-size: 33px;
   line-height: 42px;
 }
 
@@ -306,7 +319,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 11px;
   line-height: 16px;
 }
 
@@ -314,7 +327,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 36px;
+  font-size: 33px;
   line-height: 42px;
 }
 
@@ -322,7 +335,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 11px;
   line-height: 16px;
 }
 
@@ -330,7 +343,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 36px;
+  font-size: 33px;
   line-height: 42px;
 }
 
@@ -338,7 +351,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 11px;
   line-height: 16px;
 }
 
@@ -346,21 +359,21 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 15px;
   line-height: 21px;
-  margin-top: 10%;
+  margin-top: 10px;
 }
 
 .rodape {
   display: flex;
   flex-direction: row;
-  margin-top: 40px;
+  margin-top: 10px;
   justify-content: center;
 }
 
 .dash {
   width: 70%;
-  padding: 3% 4%;
+  padding: 1% 4%;
 }
 
 .cartoes {
@@ -374,7 +387,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 39px;
+  font-size: 36px;
   line-height: 46px;
   margin-top: 10px;
 }
@@ -391,7 +404,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 19px;
   display: flex;
   align-items: center;
@@ -403,7 +416,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 19px;
   display: flex;
   align-items: center;
@@ -415,7 +428,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 19px;
   display: flex;
   align-items: center;
@@ -424,18 +437,21 @@ p {
   margin-left: 60px;
 }
 
-.grafico {
-  width: 100%;
+.graf{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.grafico {
+  width: 75%;
+
 }
 
 .cart {
   width: 31%;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 7px;
-  height: 130px;
+  height: 100px;
   text-align: center;
   text-transform: uppercase;
   margin-right: 2%;
@@ -448,14 +464,13 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 23px;
   text-align: center;
   color: #FFFFFF;
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 26px;
   line-height: 30px;
   max-width: 100px;
 }
@@ -464,7 +479,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 23px;
   text-align: center;
   color: #FFFFFF;
@@ -473,7 +488,7 @@ p {
 .cart p {
   font-family: Roboto;
   font-style: normal;
-  font-size: 20px;
+  font-size: 17px;
   line-height: 23px;
   text-align: center;
   color: #FFFFFF;
@@ -508,7 +523,7 @@ p {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 26px;
+  font-size: 17px;
   line-height: 30px;
   display: flex;
   align-items: center;
@@ -519,9 +534,15 @@ p {
   background: #FFFFFF;
   border-radius: 19px;
   width: 98%;
-  padding: 1% 3%;
+  padding: 1% 4%;
   display: flex;
   flex-direction: column;
   margin-top: 20px;
 }
+
+.recentes-titulo{
+  display: flex;
+  justify-content: space-between;
+}
+
 </style>
