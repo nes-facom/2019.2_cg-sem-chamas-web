@@ -7,7 +7,7 @@
     <div class="image">
 
       <div class="img">
-        <a @click="mostrar()"><q-icon name="add_photo_alternate" class="text-grey" size="lg" style="padding: 30px;" /></a>
+        <a><q-icon name="add_photo_alternate" class="text-grey" size="lg" style="padding: 30px;" /></a>
 
         </div>
     </div>
