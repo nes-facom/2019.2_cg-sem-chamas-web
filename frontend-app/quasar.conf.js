@@ -49,7 +49,10 @@ module.exports = function(ctx) {
         "QItem",
         "QItemSection",
         "QItemLabel",
-        "QInput"
+        "QInput",
+        "QTabs",
+        "QTab",
+        "QRouteTab"
       ],
 
       directives: ["Ripple", "ClosePopup"],

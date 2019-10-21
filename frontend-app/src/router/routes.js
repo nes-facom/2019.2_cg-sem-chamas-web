@@ -7,7 +7,8 @@ const routes = [
       { path: "gps", component: () => import("pages/Map.vue") },
       { path: "form", component: () => import("pages/FormularioDenuncia.vue") },
       { path: "teste", component: () => import("pages/Denuncias.vue") },
-      { path: "buscar", component: () => import("pages/Protocolo.vue") }
+      { path: "buscar", component: () => import("pages/Protocolo.vue") },
+      { path: "homeLogged", component: () => import("pages/HomeLogged.vue") }
     ]
   },
   {
@@ -19,6 +20,8 @@ const routes = [
     component: () => import("layouts/TelaDenuncia.vue")
   },
   { path: "/login", component: () => import("pages/Login.vue") },
+
+  { path: "/homeLogged", component: () => import("pages/HomeLogged.vue") },
 
   { path: "/registrar", component: () => import("pages/SignUp.vue") }
 ];
