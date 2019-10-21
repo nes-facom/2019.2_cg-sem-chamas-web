@@ -1,77 +1,58 @@
 <template>
-     <div class="container" style="height: 120vh">
+  <div class="container" style="height: 100vh">
+    <div class="header">
+    <div class="image">
 
-
-    <div class="form">
-      <div><h2>Noticias</h2></div>
-      <q-input outlined label="Título" :dense="dense" v-model="titulo" />
-      <div class="q-pa-md q-gutter-sm">
-    <q-editor
-      v-model="editor"
-      :definitions="{
-        save: {
-          tip: 'Save your work',
-          icon: 'save',
-          label: 'Salvar',
-          handler: saveWork
-        },
-        upload: {
-          tip: 'Upload to cloud',
-          icon: 'cloud_upload',
-          label: 'Upload',
-          handler: uploadIt
-        }
-      }"
-      :toolbar="[
-        ['bold', 'italic', 'strike', 'underline'],
-        ['upload', 'save']
-      ]"
-    />
-  </div>
-      <q-btn class="glossy" rounded color="deep-orange" label="Enviar" />
+      <div class="img"><q-icon name="add_photo_alternate" /></div>
+    </div>
+    <div class="info">
+      <div class="titulo">
+        <q-input v-model="text" type="text" label="Título da Notícia" />
       </div>
-     </div>
-
+      <div class="descricao">
+        <q-input v-model="text" type="text" label="Descrição da Notícia" />
+      </div>
+    </div>
+    </div>
+    <div class="bottom">
+      <q-editor v-model="editor" min-height="5rem" flat/>
+      <q-btn color="primary" icon="check" label="OK" @click="onClick" />
+    </div>
+  </div>
 </template>
 
-<script>
-export default {
-  data(){return{
-     titulo,
-  }
-
-  }
-}
-</script>
-
 <style lang="stylus" scoped>
-
 .container{
-  display: flex;
-  align-items: center;
+  display:flex;
+  flex-direction:column;
+
+}
+
+.header{
+  display:flex;
+}
+
+.info{
+display: flex;
+flex-direction:column;
+width: 50%;
+
+}
+
+.header .info .titulo{
+}
+
+.header .info .descricao{
+}
+
+.header .image{
   justify-content: center;
+  align-items: center;
+  width: 50%;
 }
 
-
-.form{
-  width: 70%;
-  padding: 3% 4%;;
-  text-align: center;
-  height: 100%;
+.bottom{
+  display:flex;
+  flex-direction:column;
 }
-
-
-.form button {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  background:#F4853E;
-  width: 100%;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  -webkit-transition: all 0.3 ease;
-  transition: all 0.3 ease;
-  cursor: pointer;
-}
-
 </style>
