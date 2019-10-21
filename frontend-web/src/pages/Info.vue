@@ -3,22 +3,24 @@
     class="container"
     style="height: 92vh"
   >
-    <div class="estatisticas"
-        v-show="dados!=null"
 
-    >
-      <!-- <q-btn color="primary" icon="check" label="OK" @click="load()" /> -->
-      <q-scroll-area style="height: 100%; max-width: 100%;">
-      <div
-        class="dados"
-      >
-        <h1>Dados da Denúncias</h1>
-        <div v-if="dados!=null">
+      <q-dialog v-model="icon" >
+      <q-card style="width: 900px; max-width: 80vw;">
+        <q-card-section class="row items-center" style="margin: 0 5%;">
+          <div class="text-h6">Dados da Denúncia</div>
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+
+
+      <div class="estatisticas-container">
+       <div v-if="dados!=null" class="estatisticas">
 
           <q-card
             flat
             square
             class="my-card"
+            style="display: flex;"
           >
 
             <img
@@ -27,6 +29,7 @@
               src="https://s2.glbimg.com/P7cxtIPs1JjjUvEt3NwWD9hJ0KM=/0x0:870x580/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/I/C/El0D1AQt2UCXXfiGpjdw/queimada-br-319-foto-de-esio-mendes-39-870x580.jpg"
             >
             <img
+             class="foto"
               v-else
               :src="dados.foto"
             >
@@ -134,11 +137,12 @@
             </q-list>
           </q-card>
 
-        </div>
 
-      </div>
-      </q-scroll-area>
     </div>
+    </div>
+      </q-card>
+    </q-dialog>
+
       <q-scroll-area style="height: 100%; max-width: 100%; width: 100%;">
 
     <div class="dash">
@@ -147,6 +151,8 @@
         <h2>Denúncias </h2>
         <div class="tabela">
           <q-table
+          flat
+
           :grid="$q.screen.xs"
             class="my-sticky-column-table"
             title="Denúncias"
@@ -171,6 +177,10 @@
                   />
 
                 </q-td>
+                 <q-td
+                  key="created_at"
+                  :props="props"
+                >{{ props.row.created_at | formatData}}</q-td>
                 <q-td
                   key="protocolo"
                   :props="props"
@@ -179,10 +189,7 @@
                   key="endereco"
                   :props="props"
                 >{{ props.row.endereco }}</q-td>
-                <q-td
-                  key="created_at"
-                  :props="props"
-                >{{ props.row.created_at | formatData}}</q-td>
+
                 <q-td
                   key="status"
                   :props="props"
@@ -213,7 +220,7 @@
                 dense
                 debounce="300"
                 v-model="filter"
-                placeholder="Search"
+                placeholder="Procurar"
               >
                 <template v-slot:append>
                   <q-icon name="search" />
@@ -234,6 +241,7 @@ import Denuncia from "../boot/denuncia";
 export default {
   data () {
     return {
+      icon: false,
       pagination: {
         page: 1,
         rowsPerPage: 5,
@@ -252,6 +260,7 @@ export default {
       select: [],
       dados: null,
       columns: [
+          { name: 'created_at', align: 'left', label: 'Data', field: 'created_at', sortable: true },
         {
           name: 'protocolo',
           required: true,
@@ -262,7 +271,7 @@ export default {
           sortable: true
         },
         { name: 'endereco', align: 'left', label: 'Endereço', field: 'endereco', sortable: true },
-        { name: 'created_at', align: 'left', label: 'Data', field: 'created_at', sortable: true },
+
         { name: 'status', align: 'center', label: 'Status', field: 'status', sortable: true },
         { name: 'acoes', align: 'center', label: 'Ações', field: 'acoes', sortable: false },
 
@@ -303,12 +312,13 @@ export default {
   },
   methods: {
     getSelectedString () {
-      return this.selected.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.data.length}`
+      return this.selected.length === 0 ? '' : `${this.selected.length} denúncia${this.selected.length > 1 ? 's' : ''} selecionada${this.selected.length > 1 ? 's' : ''} de ${this.data.length}`
     },
 
     linhaSelecionada (dados) {
       console.log(dados)
-      this.dados = dados
+      this.icon = true;
+      this.dados = dados;
     },
     load () {
       this.$q.loading.show({
@@ -380,7 +390,7 @@ p {
 }
 
 .container {
-  background: #F3EEEE;
+
   display: flex;
   flex-direction: row;
 }
@@ -399,16 +409,22 @@ p {
 }
 
 .estatisticas {
-  width: 35%;
-  text-align: center;
+  width: 90%;
   background: #fff;
   height: 100%;
 
    overflow:auto;
-   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+
+}
+
+.estatisticas-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .foto{
+  width: 40%;
    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
 
 }
