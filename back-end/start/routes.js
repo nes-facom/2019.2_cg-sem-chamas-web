@@ -33,3 +33,11 @@ Route.get("denuncias", "DenunciaController.index");
 Route.put("denuncia/:id", "DenunciaController.update");
 
 Route.delete("denuncia/:id", "DenunciaController.destroy");
+
+Route.post("users", "UserController.store");
+
+Route.post("sessions", "SessionController.store");
+
+Route.post("permission", "PermissionController.store");
+
+Route.post("usersReturn", "UserReturnController.store");

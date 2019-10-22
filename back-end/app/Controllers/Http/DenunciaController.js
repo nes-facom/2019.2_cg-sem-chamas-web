@@ -93,6 +93,7 @@ class DenunciaController {
     const denuncia = await Denuncia.findOrFail(params.id);
     return denuncia;
   }
+  
 
   async byProtocolo({ params, request, response, view }) {
     const denuncia = await Denuncia.findBy("protocolo", params.protocolo);

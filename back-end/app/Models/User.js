@@ -20,6 +20,8 @@ class User extends Model {
       }
     })
   }
+  
+  
 
   /**
    * A relationship on tokens is required for auth to
