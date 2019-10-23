@@ -2,18 +2,46 @@
 <div class="container">
     <div class="form">
 
-        <h3>Entrar</h3>
+        <h3>Entrar {{email}} </h3>
+
         <div class="img-centro"></div>
-        <q-input class="qinput" filled  label="Username" :dense="dense"/>
-       <q-input class="qinput"  filled label="Password" :dense="dense"/>
-        <button type="button" onclick="login()">Login</button>
+        <q-input class="qinput" filled  label="E-mail" v-model="email" :dense="dense"/>
+
+       <q-input class="qinput"  filled label="Password" v-model="password" :dense="dense"/>
+        <button type="button" @click="logar()">Login</button>
+
         </div>
         </div>
 
 </template>
 
 </<script>
+import User from "../boot/login";
 export default {
+   data () {
+    return {
+      email: "",
+      password: "",
+      token: ""
+      }},
+  methods: {
+    logar(){
+      const vm = this
+
+
+
+      User.logar(this.email, this.password)
+        .then(response => {
+          console.log(response);
+          ($router.push('/'))
+
+        })
+        .catch(e => {
+          console.log(e)
+        });
+
+    }
+  },
 
 }
 </script>
@@ -45,7 +73,7 @@ export default {
   font-family: "Roboto", sans-serif;
   background: #f2f2f2;
   width: 100%;
-  margin-top: 5%;
+  margin-top: 1%;
   margin: 15px;
   padding: 15px;
   font-size: 14px;
@@ -78,6 +106,7 @@ export default {
   width: 220px;
   height: 200px;
   box-sizing: border-box;
+  margin: 120px;
 }
 
 </style>
