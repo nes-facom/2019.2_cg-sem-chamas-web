@@ -21,7 +21,13 @@ const routes = [
   },
   { path: "/login", component: () => import("pages/Login.vue") },
 
-  { path: "/homeLogged", component: () => import("pages/HomeLogged.vue") },
+  {
+    path: "/denuncia",
+    component: () => import("layouts/Principal.vue"),
+    children: [
+      { path: "/homeLogged", component: () => import("pages/HomeLogged.vue") }
+    ]
+  },
 
   { path: "/registrar", component: () => import("pages/SignUp.vue") }
 ];
