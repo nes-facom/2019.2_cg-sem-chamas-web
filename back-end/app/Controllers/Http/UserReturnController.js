@@ -8,7 +8,8 @@ class UserReturnController {
 
         //const user = await auth.attempt(email,password)
         const user = await User.findByOrFail('email',email)
-
+        
+        
         return user
     }
 }
