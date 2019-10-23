@@ -1,30 +1,35 @@
 <template>
   <div
     class="container"
-    style="height: 100vh"
+    style="height: 92vh"
   >
-    <div class="estatisticas"
-        v-show="dados!=null"
 
-    >
-      <!-- <q-btn color="primary" icon="check" label="OK" @click="load()" /> -->
-      <div
-        class="dados"
-      >
-        <h1>Dados da Denúncias</h1>
-        <div v-if="dados!=null">
+      <q-dialog v-model="icon" >
+      <q-card style="width: 900px; max-width: 80vw;">
+        <q-card-section class="row items-center" style="margin: 0 5%;">
+          <div class="text-h6">Dados da Denúncia</div>
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+
+
+      <div class="estatisticas-container">
+       <div v-if="dados!=null" class="estatisticas">
 
           <q-card
             flat
             square
             class="my-card"
+            style="display: flex;"
           >
 
             <img
+            class="foto"
               v-if="dados.foto==1"
               src="https://s2.glbimg.com/P7cxtIPs1JjjUvEt3NwWD9hJ0KM=/0x0:870x580/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2019/I/C/El0D1AQt2UCXXfiGpjdw/queimada-br-319-foto-de-esio-mendes-39-870x580.jpg"
             >
             <img
+             class="foto"
               v-else
               :src="dados.foto"
             >
@@ -70,21 +75,85 @@
                   <q-item-label caption>Endereço</q-item-label>
                 </q-item-section>
               </q-item>
+
+
+
+              <q-item clickable>
+                <q-item-section avatar>
+                  <q-icon
+                    color="red"
+                    name="fireplace"
+                  />
+                </q-item-section>
+
+                <q-item-section>
+                  <q-item-label>{{dados.intensidade}}</q-item-label>
+                  <q-item-label caption>Intensidade</q-item-label>
+                </q-item-section>
+              </q-item>
+
+                <q-item v-show="dados.observacao!=null" clickable>
+                <q-item-section avatar>
+                  <q-icon
+                    color="primary"
+                    name="comment"
+                  />
+                </q-item-section>
+
+                <q-item-section>
+                  <q-item-label>{{dados.observacao}}</q-item-label>
+                  <q-item-label caption>Observação</q-item-label>
+                </q-item-section>
+              </q-item>
+
+  <q-item v-show="dados.nome!=null" clickable>
+                <q-item-section avatar>
+                  <q-icon
+                    color="amber"
+                    name="person"
+                  />
+                </q-item-section>
+
+                <q-item-section>
+                  <q-item-label>{{dados.nome}}</q-item-label>
+                  <q-item-label caption>Nome</q-item-label>
+                </q-item-section>
+              </q-item>
+
+                <q-item v-show="dados.telefone!=null" clickable>
+                <q-item-section avatar>
+                  <q-icon
+                    color="primary"
+                    name="phone"
+                  />
+                </q-item-section>
+
+                <q-item-section>
+                  <q-item-label>{{dados.telefone}}</q-item-label>
+                  <q-item-label caption>Telefone</q-item-label>
+                </q-item-section>
+              </q-item>
+
             </q-list>
           </q-card>
 
-        </div>
 
-      </div>
     </div>
+    </div>
+      </q-card>
+    </q-dialog>
+
+      <q-scroll-area style="height: 100%; max-width: 100%; width: 100%;">
+
     <div class="dash">
       <div class="dashboard">
 
         <h2>Denúncias </h2>
         <div class="tabela">
           <q-table
+          flat
+
           :grid="$q.screen.xs"
-            flat
             class="my-sticky-column-table"
             title="Denúncias"
             :data="data"
@@ -94,7 +163,6 @@
             selection="multiple"
             :selected.sync="selected"
             :filter="filter"
-            :rows-per-page-options="[0]"
             :pagination.sync="pagination"
           >
             <template v-slot:body="props">
@@ -109,6 +177,10 @@
                   />
 
                 </q-td>
+                 <q-td
+                  key="created_at"
+                  :props="props"
+                >{{ props.row.created_at | formatData}}</q-td>
                 <q-td
                   key="protocolo"
                   :props="props"
@@ -117,10 +189,7 @@
                   key="endereco"
                   :props="props"
                 >{{ props.row.endereco }}</q-td>
-                <q-td
-                  key="created_at"
-                  :props="props"
-                >{{ props.row.created_at | formatData}}</q-td>
+
                 <q-td
                   key="status"
                   :props="props"
@@ -136,6 +205,8 @@
                 >
                   <q-btn
                     color="red"
+                    style="font-size: 0.9em; width: 5px; height: 5px"
+
                     icon="delete"
                     @click="remover(props.row.id)"
                   />
@@ -149,7 +220,7 @@
                 dense
                 debounce="300"
                 v-model="filter"
-                placeholder="Search"
+                placeholder="Procurar"
               >
                 <template v-slot:append>
                   <q-icon name="search" />
@@ -161,6 +232,7 @@
 
       </div>
     </div>
+      </q-scroll-area>
   </div>
 </template>
 
@@ -169,9 +241,10 @@ import Denuncia from "../boot/denuncia";
 export default {
   data () {
     return {
+      icon: false,
       pagination: {
         page: 1,
-        rowsPerPage: 6,
+        rowsPerPage: 5,
         descending: true,
         sortBy: 'protocolo',
       },
@@ -187,6 +260,7 @@ export default {
       select: [],
       dados: null,
       columns: [
+          { name: 'created_at', align: 'left', label: 'Data', field: 'created_at', sortable: true },
         {
           name: 'protocolo',
           required: true,
@@ -197,7 +271,7 @@ export default {
           sortable: true
         },
         { name: 'endereco', align: 'left', label: 'Endereço', field: 'endereco', sortable: true },
-        { name: 'created_at', align: 'left', label: 'Data', field: 'created_at', sortable: true },
+
         { name: 'status', align: 'center', label: 'Status', field: 'status', sortable: true },
         { name: 'acoes', align: 'center', label: 'Ações', field: 'acoes', sortable: false },
 
@@ -238,12 +312,13 @@ export default {
   },
   methods: {
     getSelectedString () {
-      return this.selected.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.data.length}`
+      return this.selected.length === 0 ? '' : `${this.selected.length} denúncia${this.selected.length > 1 ? 's' : ''} selecionada${this.selected.length > 1 ? 's' : ''} de ${this.data.length}`
     },
 
     linhaSelecionada (dados) {
       console.log(dados)
-      this.dados = dados
+      this.icon = true;
+      this.dados = dados;
     },
     load () {
       this.$q.loading.show({
@@ -315,7 +390,7 @@ p {
 }
 
 .container {
-  background: #F3EEEE;
+
   display: flex;
   flex-direction: row;
 }
@@ -328,24 +403,45 @@ p {
   line-height: 40px;
 }
 
+.dados{
+  padding: 1% 8%;
+
+}
+
 .estatisticas {
-  width: 25%;
-  text-align: center;
+  width: 90%;
   background: #fff;
-  padding: 1% 2%;
   height: 100%;
+
    overflow:auto;
-   box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2);
+
+}
+
+.estatisticas-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.foto{
+  width: 40%;
+   box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
+
 }
 
 .estatisticas h1 {
 }
 
 .dash {
-  width: 75%;
-
-  padding: 0% 1%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
+}
+
+.dashboard{
+   display: flex;
+   flex-direction: column;
 }
 
 .dashboard h2 {
@@ -359,5 +455,14 @@ p {
 
 .q-card {
   border: none;
+  margin-bottom: 55px;
+  margin-top: 15px;
 }
+
+.q-table td {
+    padding: 7px 10px;
+  font-size: 10px;
+
+}
+
 </style>

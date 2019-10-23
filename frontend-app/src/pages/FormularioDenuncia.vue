@@ -50,9 +50,11 @@
               />
             </div>
           </div>
-          <div v-show="imageS !=1" class="camera_img" style="margin-top: 10px;">
+          <div
+          v-show="imageS !=1" class="camera_img" style="margin-top: 10px;">
             <img class="img_camera" :src="imageS" :alt="'Imagem: ' + imageS" id="photo" />
           </div>
+
           <div class="gps">
             <h5>
               2º PASSO
@@ -89,7 +91,7 @@
               outlined
               label="Endereço"
               v-model="enderecoC"
-              :rules="[val => !!val || 'Preencha o endereço...']"
+              :rules="[val => !!val || 'Informe o endereço...']"
             />
           </div>
           <div class="intensidade">
@@ -108,7 +110,7 @@
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
             </h5>
-            <p>Avalie a intencidade do fogo</p>
+            <p>Avalie a intensidade do fogo</p>
             <!-- {{intensidade}} -->
             <q-icon
               name="fas fa-fire"

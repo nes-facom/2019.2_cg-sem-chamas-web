@@ -93,21 +93,22 @@
           <div class="q-pa-md row items-start q-gutter-md">
             <q-card class="my-card bg-white text-primary">
               <q-card-section>
-                <div class="text-h7">Deseja utilizar esse endereço?</div>
+                <div class="text-h9"><strong>Deseja utilizar esse endereço?</strong></div>
               </q-card-section>
 
-              <q-card-section>{{enderecoS}}</q-card-section>
+              <q-card-section class="text-endereco" style="font-size: 12px">{{enderecoS}}</q-card-section>
 
-              <q-separator primary />
+              <q-separator primary style="margin: 0px;"/>
 
               <q-card-actions align="center">
                 <!-- <q-btn flat @click="changeDialog()">Sim</q-btn> -->
-                <q-btn
+                <q-btn style="font-size: 12px"
                   flat
                   @click="$router.go(-1)"
                 >Sim</q-btn>
 
                 <q-btn
+                style="font-size: 12px"
                   flat
                   @click="changeSelection()"
                 >Não</q-btn>
