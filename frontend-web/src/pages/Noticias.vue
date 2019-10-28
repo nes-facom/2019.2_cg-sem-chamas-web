@@ -7,7 +7,7 @@
     <div class="image">
 
       <div class="img">
-        <a><q-icon name="add_photo_alternate" class="text-grey" size="lg" style="padding: 30px;" @click="captureImage()"/></a>
+        <a><q-icon name="add_photo_alternate" class="text-grey" size="lg" style="padding: 30px;" @click="$router.push('/')"/></a>
 
         </div>
     </div>
@@ -28,7 +28,7 @@
 
 </template>
 
-      <q-btn class="btn-enviar" color="primary" icon="check" label="Postar" @click="onClick" />
+      <q-btn class="btn-enviar" color="primary" icon="check" label="Postar" @click="postar()" />
     </div>
   </div>
 </template>
@@ -68,6 +68,16 @@ export default {
 
     }
   },
+
+  captureImage(){
+    const vm = this
+    .then(response => {
+      vm.$router.push('/');
+    })
+    .catch(e => {
+          console.log(e)
+        });
+  }
 
 
 }
