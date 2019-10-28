@@ -7,23 +7,23 @@
     <div class="image">
 
       <div class="img">
-        <a><q-icon name="add_photo_alternate" class="text-grey" size="lg" style="padding: 30px;" /></a>
+        <a><q-icon name="add_photo_alternate" class="text-grey" size="lg" style="padding: 30px;" @click="captureImage()"/></a>
 
         </div>
     </div>
     <div class="info">
       <div class="titulo">
-        <q-input v-model="text" type="text" label="Título da Notícia" />
+        <q-input v-model="titulo" type="text" label="Título da Notícia" />
       </div>
       <div class="descricao">
-        <q-input v-model="text" type="textarea" label="Descrição da Notícia" />
+        <q-input v-model="descricao" type="textarea" label="Descrição da Notícia" />
 
       </div>
     </div>
     </div>
     <div class="bottom">
       <template>
-    <q-editor v-model="editor" class="editor" label="Conteúdo da Notícia"/>
+    <q-editor v-model="noticia" class="editor" label="Conteúdo da Notícia"/>
 
 
 </template>
@@ -32,6 +32,46 @@
     </div>
   </div>
 </template>
+
+<script>
+import Noticia from "../boot/noticia";
+export default {
+  data () {
+    return {
+      imagem: "",
+      titulo: "",
+      descricao: "",
+      noticia: "",
+      }},
+
+  methods: {
+    postar(){
+      const vm = this
+      const conteudonoticia = {
+        imagem: this.imagem,
+        titulo: this.titulo,
+        descricao: this.descricao,
+        noticia: this.noticia
+      };
+
+       Noticia.postar(conteudonoticia)
+        .then(response => {
+          console.log(response);
+          console.log(response.data.token);
+
+          vm.status = response.data.status;
+
+        })
+        .catch(e => {
+          console.log(e)
+        });
+
+    }
+  },
+
+
+}
+</script>
 
 <style lang="stylus" scoped>
 .container{

@@ -1,14 +1,15 @@
 <template>
 <div class="container">
+    <div class="img"></div>
+
     <div class="form">
 
-        <h3>Entrar {{email}} </h3>
+        <h3>Fazer login</h3>
 
-        <div class="img-centro"></div>
-        <q-input class="qinput" filled  label="E-mail" v-model="email" :dense="dense"/>
+        <q-input class="qinput"   label="E-mail" v-model="email" />
 
-       <q-input class="qinput"  filled label="Password" v-model="password" :dense="dense"/>
-        <button type="button" @click="logar()">Login</button>
+       <q-input class="qinput"  label="Senha" v-model="password" />
+         <q-btn outline color="primary" label="Login" @click="logar()"/>
 
         </div>
         </div>
@@ -27,13 +28,20 @@ export default {
   methods: {
     logar(){
       const vm = this
+      const login = {
+        email: this.email,
+        password: this.password
+      };
 
 
 
-      User.logar(this.email, this.password)
+      User.logar(login)
         .then(response => {
           console.log(response);
-          ($router.push('/'))
+          console.log(response.data.token);
+
+          vm.token = response.data.token;
+          vm.$router.push('/');
 
         })
         .catch(e => {
@@ -52,21 +60,32 @@ export default {
   display:flex;
   justify-content :center;
   align-items:center;
+  background:#F4853E;
+  height: 100vh;
 }
 
 .form {
-  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
   background: #FFFFFF;
   width: 30%;
-  padding: 30px 45px;
+  padding: 0px 45px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 2%;
+  height: 55vh;
+  width: 23%;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .form h3
 {
-  margin:1%
-  padding:10px;
+  margin-top: -20px;
+  font-weight: bold;
+  font-size: 16pt;
+
 }
 
 .form input {
@@ -80,9 +99,11 @@ export default {
 }
 
 .qinput{
-  margin: 2% 0;
+  margin: 5% 0;
+  width: 90%;
 }
 .form button {
+  margin-top: 12%;
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   background:#F4853E;
@@ -93,20 +114,25 @@ export default {
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
+  width: 90%;
+
 }
 .form button:hover,.form button:active,.form button:focus {
   background:#F4853E;
 
 }
 
-.img-centro {
+.img {
+  position: absolute;
+  top: 1%;
+  left: 1%;
   background-color: blue;
-  background: url("https://i.imgur.com/sV8gZBV.png");
+  background: url("https://i.imgur.com/Z7FIWJQ.png");
   background-size: 220px auto;
-  width: 220px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
+  border: 17px solid #f4853e;
   box-sizing: border-box;
-  margin: 120px;
 }
 
 </style>
