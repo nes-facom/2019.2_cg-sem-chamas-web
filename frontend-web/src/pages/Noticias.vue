@@ -23,7 +23,7 @@
     </div>
     <div class="bottom">
       <template>
-    <q-editor v-model="noticia" class="editor" label="Conteúdo da Notícia"/>
+    <q-editor v-model="conteudo" class="editor" label="Conteúdo da Notícia"/>
 
 
 </template>
@@ -38,20 +38,20 @@ import Noticia from "../boot/noticia";
 export default {
   data () {
     return {
-      imagem: "",
       titulo: "",
       descricao: "",
-      noticia: "",
+      capa: "",
+      conteudo: "",
       }},
 
   methods: {
     postar(){
       const vm = this
       const conteudonoticia = {
-        imagem: this.imagem,
+        capa: this.capa,
         titulo: this.titulo,
         descricao: this.descricao,
-        noticia: this.noticia
+        conteudo: this.conteudo
       };
 
        Noticia.postar(conteudonoticia)
