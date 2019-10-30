@@ -41,6 +41,12 @@ class User extends Model {
     return this.hasMany('App/Models/Noticia')
   }
 
+
+  denuncia(){
+    return this.belongsToMany('App/Models/Denuncia');
+
+    }
+
 }
 
 module.exports = User

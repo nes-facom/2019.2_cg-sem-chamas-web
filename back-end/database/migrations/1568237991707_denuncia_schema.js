@@ -8,8 +8,6 @@ class DenunciaSchema extends Schema {
   up () {
     this.create('denuncias', (table) => {
       table.increments()
-      //table.bigInteger('idUserDenuncia').notNullable().unique()
-      //table.bigInteger('idUserDenuncia').notNullable()//.unsigned().references('id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
       table.integer('user_id').unsigned().references('id').inTable('users')
       table.bigInteger('protocolo').unique()
       table.text('foto').notNullable()
@@ -23,6 +21,7 @@ class DenunciaSchema extends Schema {
       table.string('status', 256)//.notNullable()
       table.string('telefone', 20)
       table.string('nome', 40)
+ 
       table.timestamps()
     })
   }

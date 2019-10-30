@@ -13,8 +13,7 @@ class NoticiaSchema extends Schema {
       table.text('conteudo')
       table.text('capa')
       table.integer('user_id').unsigned().notNullable()
-      table.foreign('user_id')
-      .references('id').inTable('users')
+      table.foreign('user_id').references('id').inTable('users')
       .onUpdate('CASCADE').onDelete('CASCADE')
     })
   }
