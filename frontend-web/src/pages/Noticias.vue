@@ -7,7 +7,10 @@
     <div class="image">
 
       <div class="img">
-        <a><q-icon name="add_photo_alternate" class="text-grey" size="lg" style="padding: 30px;" @click="$router.push('/')"/></a>
+        <a>
+<label for='selecao-arquivo'>   <q-icon name="add_photo_alternate" class="text-grey" size="lg" style="padding: 300px;" v-model="capa" /></label>
+<input id='selecao-arquivo' type='file'>
+       </a>
 
         </div>
     </div>
@@ -69,21 +72,13 @@ export default {
     }
   },
 
-  captureImage(){
-    const vm = this
-    .then(response => {
-      vm.$router.push('/');
-    })
-    .catch(e => {
-          console.log(e)
-        });
-  }
 
 
 }
 </script>
 
 <style lang="stylus" scoped>
+
 .container{
   margin: 0 auto;
   width: 85%;
@@ -120,6 +115,19 @@ margin: 25px;
 
 }
 
+input[type='file'] {
+  display: none
+}
+
+
+.img label {
+
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+  padding: 6px 20px
+}
 
 
 .bottom{
