@@ -7,31 +7,81 @@
     <div class="image">
 
       <div class="img">
-        <a><q-icon name="add_photo_alternate" class="text-grey" size="lg" style="padding: 30px;" /></a>
+        <a><q-icon name="add_photo_alternate" class="text-grey" size="lg" style="padding: 30px;" @click="$router.push('/')"/></a>
 
         </div>
     </div>
     <div class="info">
       <div class="titulo">
-        <q-input v-model="text" type="text" label="Título da Notícia" />
+        <q-input v-model="titulo" type="text" label="Título da Notícia" />
       </div>
       <div class="descricao">
-        <q-input v-model="text" type="textarea" label="Descrição da Notícia" />
+        <q-input v-model="descricao" type="textarea" label="Descrição da Notícia" />
 
       </div>
     </div>
     </div>
     <div class="bottom">
       <template>
-    <q-editor v-model="editor" class="editor" label="Conteúdo da Notícia"/>
+    <q-editor v-model="conteudo" class="editor" label="Conteúdo da Notícia"/>
 
 
 </template>
 
-      <q-btn class="btn-enviar" color="primary" icon="check" label="Postar" @click="onClick" />
+      <q-btn class="btn-enviar" color="primary" icon="check" label="Postar" @click="postar()" />
     </div>
   </div>
 </template>
+
+<script>
+import Noticia from "../boot/noticia";
+export default {
+  data () {
+    return {
+      titulo: "",
+      descricao: "",
+      capa: "",
+      conteudo: "",
+      }},
+
+  methods: {
+    postar(){
+      const vm = this
+      const conteudonoticia = {
+        capa: this.capa,
+        titulo: this.titulo,
+        descricao: this.descricao,
+        conteudo: this.conteudo
+      };
+
+       Noticia.postar(conteudonoticia)
+        .then(response => {
+          console.log(response);
+          console.log(response.data.token);
+
+          vm.status = response.data.status;
+
+        })
+        .catch(e => {
+          console.log(e)
+        });
+
+    }
+  },
+
+  captureImage(){
+    const vm = this
+    .then(response => {
+      vm.$router.push('/');
+    })
+    .catch(e => {
+          console.log(e)
+        });
+  }
+
+
+}
+</script>
 
 <style lang="stylus" scoped>
 .container{
