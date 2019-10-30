@@ -41,3 +41,8 @@ Route.post("sessions", "SessionController.store");
 Route.post("permission", "PermissionController.store");
 
 Route.post("usersReturn", "UserReturnController.store");
+
+Route.put('/noticias/:id', 'NoticiaController.update').middleware('auth');
+Route.delete('noticias/id', 'NoticiaController.destroy').middleware('auth');
+Route.post('/noticias', 'NoticiaController.store').middleware('auth');
+Route.get('/noticias', 'NoticiaController.index');
