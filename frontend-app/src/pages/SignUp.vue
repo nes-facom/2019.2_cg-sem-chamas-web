@@ -31,14 +31,74 @@
         </q-input>
       </div>
 
+      <!-- <div class="btn-registrar">
+        <q-btn label="REGISTRAR" color="primary" @click="small = true" />
+        <q-dialog v-model="small">
+          <q-card class style="width: 300px">
+            <q-card-section>
+              <div class="closePop">
+                <q-btn flat label="X" v-close-popup to="/TelaDenuncia" />
+              </div>
+              <q-card-section>
+                <q-icon
+                  class="iconDenunciaRegistrada"
+                  name="fas fa-check-circle"
+                  style="font-size: 50px;"
+                ></q-icon>
+                <div class="popupUserRegistrado">Sucesso!</div>
+              </q-card-section>
+            </q-card-section>
+            <q-card-section>Cadastro realizado com sucesso.</q-card-section>
+
+            <q-card-actions align="right" class="bg-white text-teal">
+              <q-btn flat label="OK" v-close-popup to="/login" />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
+      </div>-->
       <div class="btn-registrar">
-        <q-btn color="primary">REGISTRAR</q-btn>
+        <q-btn label="Registrar" color="primary" @click="small = true" />
+        <q-dialog v-model="small">
+          <q-card class="popRegistrar">
+            <div class="denunciaRegistradaTopo" style="width: 300px">
+              <div class="closePop">
+                <q-btn flat label="X" v-close-popup to="/denuncia/buscar" />
+              </div>
+              <q-card-section>
+                <q-icon
+                  class="iconDenunciaRegistrada"
+                  name="fas fa-check-circle"
+                  style="font-size: 40px;"
+                ></q-icon>
+                <div class="popupDenunciaRegistrada">Sucesso!</div>
+              </q-card-section>
+            </div>
+            <div class="infoProtocolo">
+              <div class="text">Cadastro realizado com sucesso.</div>
+              <div class="btn-cadastrar">
+                <q-btn label="OK" color="primary" to="/login" />
+              </div>
+            </div>
+          </q-card>
+          <!-- </div> -->
+        </q-dialog>
       </div>
       <a href="/login" class="login" to="/login">RETORNAR LOGIN</a>
     </div>
   </div>
 </template>
-
+<script>
+export default {
+  data() {
+    return {
+      small: false,
+      medium: false,
+      fullWidth: false,
+      fullHeight: false
+    };
+  }
+};
+</script>
 <style scoped>
 .container {
   height: 100vh;
@@ -103,5 +163,54 @@ h6 {
 }
 a {
   margin: 4%;
+}
+.closePop {
+  text-align: end;
+  color: #ffffff;
+  font-size: 20px;
+}
+.btn-registrar button {
+  border-color: #f4853e;
+  margin-top: 10%;
+  margin-bottom: 30px;
+  height: 55px;
+  width: 250px;
+}
+.popRegistrar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+.closePop {
+  text-align: end;
+  color: #f4853e;
+  font-size: 14px;
+}
+.iconDenunciaRegistrada {
+  color: #f4853e;
+}
+.popupDenunciaRegistrada {
+  left: 10%;
+  right: 10%;
+  top: 100%;
+  bottom: 0%;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  color: #737373;
+}
+.infoProtocolo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  padding: 5%;
+  color: #737373;
 }
 </style>

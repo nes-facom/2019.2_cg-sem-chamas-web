@@ -57,7 +57,8 @@ module.exports = function(ctx) {
         "QTabPanel",
         "QCard",
         "QSeparator",
-        "QCardSection"
+        "QCardSection",
+        "QDialog"
       ],
 
       directives: ["Ripple", "ClosePopup"],
