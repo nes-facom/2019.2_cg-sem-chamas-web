@@ -42,10 +42,7 @@ Route.resource("permissions", "PermissionController.store").apiOnly().middleware
 
 Route.post("usersReturn", "UserReturnController.store");
 
-<<<<<<< Updated upstream
 Route.put('/noticias/:id', 'NoticiaController.update').middleware('auth');
 Route.delete('noticias/id', 'NoticiaController.destroy').middleware('auth');
 Route.post('/noticias', 'NoticiaController.store').middleware('auth');
 Route.get('/noticias', 'NoticiaController.index');
-=======
->>>>>>> Stashed changes
