@@ -1,6 +1,9 @@
 <template>
-  <div class="sign-up" style="height: 100vh;
-  width: 100vw;">
+  <div
+    class="sign-up"
+    style="height: 100vh;
+  width: 100vw;"
+  >
     <h4>CG sem chamas</h4>
 
     <div class="SignUp">

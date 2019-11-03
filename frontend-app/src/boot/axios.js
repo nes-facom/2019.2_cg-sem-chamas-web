@@ -1,11 +1,12 @@
 import axios from "axios";
 
+const api = process.env.API_SERVER;
 const http = axios.create({
-    baseURL: "https://absolutier.com.br/"
+  baseURL: `${api}`
 });
 
-export default async({ Vue }) => {
-    Vue.prototype.$axios = axios;
+export default async ({ Vue }) => {
+  Vue.prototype.$axios = axios;
 };
 
 export { http };

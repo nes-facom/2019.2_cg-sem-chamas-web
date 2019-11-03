@@ -22,6 +22,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import { openURL } from "quasar";
 import { AddressbarColor } from "quasar";
@@ -29,6 +30,7 @@ export default {
   name: "TelaDenuncia"
 };
 </script>
+
 <style scoped>
 .container {
   display: flex;

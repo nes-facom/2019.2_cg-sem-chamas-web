@@ -8,18 +8,17 @@
       <div id="location-map">
         <GmapMap
           :options="{
-   zoomControl: false,
-   mapTypeControl: false,
-   scaleControl: false,
-   streetViewControl: false,
-   rotateControl: false,
-   fullscreenControl: false,
-   draggable: !isBlink,
-   gestureHandling: 'greedy',
-   disableDefaultUI: true
-
-       }"
-          :center="{lat:clat, lng:clng}"
+            zoomControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            rotateControl: false,
+            fullscreenControl: false,
+            draggable: !isBlink,
+            gestureHandling: 'greedy',
+            disableDefaultUI: true
+          }"
+          :center="{ lat: clat, lng: clng }"
           :zoom="15"
           map-type-id="roadmap"
           style="width: 100vw; height: 100vh"
@@ -32,7 +31,7 @@
           ></GmapAutocomplete>
 
           <GmapMarker
-            :icon="{ url: 'https://i.imgur.com/7loqWst.png'}"
+            :icon="{ url: 'https://i.imgur.com/7loqWst.png' }"
             v-for="(marker, index) in markers"
             :key="index"
             :position="marker.position"
@@ -42,9 +41,9 @@
             v-if="this.place"
             label="★"
             :position="{
-          lat: this.clat,
-          lng: this.clng,
-        }"
+              lat: this.clat,
+              lng: this.clng
+            }"
           />
         </GmapMap>
 
@@ -57,7 +56,7 @@
           />-->
           <img
             src="https://i.imgur.com/ZAqhuNs.png"
-            :class="{fablink: isBlink}"
+            :class="{ fablink: isBlink }"
             alt
           />
         </div>
@@ -72,10 +71,7 @@
           size="15px"
         />
 
-        <div
-          v-show="!selecao"
-          class="gps-button"
-        >
+        <div v-show="!selecao" class="gps-button">
           <q-btn
             push
             color="primary"
@@ -93,25 +89,26 @@
           <div class="q-pa-md row items-start q-gutter-md">
             <q-card class="my-card bg-white text-primary">
               <q-card-section>
-                <div class="text-h9"><strong>Deseja utilizar esse endereço?</strong></div>
+                <div class="text-h9">
+                  <strong>Deseja utilizar esse endereço?</strong>
+                </div>
               </q-card-section>
 
-              <q-card-section class="text-endereco" style="font-size: 12px">{{enderecoS}}</q-card-section>
+              <q-card-section class="text-endereco" style="font-size: 12px">{{
+                enderecoS
+              }}</q-card-section>
 
-              <q-separator primary style="margin: 0px;"/>
+              <q-separator primary style="margin: 0px;" />
 
               <q-card-actions align="center">
                 <!-- <q-btn flat @click="changeDialog()">Sim</q-btn> -->
-                <q-btn style="font-size: 12px"
-                  flat
-                  @click="$router.go(-1)"
-                >Sim</q-btn>
+                <q-btn style="font-size: 12px" flat @click="$router.go(-1)"
+                  >Sim</q-btn
+                >
 
-                <q-btn
-                style="font-size: 12px"
-                  flat
-                  @click="changeSelection()"
-                >Não</q-btn>
+                <q-btn style="font-size: 12px" flat @click="changeSelection()"
+                  >Não</q-btn
+                >
               </q-card-actions>
             </q-card>
           </div>
@@ -135,7 +132,7 @@
   </transition>
 </template>
 <script>
-document.addEventListener("deviceready", () => { }, false);
+document.addEventListener("deviceready", () => {}, false);
 
 import {
   openURL,
@@ -161,14 +158,14 @@ Vue.use(VueGoogleMaps, {
     region: "VI",
     language: "pt-BR"
   },
-  mounted () {
+  mounted() {
     console.log("oi");
   }
 });
 
 export default {
   name: "Map",
-  data () {
+  data() {
     return {
       endereco: null,
       bairro: null,
@@ -200,10 +197,10 @@ export default {
     QSeparator
   },
   methods: {
-    setDescription (description) {
+    setDescription(description) {
       this.description = description;
     },
-    setPlace (place) {
+    setPlace(place) {
       this.place = place;
       (this.clat = this.place.geometry.location.lat()),
         (this.clng = this.place.geometry.location.lng()),
@@ -213,19 +210,19 @@ export default {
       this.$store.commit("Map/updateEndereco", this.endereco);
     },
 
-    fix () {
+    fix() {
       this.getlocation();
       this.clat = this.reportedCenter.lat;
       this.clng = this.reportedCenter.lng;
     },
 
-    updateMapCenter (which, value) {
+    updateMapCenter(which, value) {
       this.center = _.clone(this.reportedCenter);
     },
-    changeCenter (which, value) {
+    changeCenter(which, value) {
       this.center = _.clone(this.reportedCenter);
     },
-    update (field, event) {
+    update(field, event) {
       if (field === "reportedCenter") {
         this.reportedCenter = {
           lat: event.lat(),
@@ -237,7 +234,7 @@ export default {
         this.$set(this, field, event);
       }
     },
-    getlocation () {
+    getlocation() {
       if (navigator.geolocation) {
         this.plat = null;
         this.plng = "Buscando...";
@@ -282,7 +279,7 @@ export default {
         );
       }
     },
-    watchPosition () {
+    watchPosition() {
       if (navigator.geolocation) {
         this.plat = null;
         this.plng = "WBuscando...";
@@ -293,7 +290,7 @@ export default {
               lng: position.coords.longitude
             };
 
-              (this.plat = position.coords.latitude),
+            (this.plat = position.coords.latitude),
               (this.plng = position.coords.longitude),
               // (this.reportedCenter.lat = position.coords.latitude),
               // (this.reportedCenter.lng = position.coords.longitude),
@@ -313,14 +310,14 @@ export default {
         );
       }
     },
-    changeSelection () {
+    changeSelection() {
       this.selecao = !this.selecao;
       this.isBlink = !this.isBlink;
     },
-    changeDialog () {
+    changeDialog() {
       this.$store.commit("Dialog/changeDialogg", false);
     },
-    geoLocal () {
+    geoLocal() {
       axios
         .get("https://maps.googleapis.com/maps/api/geocode/json?", {
           params: {
@@ -341,7 +338,7 @@ export default {
         });
     },
 
-    addMarker () {
+    addMarker() {
       this.markers.push({
         position: {
           lat: this.plat,
@@ -352,11 +349,11 @@ export default {
       });
     },
 
-    deleteMarker () {
+    deleteMarker() {
       this.markers = [];
     }
   },
-  mounted () {
+  mounted() {
     this.watchPosition();
     this.getlocation();
     console.log(window.history);

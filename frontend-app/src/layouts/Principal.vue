@@ -4,7 +4,9 @@
       <q-toolbar>
         <q-btn flat round dense icon="lavinia" class="q-mr-sm" />
 
-        <q-toolbar-title text-center style="font-size: 16px; margin-left: 60px">CG SEM CHAMAS</q-toolbar-title>
+        <q-toolbar-title text-center style="font-size: 16px; margin-left: 60px"
+          >CG SEM CHAMAS</q-toolbar-title
+        >
         <q-btn flat round dense icon="more_vert" class="q-mr-sm" />
       </q-toolbar>
     </q-header>

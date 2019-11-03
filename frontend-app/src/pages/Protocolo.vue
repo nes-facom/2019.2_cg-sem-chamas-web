@@ -10,68 +10,57 @@
           <div class="titulo">
             <h3>Consultar por protocolo</h3>
 
-            <p>Informe o <strong>
-              número do protocolo
+            <p>
+              Informe o
+              <strong>
+                número do protocolo
               </strong>
-               para obter
-              informações do andamento da denúncia.</p>
+              para obter informações do andamento da denúncia.
+            </p>
           </div>
           <div class="img">
-            <img
-              src="https://i.imgur.com/O1c5nQo.png"
-              alt=""
-            >
+            <img src="https://i.imgur.com/O1c5nQo.png" alt="" />
           </div>
-
-
 
           <div class="pesquisar">
-             <q-input
-             class="input-search"
-             type="number"
-      outlined
-      bottom-slots
-      v-model="protocolo"
-      label="Insira o protocolo"
-      style="width:250px"
-    />
-
-
-
-
+            <q-input
+              class="input-search"
+              type="number"
+              outlined
+              bottom-slots
+              v-model="protocolo"
+              label="Insira o protocolo"
+              style="width:250px"
+            />
           </div>
 
-                     <div v-show="pesquisa" class="resultado">
-      <q-item>
-        <q-item-section>
-          <q-item-label>
-            <strong class="text-grey">
-
-            Resultado
-            </strong>
-            </q-item-label>
-          <q-item-label caption>
-            A denuncia de protocolo
-            <strong  class="text-primary">{{denuncia.protocolo}}</strong> se encontra
-            <strong class="text-green">
-
-            {{denuncia.status}}
-            </strong>
-          </q-item-label>
-        </q-item-section>
-
-
-      </q-item>
-    </div>
+          <div v-show="pesquisa" class="resultado">
+            <q-item>
+              <q-item-section>
+                <q-item-label>
+                  <strong class="text-grey">
+                    Resultado
+                  </strong>
+                </q-item-label>
+                <q-item-label caption>
+                  A denuncia de protocolo
+                  <strong class="text-primary">{{ denuncia.protocolo }}</strong>
+                  se encontra
+                  <strong class="text-green">
+                    {{ denuncia.status }}
+                  </strong>
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </div>
 
           <div class="btn-denunciar">
             <q-btn
               label="Consultar"
               color="primary"
               :disable="disable"
-               @click="procurarProtoloco(protocolo)"
+              @click="procurarProtoloco(protocolo)"
             />
-
           </div>
         </div>
       </div>
@@ -84,12 +73,12 @@ import Denuncia from "../boot/denuncia";
 import { QInput, QItem, QItemSection, QBadge, QItemLabel } from "quasar";
 export default {
   name: "BuscarProtocolo",
-  data () {
+  data() {
     return {
       protocolo: "",
       denuncia: { protocolo: "", status: "", data: "" },
       pesquisa: false,
-      disable: false,
+      disable: false
     };
   },
   components: {
@@ -100,7 +89,7 @@ export default {
     QItemLabel
   },
   methods: {
-    procurarProtoloco (denuncia) {
+    procurarProtoloco(denuncia) {
       this.disable = true;
       Denuncia.procurar(denuncia)
         .then(response => {
@@ -179,27 +168,26 @@ p {
   width: 250px;
 }
 
-.pesquisar{
+.pesquisar {
   margin-top: 20px;
   display: flex;
   justify-content: center;
 }
 
-.input-search ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.input-search ::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 19px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 19px;
   opacity: 1; /* Firefox */
   letter-spacing: 0.24em;
-text-align: center;
-color: #D5D5D5;
+  text-align: center;
+  color: #d5d5d5;
 }
 
-.titulo{
+.titulo {
   padding-top: 10px;
 }
-
-
 </style>
