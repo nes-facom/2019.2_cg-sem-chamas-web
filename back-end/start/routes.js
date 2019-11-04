@@ -35,6 +35,7 @@ Route.put('denuncia/:id', 'DenunciaController.update');
 Route.delete('denuncia/:id', 'DenunciaController.destroy');
 
 Route.post('users', 'UserController.store');
+Route.get('userauth', 'UserController.index').middleware('auth');
 Route.put('users/:id', 'UserController.update');
 
 Route.post('sessions', 'SessionController.store');

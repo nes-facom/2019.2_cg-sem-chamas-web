@@ -53,6 +53,12 @@ class UserController {
 
 		return user;
 	}
+
+	async index({ auth }) {
+		const { id, nome, email, permission } = await User.findOrFail(auth.user.id);
+		const data = { id, nome, email, permission };
+		return data;
+	}
 }
 
 module.exports = UserController;
