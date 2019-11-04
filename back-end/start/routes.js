@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /*
 |--------------------------------------------------------------------------
@@ -14,33 +14,41 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-const Route = use("Route");
+const Route = use('Route');
 
 /*Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })*/
 
-Route.post("denuncia", "DenunciaController.store");
+Route.post('denuncia', 'DenunciaController.store');
 
-Route.get("denuncia/:id", "DenunciaController.show");
+Route.get('denuncia/:id', 'DenunciaController.show');
 
-Route.get("protocolo/:protocolo", "DenunciaController.byProtocolo");
+Route.get('protocolo/:protocolo', 'DenunciaController.byProtocolo');
 
-Route.get("total/", "DenunciaController.count");
+Route.get('total/', 'DenunciaController.count');
 
-Route.get("denuncias", "DenunciaController.index");
+Route.get('denuncias', 'DenunciaController.index');
 
-Route.put("denuncia/:id", "DenunciaController.update");
+Route.put('denuncia/:id', 'DenunciaController.update');
 
-Route.delete("denuncia/:id", "DenunciaController.destroy");
+Route.delete('denuncia/:id', 'DenunciaController.destroy');
 
-Route.post("users", "UserController.store");
+Route.post('users', 'UserController.store');
+Route.get('userauth', 'UserController.index').middleware('auth');
+Route.put('users/:id', 'UserController.update');
 
-Route.post("sessions", "SessionController.store");
+Route.post('sessions', 'SessionController.store');
 
-Route.resource("permissions", "PermissionController.store").apiOnly().middleware('auth');
+Route.resource('permissions', 'PermissionController')
+	.apiOnly()
+	.middleware('auth');
 
-Route.post("usersReturn", "UserReturnController.store");
+Route.resource('roles', 'RoleController')
+	.apiOnly()
+	.middleware('auth');
+
+Route.post('usersReturn', 'UserReturnController.store');
 
 Route.put('/noticias/:id', 'NoticiaController.update').middleware('auth');
 Route.delete('noticias/id', 'NoticiaController.destroy').middleware('auth');
