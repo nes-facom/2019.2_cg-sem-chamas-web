@@ -1,19 +1,23 @@
 <template>
   <div>
     <div v-for="denuncia of denuncias" v-bind:key="denuncia._id">
-      {{denuncia._id}} {{denuncia.name}} {{denuncia.adress}}
+      {{ denuncia._id }} {{ denuncia.name }} {{ denuncia.adress }}
       <button
         @click="editar(denuncia)"
         class="waves-effect btn-small blue darken-1"
       >
         <i class="material-icons">create</i>
       </button>
-      <button @click="remover(denuncia._id)" class="waves-effect btn-small red darken-1">
+      <button
+        @click="remover(denuncia._id)"
+        class="waves-effect btn-small red darken-1"
+      >
         <i class="material-icons">delete_sweep</i>
       </button>
     </div>
     <div>
-      <h6>Form</h6>Nome:
+      <h6>Form</h6>
+      Nome:
       <input type="text" v-model="denuncia.name" />
       <br />Endereço:
       <input type="text" v-model="denuncia.adress" />
@@ -125,5 +129,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

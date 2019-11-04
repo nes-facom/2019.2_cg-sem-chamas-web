@@ -1,35 +1,38 @@
 <template>
-<div>
-  oi
+  <div>
+    oi
     <q-btn color="primary" label="Tirar foto" @click="captureImage" />
-    <q-btn color="positive" icon="add_photo_alternate" label="Pegar do álbum" @click="captureImage('PHOTOLIBRARY')"  />
-
-
-    </div>
+    <q-btn
+      color="positive"
+      icon="add_photo_alternate"
+      label="Pegar do álbum"
+      @click="captureImage('PHOTOLIBRARY')"
+    />
+  </div>
 </template>
 
 <script>
-
-document.addEventListener('deviceready', () => {}, false)
+document.addEventListener("deviceready", () => {}, false);
 
 export default {
-  data () {
+  data() {
     return {
-      imageSrc: ''
-    }
+      imageSrc: ""
+    };
   },
 
   methods: {
-    captureImage () {
+    captureImage() {
       navigator.camera.getPicture(
-        data => { // Sucesso
-          this.imageSrc = `data:image/jpeg;base64, ${data}`
-          alert(this.imageSrc)
-
+        data => {
+          // Sucesso
+          this.imageSrc = `data:image/jpeg;base64, ${data}`;
+          alert(this.imageSrc);
         },
-        error => { // Falha
-        console.log(error)
-          this.$q.notify('Não foi possível acessar a câmera do dispositivo.')
+        error => {
+          // Falha
+          console.log(error);
+          this.$q.notify("Não foi possível acessar a câmera do dispositivo.");
         },
         {
           // Opções da Camera
@@ -43,8 +46,8 @@ export default {
           targetWidth: 300,
           targetHeight: 400
         }
-      )
+      );
     }
   }
-}
+};
 </script>

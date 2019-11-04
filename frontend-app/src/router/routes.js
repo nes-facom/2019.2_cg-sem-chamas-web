@@ -15,6 +15,12 @@ const routes = [
     path: "/buscar",
     component: () => import("pages/Protocolo.vue")
   },
+
+  {
+    path: "/gps",
+    component: () => import("pages/Map.vue")
+  },
+
   {
     path: "/",
     component: () => import("layouts/TelaDenuncia.vue")

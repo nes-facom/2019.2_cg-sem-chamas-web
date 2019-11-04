@@ -38,7 +38,7 @@ Route.post("users", "UserController.store");
 
 Route.post("sessions", "SessionController.store");
 
-Route.post("permission", "PermissionController.store");
+Route.resource("permissions", "PermissionController.store").apiOnly().middleware('auth');
 
 Route.post("usersReturn", "UserReturnController.store");
 

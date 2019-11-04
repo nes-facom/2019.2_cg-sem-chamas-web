@@ -17,13 +17,13 @@
             <h5>
               1º PASSO
               <q-icon
-                v-show="imageS==1"
+                v-show="imageS == 1"
                 name="fas fa-circle"
                 class="text-grey-4"
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
               <q-icon
-                v-show="imageS!=1"
+                v-show="imageS != 1"
                 name="fas fa-check-circle"
                 class="text-green"
                 style="font-size: 0.7em;  vertical-align: middle; "
@@ -51,27 +51,36 @@
             </div>
           </div>
           <div
-          v-show="imageS !=1" class="camera_img" style="margin-top: 10px;">
-            <img class="img_camera" :src="imageS" :alt="'Imagem: ' + imageS" id="photo" />
+            v-show="imageS != 1"
+            class="camera_img"
+            style="margin-top: 10px;"
+          >
+            <img
+              class="img_camera"
+              :src="imageS"
+              :alt="'Imagem: ' + imageS"
+              id="photo"
+            />
           </div>
 
           <div class="gps">
             <h5>
               2º PASSO
               <q-icon
-                v-show="enderecoC==null"
+                v-show="enderecoC == null"
                 name="fas fa-circle"
                 class="text-grey-4"
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
               <q-icon
-                v-show="enderecoC!=null"
+                v-show="enderecoC != null"
                 name="fas fa-check-circle"
                 class="text-green"
                 style="font-size: 0.7em;  vertical-align: middle; "
               />
             </h5>
             <q-btn
+              v-show="opcaoGPS != ''"
               class="botao"
               outline
               style="color: #f4853e;"
@@ -79,12 +88,12 @@
               label="Obter localização"
               to="/denuncia/gps"
             >
-              <!-- <q-btn label="Maximized" color="primary" @click="dialog = true" /> -->
             </q-btn>
           </div>
 
           <div class="endereco">
-            <h5>Ou informe seu endereço</h5>
+            <p v-if="opcaoGPS != ''">Ou informe seu endereço</p>
+            <p v-else>Informe seu endereço</p>
             <q-input
               class="enderecoo"
               rounded
@@ -114,31 +123,31 @@
             <!-- {{intensidade}} -->
             <q-icon
               name="fas fa-fire"
-              :class="{fogocinza: !fogo.um, fogovivo: fogo.um}"
+              :class="{ fogocinza: !fogo.um, fogovivo: fogo.um }"
               style="font-size: 2em;"
               @click="setIntensidade(1)"
             />
             <q-icon
               name="fas fa-fire"
-              :class="{fogocinza: !fogo.dois, fogovivo: fogo.dois}"
+              :class="{ fogocinza: !fogo.dois, fogovivo: fogo.dois }"
               style="font-size: 2em;"
               @click="setIntensidade(2)"
             />
             <q-icon
               name="fas fa-fire"
-              :class="{fogocinza: !fogo.tres, fogovivo: fogo.tres}"
+              :class="{ fogocinza: !fogo.tres, fogovivo: fogo.tres }"
               style="font-size: 2em;"
               @click="setIntensidade(3)"
             />
             <q-icon
               name="fas fa-fire"
-              :class="{fogocinza: !fogo.quatro, fogovivo: fogo.quatro}"
+              :class="{ fogocinza: !fogo.quatro, fogovivo: fogo.quatro }"
               style="font-size: 2em;"
               @click="setIntensidade(4)"
             />
             <q-icon
               name="fas fa-fire"
-              :class="{fogocinza: !fogo.cinco, fogovivo: fogo.cinco}"
+              :class="{ fogocinza: !fogo.cinco, fogovivo: fogo.cinco }"
               style="font-size: 2em;"
               @click="setIntensidade(5)"
             />
@@ -162,14 +171,14 @@
             <p>Deseja deixar alguma observação sobre a queimada?</p>
             <q-btn
               :outline="!mostrarObs"
-              :class="{marcado: mostrarObs, nmarcado: !mostrarObs}"
+              :class="{ marcado: mostrarObs, nmarcado: !mostrarObs }"
               @click="selecionarObs(true)"
               label="Sim"
             />
             <span class="espaco"></span>
             <q-btn
               :outline="!ocultarObs"
-              :class="{marcado: ocultarObs, nmarcado: !ocultarObs}"
+              :class="{ marcado: ocultarObs, nmarcado: !ocultarObs }"
               @click="selecionarObs(false)"
               label="Não"
             />
@@ -206,14 +215,14 @@
 
             <q-btn
               :outline="!mostrarDados"
-              :class="{marcado: mostrarDados, nmarcado: !mostrarDados}"
+              :class="{ marcado: mostrarDados, nmarcado: !mostrarDados }"
               @click="selecionarDados(true)"
               label="Sim"
             />
 
             <q-btn
               :outline="!ocultarDados"
-              :class="{marcado: ocultarDados, nmarcado: !ocultarDados}"
+              :class="{ marcado: ocultarDados, nmarcado: !ocultarDados }"
               @click="selecionarDados(false)"
               label="Não"
             />
@@ -229,13 +238,18 @@
             </div>
           </div>
           <div class="btn-denunciar">
-            <q-btn label="Denunciar" color="primary" :disable="disable" @click="denunciar()" />
+            <q-btn
+              label="Denunciar"
+              color="primary"
+              :disable="disable"
+              @click="denunciar()"
+            />
             <q-dialog v-model="full" full-height>
               <!-- <div class="popup"> -->
               <q-card class="popProtocolo">
                 <div class="denunciaRegistradaTopo">
                   <div class="closePop">
-                    <q-btn flat label="X" v-close-popup to="/denuncia/buscar"/>
+                    <q-btn flat label="X" v-close-popup to="/denuncia/buscar" />
                   </div>
                   <q-card-section>
                     <q-icon
@@ -243,19 +257,23 @@
                       name="fas fa-check-circle"
                       style="font-size: 90px;"
                     ></q-icon>
-                    <div class="popupDenunciaRegistrada">Denúncia registrada!</div>
+                    <div class="popupDenunciaRegistrada">
+                      Denúncia registrada!
+                    </div>
                   </q-card-section>
                 </div>
 
                 <!-- <q-card-section> -->
                 <div class="infoProtocolo">
                   <div class="textNumProtocolo">Número do Protocolo:</div>
-                  <div v-show="protocoloS!=null" class="numberProtocol">{{protocoloS}}</div>
-                  <div
-                    class="textCadastrar"
-                  >Anote o número ou cadastre-se para acompanhar sua denúncia.</div>
+                  <div v-show="protocoloS != null" class="numberProtocol">
+                    {{ protocoloS }}
+                  </div>
+                  <div class="textCadastrar">
+                    Anote o número ou cadastre-se para acompanhar sua denúncia.
+                  </div>
                   <div class="btn-cadastrar">
-                    <q-btn label="Cadastrar-se" color="primary" to="/404"/>
+                    <q-btn label="Cadastrar-se" color="primary" to="/404" />
                   </div>
                 </div>
               </q-card>
@@ -299,6 +317,7 @@ export default {
       ocultarObs: false,
       mostrarDados: false,
       ocultarDados: false,
+      opcaoGPS: process.env.API_GOOGLE,
       completo: {
         um: false,
         dois: false,
@@ -349,7 +368,7 @@ export default {
   },
   methods: {
     denunciar() {
-      const vm = this
+      const vm = this;
       this.disable = true;
       this.gerarProtocolo();
       this.denuncia = {
@@ -364,7 +383,6 @@ export default {
         data: this.dataS
       };
 
-
       Denuncia.salvar(this.denuncia)
         .then(response => {
           console.log(response);
@@ -372,7 +390,7 @@ export default {
           vm.full = true;
           vm.disable = true;
           this.errors = {};
-          const value = '';
+          const value = "";
           vm.$store.commit("Map/updateEndereco", null);
           vm.$store.commit("Denuncia/setNome", null);
           vm.$store.commit("Denuncia/setObservacao", null);
@@ -380,15 +398,12 @@ export default {
           vm.$store.commit("Denuncia/setIntensidade", 1);
           vm.$store.commit("Denuncia/setData", null);
           vm.$store.commit("Denuncia/setTelefone", null);
-
         })
         .catch(e => {
           vm.disable = false;
           vm.$q.notify(e);
           this.errors = e;
         });
-
-
     },
 
     gerarProtocolo() {
@@ -473,9 +488,7 @@ export default {
         error => {
           console.log(error);
           // Falha
-          this.$q.notify(
-            error
-          );
+          this.$q.notify(error);
         },
         {
           // Opções da Camera
@@ -493,7 +506,6 @@ export default {
       );
     },
     getPhoto() {
-      console.log("oi");
       navigator.camera.getPicture(
         data => {
           // Sucesso
@@ -503,11 +515,9 @@ export default {
           console.log(imageSrc);
         },
         error => {
-          console.log(error, error.code)
+          console.log(error, error.code);
           // Falha
-          this.$q.notify(
-            error
-          );
+          this.$q.notify(error);
         },
         {
           quality: 80,
@@ -599,6 +609,7 @@ h3 {
   color: #605b57;
 }
 h5 {
+  margin-top: 30px;
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
@@ -608,13 +619,14 @@ h5 {
   text-align: center;
   color: #858585;
 }
+
 p {
   display: flex;
   justify-content: center;
   font-family: Roboto;
   font-style: normal;
   font-weight: 300;
-  font-size: 16 px;
+  font-size: 16px;
   line-height: 13px;
   align-items: center;
   flex-direction: column;
@@ -642,6 +654,7 @@ p {
   border-radius: 10px;
   width: 263px;
   height: 50px;
+  margin-bottom: 25px;
 }
 .botaoCamera {
   background: #ffffff;

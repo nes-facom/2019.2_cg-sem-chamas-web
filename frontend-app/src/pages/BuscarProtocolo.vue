@@ -1,17 +1,18 @@
 <template>
   <div class="container text-center">
-    <div class="pesquisar"><h4>Buscar denúncia</h4>
-    <q-input
-      outlined
-      bottom-slots
-      v-model="protocolo"
-      label="Digite o protocolo..."
-      style="width:250px"
-    >
-      <template v-slot:append>
-        <q-icon name="search" @click="procurarProtoloco(protocolo)" />
-      </template>
-    </q-input>
+    <div class="pesquisar">
+      <h4>Buscar denúncia</h4>
+      <q-input
+        outlined
+        bottom-slots
+        v-model="protocolo"
+        label="Digite o protocolo..."
+        style="width:250px"
+      >
+        <template v-slot:append>
+          <q-icon name="search" @click="procurarProtoloco(protocolo)" />
+        </template>
+      </q-input>
     </div>
 
     <div v-show="pesquisa" class="resultado">
@@ -19,16 +20,15 @@
         <q-item-section>
           <q-item-label>
             <strong>
-
-            Resultado
+              Resultado
             </strong>
-            </q-item-label>
+          </q-item-label>
           <q-item-label caption>
             A denuncia de protocolo
-            <strong  class="text-primary">{{denuncia.protocolo}}</strong> se encontra
+            <strong class="text-primary">{{ denuncia.protocolo }}</strong> se
+            encontra
             <strong>
-
-            {{denuncia.status}}
+              {{ denuncia.status }}
             </strong>
           </q-item-label>
         </q-item-section>
@@ -82,17 +82,16 @@ export default {
   margin-top: 10px;
   box-shadow: 0px 1px 5px #ccc;
   display: flex;
-width: 80%;
-
+  width: 80%;
 }
 
-.container{
+.container {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-.pesquisar{
+.pesquisar {
   justify-content: center;
   flex-direction: column;
   align-items: center;
