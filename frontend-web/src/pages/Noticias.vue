@@ -1,18 +1,35 @@
 <template>
   <div class="container" style="height: 100vh">
+     <img
+:src="capa"
+            />
     <div class="titulo">
       <h4 style="text-align: left; width: 85%; margin-left: 25px;">Nova publicação</h4>
     </div>
     <div class="header" style="height: 50%">
-    <div class="image">
+    <div class="image" >
 
-      <div class="img">
-        <a>
-<label for='selecao-arquivo'>   <q-icon name="add_photo_alternate" class="text-grey" size="lg" style="padding: 300px;" v-model="capa" /></label>
-<input id='selecao-arquivo' type='file'>
-       </a>
 
-        </div>
+
+
+<label for='selecao-arquivo'>
+  <a>
+ <q-input
+        type="file"
+        v-model="image"
+        class="img-input"
+        @change="con()"
+      >
+       <template v-slot:prepend>
+          <q-icon name="add_photo_alternate" />
+        </template>
+      </q-input>
+</a>
+
+  </label>
+
+
+
     </div>
     <div class="info">
       <div class="titulo">
@@ -37,6 +54,7 @@
 </template>
 
 <script>
+const base64 = require('image-to-base64');
 import Noticia from "../boot/noticia";
 export default {
   data () {
@@ -45,9 +63,13 @@ export default {
       descricao: "",
       capa: "",
       conteudo: "",
+      image: ""
       }},
 
   methods: {
+    con(){
+console.log(this.image)
+    },
     postar(){
       const vm = this
       const conteudonoticia = {
@@ -69,15 +91,27 @@ export default {
           console.log(e)
         });
 
-    }
-  },
-watch: {
-      titulo: function () {
-        console.log('oi');
-      console.log(this.capa)
-    }}
+    },
+
+  base(){
+      const vm = this
+      console.log(this.image)
+  base64().then(
+        (response) => {
+            console.log(response);
+            vm.capa = `data:image/jpeg;base64, ${response}`;
+            console.log(vm.capa);
+        }
+    )
+    .catch(
+        (error) => {
+            console.log(error);
+        }
+    )
+  }
 
 
+}
 }
 </script>
 
@@ -152,5 +186,10 @@ input[type='file'] {
 .btn-enviar{
   height: 50px;
   width: 10%;
+}
+
+.img-input{
+  padding: 350px;
+  width: 20px;
 }
 </style>

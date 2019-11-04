@@ -17,6 +17,7 @@ const routes = [{
                 component: () =>
                     import ('pages/Denuncias.vue')
             },
+
             {
                 path: 'noticias',
                 component: () =>
