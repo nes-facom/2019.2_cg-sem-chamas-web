@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="login"
-    style="height: 100vh;
-  width: 100vw;"
-  >
+  <div class="login" style="height: 100vh;
+  width: 100vw;">
+    <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
     <h4>CG sem chamas</h4>
 
     <div class="loginIn">
@@ -40,7 +38,11 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {
+    voltar() {
+      window.history.back();
+    }
+  }
 };
 </script>
 
@@ -61,6 +63,11 @@ export default {
   justify-items: center;
   text-align: center;
   background-color: #f4853e;
+}
+.voltar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 .loginIn {
   display: flex;
@@ -95,7 +102,7 @@ button {
 }
 p {
   color: #737373;
-  margin-top: 40px;
+  margin-top: 5%;
   font-size: 13px;
 }
 h6 {

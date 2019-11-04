@@ -1,9 +1,8 @@
 <template>
-  <div
-    class="sign-up"
-    style="height: 100vh;
-  width: 100vw;"
-  >
+  <div class="sign-up" style="height: 100vh;
+  width: 100vw;">
+    <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
+
     <h4>CG sem chamas</h4>
 
     <div class="SignUp">
@@ -64,10 +63,10 @@
         <q-dialog v-model="small">
           <q-card class="popRegistrar">
             <div class="denunciaRegistradaTopo" style="width: 300px">
-              <div class="closePop">
-                <q-btn flat label="X" v-close-popup to="/denuncia/buscar" />
-              </div>
               <q-card-section>
+                <div class="closePop">
+                  <q-btn flat label="X" v-close-popup to="/TelaDenuncia" />
+                </div>
                 <q-icon
                   class="iconDenunciaRegistrada"
                   name="fas fa-check-circle"
@@ -77,8 +76,8 @@
               </q-card-section>
             </div>
             <div class="infoProtocolo">
-              <div class="text">Cadastro realizado com sucesso.</div>
-              <div class="btn-cadastrar">
+              <p>Cadastro realizado com sucesso.</p>
+              <div class="btn-ok">
                 <q-btn label="OK" color="primary" to="/login" />
               </div>
             </div>
@@ -86,7 +85,9 @@
           <!-- </div> -->
         </q-dialog>
       </div>
-      <a href="/login" class="login" to="/login">RETORNAR LOGIN</a>
+      <a href="/login" class="login" to="/login">
+        <p>RETORNAR LOGIN</p>
+      </a>
     </div>
   </div>
 </template>
@@ -99,6 +100,11 @@ export default {
       fullWidth: false,
       fullHeight: false
     };
+  },
+  methods: {
+    voltar() {
+      window.history.back();
+    }
   }
 };
 </script>
@@ -111,6 +117,11 @@ export default {
   justify-content: center;
   flex-direction: column;
   text-align: center;
+}
+.voltar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 .sign-up {
   display: flex;
@@ -143,6 +154,10 @@ h4 {
   margin-bottom: 5%;
   width: 250px;
 }
+
+q-card_section {
+  padding: 0px;
+}
 .inputs .q-icon {
   color: #f4853e;
   margin-top: 5%;
@@ -154,30 +169,32 @@ button {
   height: 55px;
   width: 250px;
 }
-p {
-  color: #737373;
-  margin-top: 40px;
-  font-size: 13px;
-  margin: 4%;
-}
 h6 {
   color: #737373;
   margin: 4%;
 }
-a {
-  margin: 4%;
+p {
+  margin-top: 1%;
+  font-size: 13px;
+  margin-bottom: 5%;
 }
-.closePop {
-  text-align: end;
-  color: #ffffff;
-  font-size: 20px;
-}
+
 .btn-registrar button {
   border-color: #f4853e;
   margin-top: 10%;
-  margin-bottom: 30px;
+  margin-bottom: 3px;
   height: 55px;
   width: 250px;
+}
+.q-card__section {
+  padding: 0px;
+}
+.btn-ok .q-btn {
+  border-color: #f4853e;
+  margin-top: 2%;
+  height: 30px;
+  width: 50px;
+  padding-bottom: 20%;
 }
 .popRegistrar {
   display: flex;
@@ -190,6 +207,9 @@ a {
   text-align: end;
   color: #f4853e;
   font-size: 14px;
+}
+.closePop .q-btn {
+  padding: 0px 30px 0px 0px;
 }
 .iconDenunciaRegistrada {
   color: #f4853e;
@@ -213,7 +233,7 @@ a {
   align-items: center;
   justify-items: center;
   text-align: center;
-  padding: 5%;
+  padding: 1%;
   color: #737373;
 }
 </style>

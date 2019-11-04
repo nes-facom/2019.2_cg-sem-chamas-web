@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <div class="topo"></div>
     <div class="logo">
       <!-- <img src="https://i.imgur.com/RRsVyrd.png" width="120" /> -->
       <p class="titulo">CG SEM CHAMAS</p>
@@ -17,6 +18,11 @@
       </q-btn>
     </div>
 
+    <div class="btn-consultarProtocolo">
+      <q-btn outline style push @click="$router.push('/denuncia/buscar')">
+        <p>CONSULTAR POR PROTOCOLO</p>
+      </q-btn>
+    </div>
     <div class="login">
       <a href="/login" class="login" to="/404">ENTRAR NA CONTA</a>
     </div>
@@ -68,9 +74,9 @@ export default {
 .img-centro {
   background-color: blue;
   background: url("https://i.imgur.com/sV8gZBV.png");
-  background-size: 220px auto;
-  width: 250px;
-  height: 250px;
+  background-size: 180px auto;
+  width: 200px;
+  height: 200px;
   border: 17px solid #f4853e;
   box-sizing: border-box;
 }
@@ -111,7 +117,19 @@ export default {
   height: 55px;
   width: 250px;
 }
-
+.btn-consultarProtocolo button {
+  border-color: #ffffff;
+  margin-top: 5%;
+  height: 50px;
+  width: 250px;
+  border-radius: 8px;
+  text-decoration-color: #ffffff;
+  color: #fff;
+  text-decoration: bold;
+}
+.btn-consultarProtocolo p {
+  margin: 0%;
+}
 .login {
   width: 320px;
   font-family: Roboto;
