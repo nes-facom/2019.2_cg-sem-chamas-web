@@ -35,10 +35,15 @@ Route.put('denuncia/:id', 'DenunciaController.update');
 Route.delete('denuncia/:id', 'DenunciaController.destroy');
 
 Route.post('users', 'UserController.store');
+Route.put('users/:id', 'UserController.update');
 
 Route.post('sessions', 'SessionController.store');
 
 Route.resource('permissions', 'PermissionController')
+	.apiOnly()
+	.middleware('auth');
+
+Route.resource('roles', 'RoleController')
 	.apiOnly()
 	.middleware('auth');
 
