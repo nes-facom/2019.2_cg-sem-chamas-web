@@ -10,6 +10,8 @@ class Denuncia extends Model {
 
     }
 
+    
+
 }
 
 module.exports = Denuncia;
