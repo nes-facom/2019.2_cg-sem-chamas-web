@@ -71,7 +71,11 @@ export default {
 
     }
   },
-
+watch: {
+      titulo: function () {
+        console.log('oi');
+      console.log(this.capa)
+    }}
 
 
 }
