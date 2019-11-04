@@ -1,3 +1,4 @@
+
 'use strict';
 const User = use('App/Models/User');
 const Permission = use('Permission');
@@ -25,6 +26,7 @@ class PermissionController {
 		const permissions = await Permission.all();
 		return permissions;
 	}
+
 }
 
 module.exports = PermissionController;

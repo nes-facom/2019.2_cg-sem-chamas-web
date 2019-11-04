@@ -65,6 +65,7 @@ module.exports = {
   | via HTTP `Authorization` header.
   |
   */
+  authenticator: 'jwt',
   jwt: {
     serializer: 'lucid',
     model: 'App/Models/User',
