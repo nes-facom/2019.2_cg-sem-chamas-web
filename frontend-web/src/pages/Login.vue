@@ -8,7 +8,15 @@
 
         <q-input class="qinput"   label="E-mail" v-model="email" />
 
-       <q-input class="qinput"  label="Senha" v-model="password" />
+       <q-input class="qinput" :type="isPwd ? 'password' : 'text'" label="Senha" v-model="password">
+       <template v-slot:append>
+          <q-icon
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          />
+        </template>
+       </q-input>
          <q-btn outline color="primary" label="Login" @click="logar()"/>
 
         </div>
@@ -23,7 +31,8 @@ export default {
     return {
       email: "",
       password: "",
-      token: ""
+      token: "",
+      isPwd: true,
       }},
   methods: {
     logar(){

@@ -269,7 +269,7 @@
                   <div v-show="protocoloS != null" class="numberProtocol">
                     {{ protocoloS }}
                   </div>
-                  <div class="textCadastrar">
+                  <div class="textCadastrar">@click="captureImage()"
                     Anote o número ou cadastre-se para acompanhar sua denúncia.
                   </div>
                   <div class="btn-cadastrar">

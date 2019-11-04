@@ -9,17 +9,14 @@
         <div class="card">
           <div class="titulo">
             <h3>Consultar por protocolo</h3>
-
+            <div class="img">
+              <img src="https://i.imgur.com/O1c5nQo.png" alt />
+            </div>
             <p>
               Informe o
-              <strong>
-                número do protocolo
-              </strong>
-              para obter informações do andamento da denúncia.
+              <strong>número do protocolo</strong>
+              para obter informações de sua denúncia.
             </p>
-          </div>
-          <div class="img">
-            <img src="https://i.imgur.com/O1c5nQo.png" alt="" />
           </div>
 
           <div class="pesquisar">
@@ -38,17 +35,13 @@
             <q-item>
               <q-item-section>
                 <q-item-label>
-                  <strong class="text-grey">
-                    Resultado
-                  </strong>
+                  <strong class="text-grey">Resultado</strong>
                 </q-item-label>
                 <q-item-label caption>
                   A denuncia de protocolo
                   <strong class="text-primary">{{ denuncia.protocolo }}</strong>
                   se encontra
-                  <strong class="text-green">
-                    {{ denuncia.status }}
-                  </strong>
+                  <strong class="text-green">{{ denuncia.status }}</strong>
                 </q-item-label>
               </q-item-section>
             </q-item>
@@ -127,6 +120,7 @@ h3 {
   line-height: 19px;
   text-align: center;
   color: #9c9997;
+  margin-top: 0%;
 }
 h5 {
   font-family: Roboto;
