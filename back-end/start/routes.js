@@ -38,11 +38,13 @@ Route.post("users", "UserController.store");
 
 Route.post("sessions", "SessionController.store");
 
-Route.resource("permissions", "PermissionController.store").apiOnly().middleware('auth');
+Route.resource("permissions", "PermissionController.store")
+	.apiOnly()
+	.middleware("auth");
 
 Route.post("usersReturn", "UserReturnController.store");
 
-Route.put('/noticias/:id', 'NoticiaController.update').middleware('auth');
-Route.delete('noticias/id', 'NoticiaController.destroy').middleware('auth');
-Route.post('/noticias', 'NoticiaController.store').middleware('auth');
-Route.get('/noticias', 'NoticiaController.index');
+Route.put("/noticias/:id", "NoticiaController.update").middleware("auth");
+Route.delete("noticias/id", "NoticiaController.destroy").middleware("auth");
+Route.post("/noticias", "NoticiaController.store").middleware("auth");
+Route.get("/noticias", "NoticiaController.index");
