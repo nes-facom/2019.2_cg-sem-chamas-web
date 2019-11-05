@@ -1,77 +1,92 @@
 <template>
   <div class="container" style="height: 100vh">
-     <img
-:src="capa"
-            />
     <div class="titulo">
-      <h4 style="text-align: left; width: 85%; margin-left: 25px;">Nova publicação</h4>
+      <h4 style="text-align: left; width: 85%; margin-left: 25px;">
+        Nova publicação
+      </h4>
     </div>
+
     <div class="header" style="height: 50%">
-    <div class="image" >
-
-
-
-
-<label for='selecao-arquivo'>
-  <a>
- <q-input
-        type="file"
-        v-model="image"
-        class="img-input"
-        @change="con()"
-      >
-       <template v-slot:prepend>
-          <q-icon name="add_photo_alternate" />
-        </template>
-      </q-input>
-</a>
-
-  </label>
-
-
-
-    </div>
-    <div class="info">
-      <div class="titulo">
-        <q-input v-model="titulo" type="text" label="Título da Notícia" />
+      <div class="image">
+        <img v-show="capa != ''" :src="capa" style="height: 100%" />
+        <div v-show="capa == ''">
+          <q-icon class="text-grey" style="font-size: 2em" name="photo" />
+        </div>
       </div>
-      <div class="descricao">
-        <q-input v-model="descricao" type="textarea" label="Descrição da Notícia" />
-
+      <div class="info">
+        <div class="titulo">
+          <q-input v-model="titulo" type="text" label="Título da Notícia" />
+        </div>
+        <div class="descricao">
+          <q-input
+            v-model="descricao"
+            type="textarea"
+            label="Descrição da Notícia"
+          />
+        </div>
+        <div class="add-capa" style="margin-top: 20px">
+          <q-input
+            @input="
+              val => {
+                file = val[0];
+              }
+            "
+            filled
+            type="file"
+            hint="Adicionar capa"
+            v-model="image"
+            @change="readURL(image)"
+          />
+        </div>
       </div>
-    </div>
     </div>
     <div class="bottom">
       <template>
-    <q-editor v-model="conteudo" class="editor" label="Conteúdo da Notícia"/>
+        <q-editor
+          v-model="conteudo"
+          class="editor"
+          label="Conteúdo da Notícia"
+        />
+      </template>
 
-
-</template>
-
-      <q-btn class="btn-enviar" color="primary" icon="check" label="Postar" @click="postar()" />
+      <q-btn
+        class="btn-enviar"
+        color="primary"
+        icon="check"
+        label="Postar"
+        @click="postar()"
+      />
     </div>
   </div>
 </template>
 
 <script>
-const base64 = require('image-to-base64');
-import Noticia from "../boot/noticia";
+import Noticia from '../boot/noticia';
 export default {
-  data () {
+  data() {
     return {
-      titulo: "",
-      descricao: "",
-      capa: "",
-      conteudo: "",
-      image: ""
-      }},
+      titulo: '',
+      descricao: '',
+      capa: '',
+      conteudo: '',
+      image: ''
+    };
+  },
 
   methods: {
-    con(){
-console.log(this.image)
+    readURL(input) {
+      const vm = this;
+      if (input && input[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          vm.capa = e.target.result;
+        };
+        reader.readAsDataURL(input[0]);
+      }
     },
-    postar(){
-      const vm = this
+    postar() {
+      const vm = this;
       const conteudonoticia = {
         capa: this.capa,
         titulo: this.titulo,
@@ -79,40 +94,19 @@ console.log(this.image)
         conteudo: this.conteudo
       };
 
-       Noticia.postar(conteudonoticia)
+      Noticia.postar(conteudonoticia)
         .then(response => {
           console.log(response);
           console.log(response.data.token);
 
           vm.status = response.data.status;
-
         })
         .catch(e => {
-          console.log(e)
+          console.log(e);
         });
-
-    },
-
-  base(){
-      const vm = this
-      console.log(this.image)
-  base64().then(
-        (response) => {
-            console.log(response);
-            vm.capa = `data:image/jpeg;base64, ${response}`;
-            console.log(vm.capa);
-        }
-    )
-    .catch(
-        (error) => {
-            console.log(error);
-        }
-    )
+    }
   }
-
-
-}
-}
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -153,6 +147,10 @@ margin: 25px;
 
 }
 
+.header .image .img-preview{
+  width: 75%;
+}
+
 input[type='file'] {
   display: none
 }
@@ -186,10 +184,5 @@ input[type='file'] {
 .btn-enviar{
   height: 50px;
   width: 10%;
-}
-
-.img-input{
-  padding: 350px;
-  width: 20px;
 }
 </style>
