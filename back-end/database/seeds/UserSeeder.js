@@ -15,7 +15,7 @@ const Factory = use('Factory')
 
 class UserSeeder {
     async run() {
-        await Factory.model('../app/Models/User').create()
+        await Factory.model('App/Models/User').create()
         console.log(users)
     }
 }

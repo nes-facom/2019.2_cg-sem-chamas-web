@@ -14,10 +14,10 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
-Factory.blueprint('./app/Models/User', (faker) => {
+Factory.blueprint('App/Models/User', (faker) => {
     return {
-        nome: faker.nome(),
-        email: 'ab@gmail.com',
+        nome: 'Ze',
+        email: 'ze@gmail.com',
         password: '1234',
         telefone: '67998876655',
         enderecoUsuario: 'Rua A numero 100',
