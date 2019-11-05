@@ -15,17 +15,23 @@ const routes = [
     path: "/buscar",
     component: () => import("pages/Protocolo.vue")
   },
+
   {
-    path: "/",
+    path: "/gps",
+    component: () => import("pages/Map.vue")
+  },
+
+  {
+    path: "/inicio",
     component: () => import("layouts/TelaDenuncia.vue")
   },
   { path: "/login", component: () => import("pages/Login.vue") },
 
   {
-    path: "/denuncia",
+    path: "/",
     component: () => import("layouts/Principal.vue"),
     children: [
-      { path: "/homeLogged", component: () => import("pages/HomeLogged.vue") }
+      { path: "", component: () => import("pages/HomeLogged.vue") }
     ]
   },
 

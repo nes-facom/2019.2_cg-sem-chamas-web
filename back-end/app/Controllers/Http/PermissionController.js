@@ -1,26 +1,32 @@
-'use strict'
-const User = use('App/Models/User')
+
+'use strict';
+const User = use('App/Models/User');
+const Permission = use('Permission');
 class PermissionController {
-    async store ({request,auth}){
-        const data = request.only(['email','password','emailAlterar','permissionAlterar'])
-        const email = data.email
-        const password = data.password
-        const emailAlterar = data.emailAlterar
-        const permissionAlterar = data.permissionAlterar
+	async store({ request, auth }) {
+		const data = request.only(['name', 'slug', 'description']);
+		const permission = await Permission.create(data);
+		return permission;
+	}
 
-        const token = await auth.attempt(email,password)
+	async update({ request, params }) {
+		const data = request.only(['name', 'slug', 'description']);
+		const permission = await Permission.findOrFail(params.id);
+		permission.merge(data);
+		await permission.save();
+		return permission;
+	}
 
-        const user = await User.findByOrFail('email',emailAlterar)
+	async destroy({ params }) {
+		const permission = await Permission.findOrFail(params.id);
+		permission.delete();
+	}
 
-        user.permission = permissionAlterar
-            
-        await user.save()
-        
-        
-        
-        
-        return user
-    }
+	async index() {
+		const permissions = await Permission.all();
+		return permissions;
+	}
+
 }
 
-module.exports = PermissionController
+module.exports = PermissionController;

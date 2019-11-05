@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -7,177 +7,186 @@
 /**
  * Resourceful controller for interacting with denuncias
  */
-const Denuncia = use("App/Models/Denuncia");
+const Denuncia = use('App/Models/Denuncia');
+const Auth = use('Adonis/Middleware/Auth');
 
 class DenunciaController {
-  /**
-   * Show a list of all denuncias.
-   * GET denuncias
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async index({ request, response, view }) {
-    const denuncia = Denuncia.all();
+	/**
+	 * Show a list of all denuncias.
+	 * GET denuncias
+	 *
+	 * @param {object} ctx
+	 * @param {Request} ctx.request
+	 * @param {Response} ctx.response
+	 * @param {View} ctx.view
+	 */
+	async index({ request, response, view }) {
+		const denuncia = Denuncia.all();
 
-    return denuncia;
-  }
+		return denuncia;
+	}
 
-  /**
-   * Show a list of all denuncias.
-   * GET denuncias
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async count({ request, response, view }) {
-    const denuncia = await Denuncia.getCount()
-    return denuncia;
-  }
+	/**
+	 * Show a list of all denuncias.
+	 * GET denuncias
+	 *
+	 * @param {object} ctx
+	 * @param {Request} ctx.request
+	 * @param {Response} ctx.response
+	 * @param {View} ctx.view
+	 */
+	async count({ request, response, view }) {
+		const denuncia = await Denuncia.getCount();
+		return denuncia;
+	}
 
-  /**
-   * Render a form to be used for creating a new denuncia.
-   * GET denuncias/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create({ request, response, view }) {}
+	/**
+	 * Render a form to be used for creating a new denuncia.
+	 * GET denuncias/create
+	 *
+	 * @param {object} ctx
+	 * @param {Request} ctx.request
+	 * @param {Response} ctx.response
+	 * @param {View} ctx.view
+	 */
+	async create({ request, response, view }) {}
 
-  /**
-   * Create/save a new denuncia.
-   * POST denuncias
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async store({ request, session, response }) {
-    const data = request.only([
-      "protocolo",
-      "foto",
-      "geo-lat",
-      "geo-lng",
-      "intensidade",
-      "observacao",
-      "data",
-      "ip",
-      "endereco",
-      "status",
-      "nome",
-      "telefone",
-    ]);
-    //"dUserDenuncia",
+	/**
+	 * Create/save a new denuncia.
+	 * POST denuncias
+	 *
+	 * @param {object} ctx
+	 * @param {Request} ctx.request
+	 * @param {Response} ctx.response
+	 */
+	async store({ request, session, response, auth }) {
+		const data = request.only([
+			'protocolo',
+			'foto',
+			'geo-lat',
+			'geo-lng',
+			'intensidade',
+			'observacao',
+			'data',
+			'ip',
+			'endereco',
+			'status',
+			'nome',
+			'telefone'
+		]);
 
-    const denuncia = await Denuncia.create(data);
+		try {
+			await auth.getUser();
 
-    return denuncia;
-  }
+			const denuncia = await Denuncia.create({
+				...data,
+				user_id: auth.user.id
+			});
 
-  /**
-   * Display a single denuncia.
-   * GET denuncias/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show({ params, request, response, view }) {
-    const denuncia = await Denuncia.findOrFail(params.id);
-    return denuncia;
-  }
-  
+			return denuncia;
+		} catch (error) {
+			const denuncia = await Denuncia.create({ ...data });
 
-  async byProtocolo({ params, request, response, view }) {
-    const denuncia = await Denuncia.findBy("protocolo", params.protocolo);
+			return denuncia;
+		}
+	}
 
-    //Separando dados que eu quero retornar (SEGURANÇA)
-    const { status, protocolo, created_at } = denuncia;
+	/**
+	 * Display a single denuncia.
+	 * GET denuncias/:id
+	 *
+	 * @param {object} ctx
+	 * @param {Request} ctx.request
+	 * @param {Response} ctx.response
+	 * @param {View} ctx.view
+	 */
+	async show({ params, request, response, view }) {
+		const denuncia = await Denuncia.findOrFail(params.id);
+		return denuncia;
+	}
 
-    //Criar JSON de com os dados de retorno
-    const dados = {
-      protocolo: protocolo,
-      status: status,
-      data: created_at,
-    };
+	async byProtocolo({ params, request, response, view }) {
+		const denuncia = await Denuncia.findBy('protocolo', params.protocolo);
 
-    return dados;
-  }
+		//Separando dados que eu quero retornar (SEGURANÇA)
+		const { status, protocolo, created_at } = denuncia;
 
-  /**
-   * Render a form to update an existing denuncia.
-   * GET denuncias/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit({ params, request, response, view }) {
+		//Criar JSON de com os dados de retorno
+		const dados = {
+			protocolo: protocolo,
+			status: status,
+			data: created_at
+		};
 
-  }
+		return dados;
+	}
 
-  /**
-   * Update denuncia details.
-   * PUT or PATCH denuncias/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async update({ params, request, response }) {
-    // const cliente = await Cliente.findOrFail(params.id);
-    // const data = request.only(["nome", "e-mail"]);
-    // cliente.merge(data);
-    // await cliente.save();
-    // return cliente
-    const property = await Denuncia.findOrFail(params.id)
+	/**
+	 * Render a form to update an existing denuncia.
+	 * GET denuncias/:id/edit
+	 *
+	 * @param {object} ctx
+	 * @param {Request} ctx.request
+	 * @param {Response} ctx.response
+	 * @param {View} ctx.view
+	 */
+	async edit({ params, request, response, view }) {}
 
-    const data = request.only([
-      "protocolo",
-      "foto",
-      "geo-lat",
-      "geo-lng",
-      "intensidade",
-      "observacao",
-      "data",
-      "ip",
-      "endereco",
-      "status",
-      "nome",
-      "telefone",
-    ])
+	/**
+	 * Update denuncia details.
+	 * PUT or PATCH denuncias/:id
+	 *
+	 * @param {object} ctx
+	 * @param {Request} ctx.request
+	 * @param {Response} ctx.response
+	 */
+	async update({ params, request, response, auth }) {
+		// const cliente = await Cliente.findOrFail(params.id);
+		// const data = request.only(["nome", "e-mail"]);
+		// cliente.merge(data);
+		// await cliente.save();
+		// return cliente
+		const property = await Denuncia.findBy('protocolo', params.id);
 
-  property.merge(data)
+		const data = request.only([
+			'protocolo',
+			'foto',
+			'geo-lat',
+			'geo-lng',
+			'intensidade',
+			'observacao',
+			'data',
+			'ip',
+			'endereco',
+			'status',
+			'nome',
+			'telefone',
+			'user_id'
+		]);
 
-  await property.save()
-  //console.log("update")
+		property.merge(data);
 
-  return property
-  }
+		await property.save();
+		//console.log("update")
 
-  /**
-   * Delete a denuncia with id.
-   * DELETE denuncias/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async destroy({ params, request, response }) {
-      const denuncia = await Denuncia.findOrFail(params.id)
-      // if (Denuncia.id !== denuncia.id) {
-      //   return response.status(401).send({ error: 'Not authorized' })
-      // }
-      await denuncia.delete()
-  }
+		return property;
+	}
+
+	/**
+	 * Delete a denuncia with id.
+	 * DELETE denuncias/:id
+	 *
+	 * @param {object} ctx
+	 * @param {Request} ctx.request
+	 * @param {Response} ctx.response
+	 */
+	async destroy({ params, request, response }) {
+		const denuncia = await Denuncia.findOrFail(params.id);
+		// if (Denuncia.id !== denuncia.id) {
+		//   return response.status(401).send({ error: 'Not authorized' })
+		// }
+		await denuncia.delete();
+	}
 }
 
 module.exports = DenunciaController;
