@@ -14,7 +14,7 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
-Factory.blueprint('app/Models/User', (faker) => {
+Factory.blueprint('./app/Models/User', (faker) => {
     return {
         nome: faker.nome(),
         email: 'ab@gmail.com',
@@ -23,6 +23,5 @@ Factory.blueprint('app/Models/User', (faker) => {
         enderecoUsuario: 'Rua A numero 100',
         cpf: '111222333344',
         permission: 1
-    )
 }
 })
