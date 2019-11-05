@@ -1,5 +1,7 @@
 node_modules
 
+back-end/.env
+
 frontend-app/.env
 
-back-end/.env
+frontend-web/.env
