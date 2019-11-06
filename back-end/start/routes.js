@@ -55,11 +55,10 @@ Route.put('denuncia/:id', 'DenunciaController.update');
 // 	'is:(Comite || Administrador)'
 // ]);
 
-Route.delete('denuncia/:id', 'DenunciaController.destroy');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite || Administrador)'
-// ]);
+Route.delete('denuncia/:id', 'DenunciaController.destroy').middleware(
+	'auth'
+	// 'is:(Comite || Administrador)'
+);
 
 Route.post('users', 'UserController.store');
 
@@ -114,5 +113,7 @@ Route.post('/noticias', 'NoticiaController.store');
 Route.get('/noticias', 'NoticiaController.index');
 // .middleware(['auth']);
 
-Route.get('logout', 'SessionController.delete');
+Route.get('/logout', 'SessionController.delete');
 // .middleware('auth');
+
+Route.get('/check', 'SessionController.check').middleware('auth');

@@ -185,6 +185,7 @@ class DenunciaController {
 		// if (Denuncia.id !== denuncia.id) {
 		//   return response.status(401).send({ error: 'Not authorized' })
 		// }
+
 		await denuncia.delete();
 	}
 }

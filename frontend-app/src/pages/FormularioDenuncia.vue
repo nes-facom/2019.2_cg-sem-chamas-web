@@ -293,8 +293,8 @@ document.addEventListener("deviceready", () => {}, false);
 <script>
 import { mapState } from "vuex";
 import { store } from "../store/index";
-import Map from "./Map";
 import Denuncia from "../boot/denuncia";
+import Map from "./Map";
 import {
   openURL,
   QInput,

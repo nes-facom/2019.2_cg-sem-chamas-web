@@ -1,22 +1,25 @@
 <template>
   <div>
     <div v-for="denuncia of denuncias" v-bind:key="denuncia.id">
-      {{denuncia.id}} {{denuncia.endereco}} {{denuncia.protocolo}}
+      {{ denuncia.id }} {{ denuncia.endereco }} {{ denuncia.protocolo }}
       <button
         @click="editar(denuncia)"
         class="waves-effect btn-small blue darken-1"
       >
         <i class="material-icons">create</i>
       </button>
-      <button @click="remover(denuncia.id)" class="waves-effect btn-small red darken-1">
+      <button
+        @click="remover(denuncia.id)"
+        class="waves-effect btn-small red darken-1"
+      >
         <i class="material-icons">delete_sweep</i>
       </button>
     </div>
     <div>
-      <h6>Form</h6>Nome:
+      <h6>Form</h6>
+      Nome:
       <input type="text" v-model="denuncia.endereco" />
-      <br />Endereço:
-      <input type="text" v-model="denuncia.protocolo" />dress
+      <br />Endereço: <input type="text" v-model="denuncia.protocolo" />dress
       <br />Salvar
       <input type="submit" @click="salvar()" />
       Mostrar
@@ -32,16 +35,16 @@
 </template>
 
 <script>
-import Denuncia from "../boot/denuncia";
+import Denuncia from '../boot/denuncia';
 export default {
-  name: "Denuncias",
+  name: 'Denuncias',
   data() {
     return {
       info: null,
       denuncia: {
-        id: "",
-        endereco: "",
-        protocolo: ""
+        id: '',
+        endereco: '',
+        protocolo: ''
       },
 
       denuncias: [],
@@ -65,7 +68,7 @@ export default {
         Denuncia.salvar(this.denuncia)
           .then(response => {
             this.denuncia = {};
-            alert("Cadastrado com sucesso!");
+            alert('Cadastrado com sucesso!');
             this.listar();
             this.errors = {};
           })
@@ -77,7 +80,7 @@ export default {
           .then(response => {
             this.denuncia = {};
             this.errors = {};
-            alert("Atualizado com sucesso!");
+            alert('Atualizado com sucesso!');
             this.listar();
           })
           .catch(e => {
@@ -89,7 +92,7 @@ export default {
       this.denuncia = denuncia;
     },
     remover(denuncia) {
-      if (confirm("Deseja excluir o denuncia?")) {
+      if (confirm('Deseja excluir o denuncia?')) {
         Denuncia.apagar(denuncia)
           .then(response => {
             this.listar();
@@ -100,6 +103,7 @@ export default {
           });
       }
     },
+
     mostrar(denuncia) {
       Denuncia.exibir(denuncia)
         .then(response => {
@@ -127,5 +131,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

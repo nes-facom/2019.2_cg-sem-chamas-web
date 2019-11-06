@@ -25,17 +25,22 @@
 </template>
 
 </<script>
+import { mapState } from "vuex";
+import { store } from "../store/index";
+import Session from "../store/module/Session";
+
 import User from "../boot/login";
 export default {
    data () {
     return {
       email: "",
       password: "",
-      token: "",
       isPwd: true,
       }},
   methods: {
     logar(){
+      console.log(this.$store.getters.Session/token())
+
       const vm = this
       const login = {
         email: this.email,
@@ -46,10 +51,12 @@ export default {
 
       User.logar(login)
         .then(response => {
-          console.log(response);
-          console.log(response.data.token);
 
-          vm.token = response.data.token;
+
+          let value = response.data.token;
+        this.$store.commit("Session/setToken", value);
+          console.log(value)
+
           vm.$router.push('/');
 
         })
@@ -58,6 +65,26 @@ export default {
         });
 
     }
+  },
+  computed: {
+    ...mapState({ token: state => state.Session.token }),
+
+     emailC: {
+      get() {
+        return this.emailC;
+      },
+      set(value) {
+        this.$store.commit("Session/setEmail", value);
+      }
+    },
+     tokenC: {
+      get() {
+        return this.tokenC;
+      },
+      set(value) {
+        this.$store.commit("Session/setToken", value);
+      }
+    },
   },
 
 }
