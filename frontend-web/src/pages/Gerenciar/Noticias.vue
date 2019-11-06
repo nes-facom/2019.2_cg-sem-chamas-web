@@ -148,14 +148,14 @@
     <div class="dash">
       <div class="dashboard">
 
-        <h2>Denúncias </h2>
+        <h2>Notícias </h2>
         <div class="tabela">
           <q-table
           flat
 
           :grid="$q.screen.xs"
             class="my-sticky-column-table"
-            title="Denúncias"
+            title="Notícias"
             :data="data"
             :columns="columns"
             row-key="protocolo"
@@ -237,7 +237,7 @@
 </template>
 
 <script>
-import Denuncia from "../boot/denuncia";
+import Denuncia from "../../boot/denuncia";
 export default {
   data () {
     return {
@@ -376,9 +376,7 @@ export default {
     },
 
   },
-  mounted () {
-    this.mostrar();
-  }
+ 
 
 }
 
