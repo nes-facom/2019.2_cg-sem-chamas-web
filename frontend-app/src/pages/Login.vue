@@ -1,6 +1,9 @@
 <template>
-  <div class="login" style="height: 100vh;
-  width: 100vw;">
+  <div
+    class="login"
+    style="height: 100vh;
+  width: 100vw;"
+  >
     <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
     <h4>CG sem chamas</h4>
 
@@ -8,15 +11,23 @@
       <h6>Login</h6>
 
       <div class="inputs">
-        <q-input outlined v-model="text" label="Email">
+        <q-input outlined v-model="email" label="Email">
           <template v-slot:prepend>
             <q-icon name="mail" />
           </template>
         </q-input>
-
-        <q-input outlined v-model="text" label="Senha">
+        <q-input
+          outlined
+          :type="isPwd ? 'password' : 'text'"
+          label="Senha"
+          v-model="password"
+        >
           <template v-slot:prepend>
-            <q-icon name="lock" />
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
           </template>
         </q-input>
       </div>
@@ -33,14 +44,35 @@
 </template>
 
 <script>
+import User from '../boot/login';
 export default {
-  name: "Login",
   data() {
-    return {};
+    return {
+      email: '',
+      password: '',
+      token: '',
+      isPwd: true
+    };
   },
   methods: {
-    voltar() {
-      window.history.back();
+    logar() {
+      const vm = this;
+      const login = {
+        email: this.email,
+        password: this.password
+      };
+
+      User.logar(login)
+        .then(response => {
+          console.log(response);
+          console.log(response.data.token);
+
+          vm.token = response.data.token;
+          vm.$router.push('/');
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
   }
 };
@@ -81,7 +113,7 @@ export default {
   margin-top: 10%;
 }
 h4 {
-  font-family: "Robotos lab";
+  font-family: 'Robotos lab';
   font-weight: bolder;
   color: #ffffff;
 }

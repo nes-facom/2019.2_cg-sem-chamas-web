@@ -1,8 +1,9 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import Map from "./module/MapStore";
-import Dialog from "./module/DialogStore";
-import Denuncia from "./module/DenunciaStore";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import Map from './module/MapStore';
+import Dialog from './module/DialogStore';
+import Denuncia from './module/DenunciaStore';
+import Session from './module/Session.js';
 
 Vue.use(Vuex);
 
@@ -17,11 +18,12 @@ export default function(/* { ssrContext } */) {
       Map,
       Dialog,
       Denuncia,
+      Session
     },
 
     // enable strict mode (adds overhead!)
     // for dev mode only
-    strict: process.env.DEV,
+    strict: process.env.DEV
   });
 
   return Store;

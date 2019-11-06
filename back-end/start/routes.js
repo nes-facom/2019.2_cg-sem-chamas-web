@@ -99,7 +99,7 @@ Route.put('/noticias/:id', 'NoticiaController.update');
 // 	'is:(Comite)'
 // ]);
 
-Route.delete('noticias/id', 'NoticiaController.destroy');
+Route.delete('noticias/:id', 'NoticiaController.destroy');
 // .middleware([
 // 	'auth',
 // 	'is:(Comite)'
