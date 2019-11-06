@@ -91,7 +91,8 @@ export default {
         capa: this.capa,
         titulo: this.titulo,
         descricao: this.descricao,
-        conteudo: this.conteudo
+        conteudo: this.conteudo,
+        user_id: 1
       };
 
       Noticia.postar(conteudonoticia)

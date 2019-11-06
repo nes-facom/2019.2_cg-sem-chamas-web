@@ -329,23 +329,23 @@ export default {
     },
     mostrar (denuncia) {
       const vm = this;
-      this.$q.loading.show({
-        backgroundColor: 'orange',
-        message: 'Atualizando dados do servidor...',
-        messageColor: 'black',
-      })
+      // this.$q.loading.show({
+      //   backgroundColor: 'orange',
+      //   message: 'Atualizando dados do servidor...',
+      //   messageColor: 'black',
+      // })
 
       Denuncia.listar(denuncia)
         .then(response => {
           console.log(response.data);
           this.data = response.data
-          vm.$q.loading.hide()
+          vm.$q.loading.hide() // essa remove
 
         })
         .catch(e => {
           this.errors = e.response.data.errors;
           console.log(e.response.data.errors);
-          vm.$q.loading.hide()
+          vm.$q.loading.hide() // essa remove
 
         });
     },

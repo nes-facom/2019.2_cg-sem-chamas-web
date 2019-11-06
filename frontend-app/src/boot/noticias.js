@@ -1,8 +1,6 @@
 import { http } from "./axios";
 
-
 export default {
-
     postar: noticia => {
         return http.post("noticias", noticia);
     },
@@ -17,5 +15,5 @@ export default {
 
     apagar: noticia => {
         return http.delete("noticias/" + noticia);
-    },
-}
+    }
+};
