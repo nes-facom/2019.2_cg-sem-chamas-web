@@ -22,7 +22,18 @@ const routes = [{
                 path: 'noticias',
                 component: () =>
                     import ('pages/Noticias.vue')
+            },
+            {
+                path: 'gerenciarnoticias',
+                component: () =>
+                    import ('pages/Gerenciar/Noticias.vue')
+            },
+            {
+                path: 'gerenciarusuarios',
+                component: () =>
+                    import ('pages/Gerenciar/Usuarios.vue')
             }
+
         ]
     },
     {

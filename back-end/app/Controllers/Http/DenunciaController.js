@@ -119,6 +119,23 @@ class DenunciaController {
 		};
 
 		return dados;
+	},
+
+
+	async byUser({ params, request, response, view }) {
+		const denuncia = await Denuncia.findBy('user_id', params.userid);
+
+		//Separando dados que eu quero retornar (SEGURANÇA)
+		const { status, protocolo, created_at } = denuncia;
+
+		//Criar JSON de com os dados de retorno
+		const dados = {
+			protocolo: protocolo,
+			status: status,
+			data: created_at
+		};
+
+		return dados;
 	}
 
 	/**

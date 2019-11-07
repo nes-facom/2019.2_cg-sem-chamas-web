@@ -58,7 +58,8 @@ module.exports = function(ctx) {
         "QCard",
         "QSeparator",
         "QCardSection",
-        "QDialog"
+        "QDialog",
+        'QScrollArea'
       ],
 
       directives: ["Ripple", "ClosePopup"],

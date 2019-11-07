@@ -91,15 +91,16 @@ export default {
         capa: this.capa,
         titulo: this.titulo,
         descricao: this.descricao,
-        conteudo: this.conteudo
+        conteudo: this.conteudo,
+        user_id: 1
       };
 
       Noticia.postar(conteudonoticia)
         .then(response => {
           console.log(response);
           console.log(response.data.token);
-
           vm.status = response.data.status;
+          vm.$router.push('/gerenciarnoticias');
         })
         .catch(e => {
           console.log(e);

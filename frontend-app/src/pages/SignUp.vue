@@ -1,6 +1,9 @@
 <template>
-  <div class="sign-up" style="height: 100vh;
-  width: 100vw;">
+  <div
+    class="sign-up"
+    style="height: 100vh;
+  width: 100vw;"
+  >
     <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
 
     <h4>CG sem chamas</h4>
@@ -14,21 +17,39 @@
             <q-icon name="person_add" />
           </template>
         </q-input>
-        <q-input outlined v-model="text" label="Email">
+        <q-input outlined v-model="email" label="Email">
           <template v-slot:prepend>
             <q-icon name="mail" />
           </template>
         </q-input>
 
-        <q-input outlined v-model="text" label="Senha">
+        <q-input
+          outlined
+          :type="isPwd ? 'password' : 'text'"
+          label="Senha"
+          v-model="password"
+        >
           <template v-slot:prepend>
-            <q-icon name="lock" />
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
           </template>
         </q-input>
 
-        <q-input outlined v-model="text" label="Confirmar senha">
+        <q-input
+          outlined
+          :type="isPwd ? 'password' : 'text'"
+          label="Confirmar senha"
+          v-model="password"
+        >
           <template v-slot:prepend>
-            <q-icon name="lock" />
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
           </template>
         </q-input>
       </div>
@@ -143,7 +164,7 @@ export default {
   margin-top: 10%;
 }
 h4 {
-  font-family: "Robotos lab";
+  font-family: 'Robotos lab';
   font-weight: bolder;
   color: #ffffff;
   margin-top: 5%;
