@@ -111,8 +111,8 @@ class NoticiaController {
      * @param {Response} ctx.response
      */
     async destroy({ params, request, response }) {
-        await Noticia.find(params.id).delete()
-
+        const noticia = await Noticia.findOrFail(params.id);
+        await noticia.delete();
         return response.json({ message: 'Notícia deletada!' })
     }
 }

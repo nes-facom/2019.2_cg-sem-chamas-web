@@ -99,8 +99,8 @@ export default {
         .then(response => {
           console.log(response);
           console.log(response.data.token);
-
           vm.status = response.data.status;
+          vm.$router.push('/gerenciarnoticias');
         })
         .catch(e => {
           console.log(e);

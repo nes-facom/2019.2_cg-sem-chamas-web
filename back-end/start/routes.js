@@ -36,7 +36,7 @@ Route.get('denuncia/:id', 'DenunciaController.show');
 // ]);
 
 Route.get('protocolo/:protocolo', 'DenunciaController.byProtocolo');
-
+Route.get('userid/:userid', 'DenunciaController.byUser');
 Route.get('total/', 'DenunciaController.count');
 // .middleware([
 // 	'auth',
