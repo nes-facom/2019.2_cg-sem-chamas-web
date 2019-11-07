@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="homeLogged"
-    style="height: 100vh;  width: 100vw;"
-    v-bind:class="isHome"
-  >
+  <div class="homeLogged" style="height: 100vh;  width: 100vw;" v-bind:class="isHome">
     <div class="toolbarLogado">
       <q-tabs
         class="tabs"
@@ -14,11 +10,7 @@
         narrow-indicator
       >
         <q-tab name="home" icon="home" label="Home" />
-        <q-tab
-          name="minhasDenuncias"
-          icon="fas fa-bullhorn"
-          label="Minhas denúncias"
-        />
+        <q-tab name="minhasDenuncias" icon="fas fa-bullhorn" label="Minhas denúncias" />
         <q-tab name="noticias" icon="far fa-newspaper" label="Notícias" />
       </q-tabs>
 
@@ -37,9 +29,7 @@
             <div class="btn-denuncia">
               <q-btn color="white" push @click="$router.push('/denuncia/form')">
                 <div class="row items-center no-wrap botao-denuncia">
-                  <div class="text-center text-primary text-weight-bold">
-                    Denunciar
-                  </div>
+                  <div class="text-center text-primary text-weight-bold">Denunciar</div>
                 </div>
               </q-btn>
             </div>
@@ -57,9 +47,7 @@
                 <div class="denunciaStatus">Fechada</div>
               </div>
 
-              <div class="denunciaEndereco">
-                Avenida Afonso Pena, 432 - Campo Grande-MS 79092-123
-              </div>
+              <div class="denunciaEndereco">Avenida Afonso Pena, 432 - Campo Grande-MS 79092-123</div>
             </div>
             <div class="line"></div>
           </div>
@@ -76,19 +64,27 @@
               <img :src="n.capa" style="width: 100%" />
               <div class="noticiaInfo">
                 <div>
+<<<<<<< Updated upstream
                   <div class="noticiaTitulo">
                     {{ n.titulo }}
                   </div>
+=======
+                  <div class="noticiaTitulo">QUEIMADAS PODEM DESLIGAR CIDADES</div>
+>>>>>>> Stashed changes
                 </div>
 
                 <div class="noticiaDados">
                   <div class="noticiaData">
                     NOV
                     <br />17
+<<<<<<< Updated upstream
                   </div>
                   <div class="noticiaTexto">
                     {{ n.descricao }}
+=======
+>>>>>>> Stashed changes
                   </div>
+                  <div class="noticiaTexto">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                 </div>
               </div>
             </q-card>
@@ -100,9 +96,15 @@
 </template>
 
 <script>
+<<<<<<< Updated upstream
 import Noticia from '../boot/noticia';
 import { openURL } from 'quasar';
 import { AddressbarColor } from 'quasar';
+=======
+import Noticia from "../boot/noticia";
+import { openURL } from "quasar";
+import { AddressbarColor } from "quasar";
+>>>>>>> Stashed changes
 export default {
   name: 'TelaDenuncia',
   data() {
@@ -134,8 +136,24 @@ export default {
         });
     }
   },
+<<<<<<< Updated upstream
   mounted() {
     this.mostrar();
+=======
+  methods: {
+    mostrar(noticia) {
+      const vm = this;
+      Noticia.listar(noticia)
+        .then(response => {
+          console.log(response.data);
+          this.data = response.data;
+        })
+        .catch(e => {
+          this.errors = e.response.data.errors;
+          console.log(e.response.data.errors);
+        });
+    }
+>>>>>>> Stashed changes
   }
 };
 </script>
