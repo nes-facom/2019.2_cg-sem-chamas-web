@@ -22,7 +22,7 @@ const routes = [
   },
 
   {
-    path: "/inicio",
+    path: "/",
     component: () => import("layouts/TelaDenuncia.vue")
   },
   { path: "/login", component: () => import("pages/Login.vue") },
