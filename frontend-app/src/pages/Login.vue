@@ -1,28 +1,27 @@
 <template>
-  <div
-    class="login"
-    style="height: 100vh;
-  width: 100vw;"
-  >
+  <div class="login" style="height: 100vh;
+  width: 100vw;">
     <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
-    <h4>CG sem chamas</h4>
+    <div class="topo">
+      <div class="img-centro"></div>
+    </div>
 
     <div class="loginIn">
-      <h6>Login</h6>
+      <h6>Fazer login</h6>
 
       <div class="inputs">
-        <q-input outlined v-model="email" label="Email">
-          <template v-slot:prepend>
+        <q-input class="qinput" label="E-mail" v-model="email" />
+        <!-- <template v-slot:prepend>
             <q-icon name="mail" />
           </template>
-        </q-input>
+        </q-input>-->
         <q-input
-          outlined
+          class="qinput"
           :type="isPwd ? 'password' : 'text'"
           label="Senha"
           v-model="password"
         >
-          <template v-slot:prepend>
+          <template v-slot:append>
             <q-icon
               :name="isPwd ? 'visibility_off' : 'visibility'"
               class="cursor-pointer"
@@ -33,7 +32,7 @@
       </div>
 
       <div class="btn-login">
-        <q-btn color="primary">ENTRAR</q-btn>
+        <q-btn outline color="primary" label="Login" @click="logar()" />
       </div>
       <p>
         Não possui uma conta?
@@ -44,13 +43,13 @@
 </template>
 
 <script>
-import User from '../boot/login';
+import User from "../boot/login";
 export default {
   data() {
     return {
-      email: '',
-      password: '',
-      token: '',
+      email: "",
+      password: "",
+      token: "",
       isPwd: true
     };
   },
@@ -68,7 +67,7 @@ export default {
           console.log(response.data.token);
 
           vm.token = response.data.token;
-          vm.$router.push('/');
+          vm.$router.push("/");
         })
         .catch(e => {
           console.log(e);
@@ -87,6 +86,10 @@ export default {
   justify-content: center;
   flex-direction: column;
   text-align: center;
+}
+.topo {
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 .login {
   display: flex;
@@ -110,17 +113,24 @@ export default {
   background-color: #ffffff;
   width: 88%;
   border-radius: 2.2%;
-  margin-top: 10%;
+  margin-top: 0px;
+  padding: 20px 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-h4 {
-  font-family: 'Robotos lab';
-  font-weight: bolder;
+h7 {
+  font-family: "Arial";
+  /* font-weight: bolder; */
   color: #ffffff;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 .inputs .q-input {
   margin-top: 1%;
   margin-bottom: 5%;
   width: 250px;
+}
+.btn-login {
+  padding: 20px 0px;
 }
 .inputs .q-icon {
   color: #f4853e;
@@ -132,13 +142,30 @@ button {
   height: 55px;
   width: 250px;
 }
+.p1 {
+  color: white;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
 p {
   color: #737373;
-  margin-top: 5%;
+  margin-top: 0px 20px;
   font-size: 13px;
 }
 h6 {
-  color: #737373;
+  color: black;
   margin: 3%;
+}
+.img-centro {
+  background-color: blue;
+  background: url("https://i.imgur.com/h20GKNd.png");
+  background-size: 140px auto;
+  width: 140px;
+  height: 140px;
+  /* border: 17px solid #f4853e; */
+  box-sizing: border-box;
+  margin: 0px;
+  margin-bottom: 10px;
 }
 </style>
