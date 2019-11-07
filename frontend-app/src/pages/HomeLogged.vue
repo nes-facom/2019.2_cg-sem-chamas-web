@@ -114,23 +114,25 @@ export default {
           console.log(e.response.data.errors);
         });
     }
-  }
-  // mounted() {
-  //   this.mostrar();
-  // methods: {
-  //   mostrar(noticia) {
-  //     const vm = this;
-  //     Noticia.listar(noticia)
-  //       .then(response => {
-  //         console.log(response.data);
-  //         this.data = response.data;
-  //       })
-  //       .catch(e => {
-  //         this.errors = e.response.data.errors;
-  //         console.log(e.response.data.errors);
-  //       });
-  //   }
-  // }
+  },
+  
+  methods: {
+    mostrar(noticia) {
+      const vm = this;
+      Noticia.listar(noticia)
+        .then(response => {
+          console.log(response.data);
+          this.data = response.data;
+        })
+        .catch(e => {
+          this.errors = e.response.data.errors;
+          console.log(e.response.data.errors);
+        });
+    }
+  },
+  mounted() {
+    this.mostrar();
+  },
 };
 </script>
 <style scoped>
