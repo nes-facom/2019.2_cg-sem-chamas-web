@@ -1,43 +1,33 @@
 <template>
-  <div
-    class="container"
-    style="height: 100vh"
-  >
+  <div class="container" style="height: 100vh">
     <div class="estatisticas">
       <h1>Estatísticas de Denúncias</h1>
       <div class="cartao">
         <h2>TOTAL DE DENÚNCIAS</h2>
       </div>
       <div class="graf">
-      <div class="grafico">
-        <apexchart
-          type="donut"
-          :options="options"
-          :series="series"
-        >
-
-        </apexchart>
-
-      </div>
+        <div class="grafico">
+          <apexchart type="donut" :options="options" :series="series">
+          </apexchart>
+        </div>
       </div>
       <div class="gerais">
         <h3>ESTATÍSTICAS GERAIS</h3>
-        <div>
-        </div>
-
+        <div></div>
       </div>
       <div class="rodape ">
-
-        <div class="totais fit column justify-center items-center content-center">
-          <p class="h3">{{totalDenuncias}}</p>
+        <div
+          class="totais fit column justify-center items-center content-center"
+        >
+          <p class="h3">{{ totalDenuncias }}</p>
           <p>Total de Denúncias</p>
         </div>
         <div class="mes fit column justify-center items-center content-center">
-          <p class="h3">{{totalDenuncias}}</p>
+          <p class="h3">{{ totalDenuncias }}</p>
           <p>Denúncias no mês</p>
         </div>
         <div class="dia fit column justify-center items-center content-center">
-          <p class="h3">{{totalDenuncias}}</p>
+          <p class="h3">{{ totalDenuncias }}</p>
           <p>Denúncias no dia</p>
         </div>
       </div>
@@ -57,40 +47,45 @@
         <h2>Dashboard</h2>
 
         <div class="cartoes">
-
-          <div
-            class="gerenciar cart"
-            @click="($router.push('/info'))"
-          >
+          <div class="gerenciar cart" @click="$router.push('/info')">
             <p>
               Gerenciar
-              <strong>Denúncias</strong></p>
+              <strong>Denúncias</strong>
+            </p>
           </div>
           <div class="relatorio cart">
             <p>
               Relatório
-              <strong>Denúncias</strong></p>
+              <strong>Denúncias</strong>
+            </p>
           </div>
           <div
             class="gerenciar cart"
-            @click="($router.push('/Noticias'))"
+            @click="$router.push('/gerenciarnoticias')"
           >
             <p>
-              Cadastrar
-              <strong>Noticia</strong></p>
+              Gerênciar
+              <strong>Noticias</strong>
+            </p>
           </div>
         </div>
       </div>
 
       <div class="recentes">
-       <div class="recentes-titulo">
+        <div class="recentes-titulo">
           <div class="titulo">
-          <h3>Denúncias Recentes</h3>
+            <h3>Denúncias Recentes</h3>
+          </div>
+          <div class="titulo">
+            <a @click="mostrar()"
+              ><q-icon
+                name="refresh"
+                class="text-green"
+                size="sm"
+                style="padding: 30px;"
+            /></a>
+          </div>
         </div>
-        <div class="titulo">
-        <a @click="mostrar()"><q-icon name="refresh" class="text-green" size="sm" style="padding: 30px;" /></a>
-        </div>
-       </div>
 
         <q-table
           flat
@@ -106,65 +101,61 @@
           hide-header
         >
           <template v-slot:body="props">
-            <q-tr
-             @click.native="$router.push('/info')"
-            :props="props">
-              <q-td
-                key="created_at"
-                :props="props"
-              ><strong class="text-grey">{{ props.row.created_at|formatData}}</strong></q-td>
+            <q-tr @click.native="$router.push('/info')" :props="props">
+              <q-td key="created_at" :props="props"
+                ><strong class="text-grey">{{
+                  props.row.created_at | formatData
+                }}</strong></q-td
+              >
 
-              <q-td
-                key="endereco"
-                :props="props"
-              ><strong>{{ props.row.endereco }}</strong></q-td>
+              <q-td key="endereco" :props="props"
+                ><strong>{{ props.row.endereco }}</strong></q-td
+              >
 
-              <q-td
-                key="protocolo"
-                :props="props"
-              ><strong class="text-primary">{{ props.row.protocolo }}</strong></q-td>
-
+              <q-td key="protocolo" :props="props"
+                ><strong class="text-primary">{{
+                  props.row.protocolo
+                }}</strong></q-td
+              >
             </q-tr>
           </template>
-
         </q-table>
-
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import VueApexCharts from 'vue-apexcharts'
-import Denuncia from "../boot/denuncia";
+import VueApexCharts from 'vue-apexcharts';
+import Denuncia from '../boot/denuncia';
 
 export default {
-  name: "Dashboard",
+  name: 'Dashboard',
   components: {
-    apexchart: VueApexCharts,
+    apexchart: VueApexCharts
   },
-  data () {
+  data() {
     return {
       totalDenuncias: 0,
       options: {
         colors: ['#F77726', '#AAA'],
         legend: {
-          show: false        },
+          show: false
+        },
         dataLabels: {
-          enabled: false        },
+          enabled: false
+        },
         pie: {
           expandOnClick: false
-        },
-
-
+        }
       },
       series: [0, 25],
-      labels: ["Mês", "Geral", "Ano"],
+      labels: ['Mês', 'Geral', 'Ano'],
       pagination: {
         page: 1,
         rowsPerPage: 5,
         descending: true,
-        sortBy: 'protocolo',
+        sortBy: 'protocolo'
       },
       dados: null,
       columns: [
@@ -177,92 +168,107 @@ export default {
           format: val => `${val}`,
           sortable: true
         },
-        { name: 'endereco', align: 'left', label: 'Endereço', field: 'endereco', sortable: true },
-        { name: 'created_at', align: 'left', label: 'Data', field: 'created_at', sortable: true },
-        { name: 'status', align: 'center', label: 'Status', field: 'status', sortable: true },
-        { name: 'acoes', align: 'center', label: 'Ações', field: 'acoes', sortable: false },
-
+        {
+          name: 'endereco',
+          align: 'left',
+          label: 'Endereço',
+          field: 'endereco',
+          sortable: true
+        },
+        {
+          name: 'created_at',
+          align: 'left',
+          label: 'Data',
+          field: 'created_at',
+          sortable: true
+        },
+        {
+          name: 'status',
+          align: 'center',
+          label: 'Status',
+          field: 'status',
+          sortable: true
+        },
+        {
+          name: 'acoes',
+          align: 'center',
+          label: 'Ações',
+          field: 'acoes',
+          sortable: false
+        }
       ],
       data: [
         {
           protocolo: 'Q12312312431225',
           endereco: 'Avenida Afonso Pena, 987',
           created_at: '12/12/12 22:22',
-          status: 'Em aberto',
-
+          status: 'Em aberto'
         },
         {
           protocolo: 'Q98765432101234',
           endereco: 'Avenida Manuel da Costa Lima, 123',
           created_at: '10/10/11 22:22',
-          status: 'Em aberto',
-
+          status: 'Em aberto'
         },
         {
           protocolo: 'Q93483948394873',
           endereco: 'Avenida Mato Grosso, 542',
           created_at: '10/10/10 22:22',
-          status: 'Em aberto',
-
+          status: 'Em aberto'
         }
-
       ]
-
-
-
-    }
+    };
   },
   filters: {
-    formatData: (data) => {
+    formatData: data => {
       const dat = new Date(data);
-      const formatData = dat.toLocaleString("pt-BR", { timeZone: 'America/Anchorage', });
+      const formatData = dat.toLocaleString('pt-BR', {
+        timeZone: 'America/Anchorage'
+      });
 
-      return formatData
+      return formatData;
     }
   },
   methods: {
-    reload(){
+    reload() {
       console.log('teste');
       window.location.reload();
     },
-    mostrar (denuncia) {
+    mostrar(denuncia) {
       const vm = this;
       this.$q.loading.show({
         backgroundColor: 'orange',
         message: 'Atualizando dados do servidor...',
-        messageColor: 'black',
-      })
+        messageColor: 'black'
+      });
       Denuncia.listar(denuncia)
         .then(response => {
           console.log(response.data);
-          this.data = response.data
-          vm.$q.loading.hide()
+          this.data = response.data;
+          vm.$q.loading.hide();
           this.total();
         })
         .catch(e => {
           console.log(e);
-          vm.$q.loading.hide()
-
+          vm.$q.loading.hide();
         });
     },
-    total (denuncia) {
+    total(denuncia) {
       Denuncia.contar(denuncia)
         .then(response => {
           console.log(response.data);
           this.totalDenuncias = response.data;
           this.series[0] = response.data;
-
         })
         .catch(e => {
           console.log(e);
-
         });
-    },
+    }
   },
-  mounted () {
+  mounted() {
     this.mostrar();
   }
-}
+};
 </script>
 <style lang="stylus" scoped>
 p {
@@ -544,5 +550,4 @@ p {
   display: flex;
   justify-content: space-between;
 }
-
 </style>
