@@ -55,12 +55,15 @@
 
         <q-tab-panel name="noticias">
           <div class="noticias">
+          <q-scroll-area
+      visible="false"
+      style="height: 92vh; max-width: 95%;"
+    >
             <q-card v-for="n in noticias" v-bind:key="n.id" class="my-card" style="width: 90%;">
               <img :src="n.capa" style="width: 100%" />
               <div class="noticiaInfo">
                 <div>
                   <div class="noticiaTitulo">{{ n.titulo }}</div>
-                  <div class="noticiaTitulo">QUEIMADAS PODEM DESLIGAR CIDADES</div>
                 </div>
 
                 <div class="noticiaDados">
@@ -69,10 +72,10 @@
                     <br />17
                   </div>
                   <div class="noticiaTexto">{{ n.descricao }}</div>
-                  <div class="noticiaTexto">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                 </div>
               </div>
             </q-card>
+            </q-scroll-area>
           </div>
         </q-tab-panel>
       </q-tab-panels>
@@ -101,20 +104,7 @@ export default {
       } else this.isHome = "bg_white";
     }
   },
-  methods: {
-    mostrar(noticia) {
-      const vm = this;
-      Noticia.listar(noticia)
-        .then(response => {
-          console.log(response.data[0].titulo);
-          this.noticias = response.data;
-        })
-        .catch(e => {
-          this.errors = e.response.data.errors;
-          console.log(e.response.data.errors);
-        });
-    }
-  },
+
   
   methods: {
     mostrar(noticia) {
@@ -122,7 +112,7 @@ export default {
       Noticia.listar(noticia)
         .then(response => {
           console.log(response.data);
-          this.data = response.data;
+          this.noticias = response.data;
         })
         .catch(e => {
           this.errors = e.response.data.errors;
@@ -132,6 +122,7 @@ export default {
   },
   mounted() {
     this.mostrar();
+    console.log(this.noticias)
   },
 };
 </script>
