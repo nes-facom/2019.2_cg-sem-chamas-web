@@ -2,16 +2,12 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar class="bg-primary text-white">
-
-
-        <q-toolbar-title>
-        </q-toolbar-title>
+        <q-btn flat round dense icon="arrow_back" @click="voltar()" />
+        <q-toolbar-title> </q-toolbar-title>
 
         <div>CG SEM CHAMAS</div>
       </q-toolbar>
     </q-header>
-
-
 
     <q-page-container>
       <router-view />
@@ -23,12 +19,17 @@
 export default {
   name: 'MyLayout',
 
-  data () {
+  data() {
     return {
       leftDrawerOpen: false
+    };
+  },
+  methods: {
+    voltar() {
+      window.history.back();
     }
   }
-}
+};
 </script>
 <style lang="stylus" scoped>
 .q-toolbar {

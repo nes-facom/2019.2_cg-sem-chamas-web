@@ -3,7 +3,6 @@
     <div class="dash">
       <div class="dashboard">
         <h2>Notícias</h2>
-
         <q-table
           flat
           :grid="$q.screen.xs"
@@ -67,6 +66,12 @@
             >
               <template v-slot:append>
                 <q-icon name="search" />
+                <q-btn
+                  color="green"
+                  style="font-size: 0.5em; width: 5px;  margin-left: 20px"
+                  icon="add"
+                  @click="$router.push('/noticias')"
+                />
               </template>
             </q-input>
           </template>
@@ -91,7 +96,7 @@ export default {
       selected: [],
       filter: '',
       select: [],
-      
+
       dados: null,
       columns: [
         {
@@ -138,7 +143,7 @@ export default {
     };
   },
   methods: {
-     mostrar(noticia) {
+    mostrar(noticia) {
       const vm = this;
       Noticia.listar(noticia)
         .then(response => {
@@ -150,8 +155,8 @@ export default {
           console.log(e.response.data.errors);
         });
     },
-    remover (noticia) {
-      if (confirm("Deseja excluir o noticia?")) {
+    remover(noticia) {
+      if (confirm('Deseja excluir o noticia?')) {
         Noticia.apagar(noticia)
           .then(response => {
             this.mostrar();
@@ -161,11 +166,11 @@ export default {
             this.errors = e.response.data.errors;
           });
       }
-    },
+    }
   },
   mounted() {
     this.mostrar();
-  },
+  }
 };
 </script>
 

@@ -50,7 +50,7 @@ export default {
           console.log(response.data.token);
 
           vm.token = response.data.token;
-          vm.$router.push('/');
+          vm.$router.push('/home');
 
         })
         .catch(e => {

@@ -11,14 +11,14 @@
           title="Noticias"
           :data="data"
           :columns="columns"
-          row-key="protocolo"
+          row-key="created_at"
           selection="multiple"
           :selected.sync="selected"
           :filter="filter"
           :pagination.sync="pagination"
         >
           <template v-slot:body="props">
-            <q-tr :props="props" @click.native="linhaSelecionada(props.row)">
+            <q-tr :props="props">
               <q-td auto-width>
                 <q-checkbox dense v-model="props.selected" />
               </q-td>
@@ -51,6 +51,7 @@
                   color="red"
                   style="font-size: 0.9em; width: 5px; height: 5px; margin-left: 5px"
                   icon="delete"
+                  @click="remover(props.row.id)"
                 />
               </q-td>
             </q-tr>
@@ -76,7 +77,7 @@
 </template>
 
 <script>
-import Denuncia from '../../boot/denuncia';
+import Noticia from '../../boot/noticia';
 export default {
   data() {
     return {
@@ -84,12 +85,13 @@ export default {
         page: 1,
         rowsPerPage: 5,
         descending: true,
-        sortBy: 'protocolo'
+        sortBy: 'created_at'
       },
-      denuncias: [],
+      noticias: [],
       selected: [],
       filter: '',
       select: [],
+      
       dados: null,
       columns: [
         {
@@ -134,7 +136,36 @@ export default {
         }
       ]
     };
-  }
+  },
+  methods: {
+     mostrar(noticia) {
+      const vm = this;
+      Noticia.listar(noticia)
+        .then(response => {
+          console.log(response.data);
+          this.data = response.data;
+        })
+        .catch(e => {
+          this.errors = e.response.data.errors;
+          console.log(e.response.data.errors);
+        });
+    },
+    remover (noticia) {
+      if (confirm("Deseja excluir o noticia?")) {
+        Noticia.apagar(noticia)
+          .then(response => {
+            this.mostrar();
+            this.errors = {};
+          })
+          .catch(e => {
+            this.errors = e.response.data.errors;
+          });
+      }
+    },
+  },
+  mounted() {
+    this.mostrar();
+  },
 };
 </script>
 
