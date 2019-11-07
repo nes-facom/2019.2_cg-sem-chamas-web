@@ -28,11 +28,9 @@ const routes = [
   { path: "/login", component: () => import("pages/Login.vue") },
 
   {
-    path: "/",
+    path: "/home",
     component: () => import("layouts/Principal.vue"),
-    children: [
-      { path: "", component: () => import("pages/HomeLogged.vue") }
-    ]
+    children: [{ path: "", component: () => import("pages/HomeLogged.vue") }]
   },
 
   { path: "/registrar", component: () => import("pages/SignUp.vue") }

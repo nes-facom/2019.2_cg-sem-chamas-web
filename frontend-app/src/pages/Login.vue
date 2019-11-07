@@ -32,7 +32,7 @@
       </div>
 
       <div class="btn-login">
-        <q-btn outline color="primary" label="Login" @click="logar()" />
+        <q-btn outline color="primary" label="Login" to="/home" />
       </div>
       <p>
         Não possui uma conta?
