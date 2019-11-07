@@ -1,9 +1,6 @@
 <template>
-  <div
-    class="sign-up"
-    style="height: 100vh;
-  width: 100vw;"
-  >
+  <div class="sign-up" style="height: 100vh;
+  width: 100vw;">
     <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
 
     <h4>CG sem chamas</h4>
@@ -23,12 +20,7 @@
           </template>
         </q-input>
 
-        <q-input
-          outlined
-          :type="isPwd ? 'password' : 'text'"
-          label="Senha"
-          v-model="password"
-        >
+        <q-input outlined :type="isPwd ? 'password' : 'text'" label="Senha" v-model="password">
           <template v-slot:prepend>
             <q-icon
               :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -164,7 +156,7 @@ export default {
   margin-top: 10%;
 }
 h4 {
-  font-family: 'Robotos lab';
+  font-family: "Robotos lab";
   font-weight: bolder;
   color: #ffffff;
   margin-top: 5%;
