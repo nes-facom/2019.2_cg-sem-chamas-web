@@ -101,6 +101,7 @@ export default {
     tab: function() {
       if (this.tab == "home") {
         this.isHome = "bg_orange";
+        this.mostrar();
       } else this.isHome = "bg_white";
     }
   },
