@@ -119,10 +119,9 @@ class DenunciaController {
 		};
 
 		return dados;
-	},
+	}
 
-
-	async byUser({ params, request, response, view }) {
+		async byUser({ params, request, response, view }) {
 		const denuncia = await Denuncia.findBy('user_id', params.userid);
 
 		//Separando dados que eu quero retornar (SEGURANÇA)
@@ -137,6 +136,7 @@ class DenunciaController {
 
 		return dados;
 	}
+
 
 	/**
 	 * Render a form to update an existing denuncia.
