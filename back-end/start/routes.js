@@ -55,11 +55,12 @@ Route.put('denuncia/:id', 'DenunciaController.update');
 // 	'is:(Comite || Administrador)'
 // ]);
 
-Route.delete('denuncia/:id', 'DenunciaController.destroy');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite || Administrador)'
-// ]);
+Route.delete('denuncia/:id', 'DenunciaController.destroy').middleware([
+	'auth'
+	// 'is:(Comite || Administrador)'
+]);
+
+Route.get('/checkUser', 'SessionController.check').middleware('auth');
 
 Route.post('/users', 'UserController.store');
 

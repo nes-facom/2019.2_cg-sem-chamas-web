@@ -1,6 +1,9 @@
 <template>
-  <div class="login" style="height: 100vh;
-  width: 100vw;">
+  <div
+    class="login"
+    style="height: 100vh;
+  width: 100vw;"
+  >
     <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
     <div class="topo">
       <div class="img-centro"></div>
@@ -43,13 +46,13 @@
 </template>
 
 <script>
-import User from "../boot/login";
+import User from '../boot/login';
 export default {
   data() {
     return {
-      email: "",
-      password: "",
-      token: "",
+      email: '',
+      password: '',
+      token: '',
       isPwd: true
     };
   },
@@ -64,10 +67,11 @@ export default {
       User.logar(login)
         .then(response => {
           console.log(response);
-          console.log(response.data.token);
-
-          vm.token = response.data.token;
-          vm.$router.push("/");
+          const token = response.data.token;
+          localStorage.setItem('userToken', token);
+          const token2 = localStorage.getItem('userToken');
+          console.log('Token: ' + token2);
+          // vm.$router.push('/');
         })
         .catch(e => {
           console.log(e);
@@ -118,7 +122,7 @@ export default {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 h7 {
-  font-family: "Arial";
+  font-family: 'Arial';
   /* font-weight: bolder; */
   color: #ffffff;
   margin-top: 20px;
@@ -159,7 +163,7 @@ h6 {
 }
 .img-centro {
   background-color: blue;
-  background: url("https://i.imgur.com/h20GKNd.png");
+  background: url('https://i.imgur.com/h20GKNd.png');
   background-size: 140px auto;
   width: 140px;
   height: 140px;

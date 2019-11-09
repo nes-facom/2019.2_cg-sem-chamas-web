@@ -25,6 +25,7 @@
 </template>
 
 </<script>
+
 import User from "../boot/login";
 export default {
    data () {
@@ -35,8 +36,10 @@ export default {
       isPwd: true,
       }},
   methods: {
+
     logar(){
-      const vm = this
+
+     const vm = this
       const login = {
         email: this.email,
         password: this.password
@@ -46,15 +49,20 @@ export default {
 
       User.logar(login)
         .then(response => {
-          console.log(response);
-          console.log(response.data.token);
-
-          vm.token = response.data.token;
+        console.log(response);
+          const token = response.data.token;
+            User.check(token).then(user => {
+            if(user.data.id == 1) {
+              localStorage.setItem('userToken', token);
           vm.$router.push('/home');
+            }
+            else      vm.$q.notify('Você não possui permissões para acessar ao sistema!')
 
+         })
         })
         .catch(e => {
-          console.log(e)
+               vm.$q.notify({message:'Verifique suas credencias e tente novamente!'})
+
         });
 
     }

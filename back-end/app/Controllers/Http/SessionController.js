@@ -11,6 +11,14 @@ class SessionController {
 	async delete({ auth, response }) {
 		await auth.logout();
 	}
+
+	async check({ auth, response }) {
+		try {
+			return await auth.getUser();
+		} catch (error) {
+			response.send('You are not logged in');
+		}
+	}
 }
 
 module.exports = SessionController;
