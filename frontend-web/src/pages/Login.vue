@@ -1,27 +1,24 @@
 <template>
-<div class="container">
+  <div class="container">
     <div class="img"></div>
 
     <div class="form">
+      <h3>Fazer login</h3>
 
-        <h3>Fazer login</h3>
+      <q-input class="qinput" label="E-mail" v-model="email" />
 
-        <q-input class="qinput"   label="E-mail" v-model="email" />
-
-       <q-input class="qinput" :type="isPwd ? 'password' : 'text'" label="Senha" v-model="password">
-       <template v-slot:append>
+      <q-input class="qinput" :type="isPwd ? 'password' : 'text'" label="Senha" v-model="password">
+        <template v-slot:append>
           <q-icon
             :name="isPwd ? 'visibility_off' : 'visibility'"
             class="cursor-pointer"
             @click="isPwd = !isPwd"
           />
         </template>
-       </q-input>
-         <q-btn outline color="primary" label="Login" @click="logar()"/>
-
-        </div>
-        </div>
-
+      </q-input>
+      <q-btn outline color="primary" label="Login" @click="logar()" />
+    </div>
+  </div>
 </template>
 
 </<script>
@@ -52,13 +49,9 @@ export default {
         console.log(response);
           const token = response.data.token;
             User.check(token).then(user => {
-            if(user.data.id == 1) {
               localStorage.setItem('userToken', token);
-          vm.$router.push('/home');
-            }
-            else      vm.$q.notify('Você não possui permissões para acessar ao sistema!')
-
-         })
+              vm.$router.push('/home');
+            })
         })
         .catch(e => {
                vm.$q.notify({message:'Verifique suas credencias e tente novamente!'})
@@ -72,12 +65,11 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
-.container{
-  display:flex;
-  justify-content :center;
-  align-items:center;
-  background:#F4853E;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F4853E;
   height: 100vh;
 }
 
@@ -94,19 +86,16 @@ export default {
   width: 23%;
   justify-content: center;
   align-items: center;
-
 }
 
-.form h3
-{
+.form h3 {
   margin-top: -20px;
   font-weight: bold;
   font-size: 16pt;
-
 }
 
 .form input {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   background: #f2f2f2;
   width: 100%;
   margin-top: 1%;
@@ -115,15 +104,16 @@ export default {
   font-size: 14px;
 }
 
-.qinput{
+.qinput {
   margin: 5% 0;
   width: 90%;
 }
+
 .form button {
   margin-top: 12%;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
-  background:#F4853E;
+  background: #F4853E;
   width: 100%;
   padding: 15px;
   color: #FFFFFF;
@@ -132,11 +122,10 @@ export default {
   transition: all 0.3 ease;
   cursor: pointer;
   width: 90%;
-
 }
-.form button:hover,.form button:active,.form button:focus {
-  background:#F4853E;
 
+.form button:hover, .form button:active, .form button:focus {
+  background: #F4853E;
 }
 
 .img {
@@ -144,12 +133,11 @@ export default {
   top: 1%;
   left: 1%;
   background-color: blue;
-  background: url("https://i.imgur.com/Z7FIWJQ.png");
+  background: url('https://i.imgur.com/Z7FIWJQ.png');
   background-size: 220px auto;
   width: 250px;
   height: 250px;
   border: 17px solid #f4853e;
   box-sizing: border-box;
 }
-
 </style>
