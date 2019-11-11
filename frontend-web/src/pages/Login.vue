@@ -22,6 +22,7 @@
 </template>
 
 </<script>
+import { store } from "../store/index";
 
 import User from "../boot/login";
 export default {
@@ -49,7 +50,14 @@ export default {
         console.log(response);
           const token = response.data.token;
             User.check(token).then(user => {
-            if(user.data.id == 1) {
+            // if(user.data.permission == 1 || user.data.permission ==2) {
+            if(user) {
+
+             this.$store.commit("Session/updateNome", user.data.nome);
+             this.$store.commit("Session/updateEmail", user.data.email);
+             this.$store.commit("Session/updatePermission", user.data.permission);
+
+
               localStorage.setItem('userToken', token);
           vm.$router.push('/home');
             }
