@@ -49,9 +49,13 @@ export default {
         console.log(response);
           const token = response.data.token;
             User.check(token).then(user => {
+            if(user.data.id == 1) {
               localStorage.setItem('userToken', token);
-              vm.$router.push('/home');
-            })
+          vm.$router.push('/home');
+            }
+            else      vm.$q.notify('Você não possui permissões para acessar ao sistema!')
+
+         })
         })
         .catch(e => {
                vm.$q.notify({message:'Verifique suas credencias e tente novamente!'})
