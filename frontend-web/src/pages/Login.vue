@@ -28,12 +28,29 @@ import User from "../boot/login";
 export default {
    data () {
     return {
-      email: "",
-      password: "",
       token: "",
       isPwd: true,
+      errors: [],
+      email: null,
+      password: null,
       }},
   methods: {
+
+    checkForm: function (e) {
+      if (this.email && this.password) {
+        return true;
+      }
+      this.errors = [];
+
+      if(!this.email){
+        this.errors.push('O e-mail é obrigatório.')
+      }
+      if (!this.password) {
+        this.errors.push('A senha é obrigatória.');
+      }
+
+      e.preventDefault();
+    }
 
     logar(){
 

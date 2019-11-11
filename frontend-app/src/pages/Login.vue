@@ -1,9 +1,6 @@
 <template>
-  <div
-    class="login"
-    style="height: 100vh;
-  width: 100vw;"
-  >
+  <div class="login" style="height: 100vh;
+  width: 100vw;">
     <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
     <div class="topo">
       <div class="img-centro"></div>
@@ -14,10 +11,6 @@
 
       <div class="inputs">
         <q-input class="qinput" label="E-mail" v-model="email" />
-        <!-- <template v-slot:prepend>
-            <q-icon name="mail" />
-          </template>
-        </q-input>-->
         <q-input
           class="qinput"
           :type="isPwd ? 'password' : 'text'"
@@ -35,7 +28,7 @@
       </div>
 
       <div class="btn-login">
-        <q-btn outline color="primary" label="Login" to="/home" />
+        <q-btn outline color="primary" label="Login" @click="checkForm" />
       </div>
       <p>
         Não possui uma conta?
@@ -46,17 +39,40 @@
 </template>
 
 <script>
-import User from '../boot/login';
+import User from "../boot/login";
+import { Notify } from "quasar";
 export default {
   data() {
     return {
-      email: '',
-      password: '',
-      token: '',
+      errors: [],
+      email: null,
+      password: null,
+      token: "",
       isPwd: true
     };
   },
   methods: {
+    checkForm: function(e) {
+      if (this.email && this.password) {
+        return this.logar();
+      }
+
+      this.errors = [];
+
+      if (!this.email) {
+        this.errors.push("O e-mail é obrigatório.");
+      }
+      if (!this.password) {
+        this.errors.push("A senha é obrigatória.");
+      }
+
+      let i = 0;
+      for (i = 0; i < this.errors.length; i++) {
+        this.$q.notify(this.errors[i]);
+      }
+
+      e.preventDefault();
+    },
     logar() {
       const vm = this;
       const login = {
@@ -68,9 +84,9 @@ export default {
         .then(response => {
           console.log(response);
           const token = response.data.token;
-          localStorage.setItem('userToken', token);
-          const token2 = localStorage.getItem('userToken');
-          console.log('Token: ' + token2);
+          localStorage.setItem("userToken", token);
+          const token2 = localStorage.getItem("userToken");
+          console.log("Token: " + token2);
           // vm.$router.push('/');
         })
         .catch(e => {
@@ -122,7 +138,7 @@ export default {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 h7 {
-  font-family: 'Arial';
+  font-family: "Arial";
   /* font-weight: bolder; */
   color: #ffffff;
   margin-top: 20px;
@@ -163,7 +179,7 @@ h6 {
 }
 .img-centro {
   background-color: blue;
-  background: url('https://i.imgur.com/h20GKNd.png');
+  background: url("https://i.imgur.com/h20GKNd.png");
   background-size: 140px auto;
   width: 140px;
   height: 140px;
@@ -171,5 +187,24 @@ h6 {
   box-sizing: border-box;
   margin: 0px;
   margin-bottom: 10px;
+}
+a:link {
+  text-decoration: none;
+  color: #f4853e;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #f4853e;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #737373;
+}
+
+a:active {
+  text-decoration: none;
+  color: #737373;
 }
 </style>

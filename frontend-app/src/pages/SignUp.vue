@@ -245,4 +245,23 @@ p {
   margin-top: 50px;
   margin-bottom: 0px;
 }
+a:link {
+  text-decoration: none;
+  color: #f4853e;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #f4853e;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #737373;
+}
+
+a:active {
+  text-decoration: none;
+  color: #737373;
+}
 </style>
