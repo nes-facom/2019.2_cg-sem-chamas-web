@@ -14,8 +14,6 @@ class DenunciaSchema extends Schema {
 				.inTable('users');
 			table.bigInteger('protocolo').unique();
 			table.text('foto');
-			table.decimal('geo-lat', 9, 6);
-			table.decimal('geo-lng', 9, 6);
 			table.integer('intensidade');
 			table.string('observacao', 256);
 			table.date('data').notNullable();
