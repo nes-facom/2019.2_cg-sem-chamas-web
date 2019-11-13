@@ -50,17 +50,8 @@
               />
             </div>
           </div>
-          <div
-            v-show="imageS != 1"
-            class="camera_img"
-            style="margin-top: 10px;"
-          >
-            <img
-              class="img_camera"
-              :src="imageS"
-              :alt="'Imagem: ' + imageS"
-              id="photo"
-            />
+          <div v-show="imageS != 1" class="camera_img" style="margin-top: 10px;">
+            <img class="img_camera" :src="imageS" :alt="'Imagem: ' + imageS" id="photo" />
           </div>
 
           <div class="gps">
@@ -87,8 +78,7 @@
               icon-right="fas fa-map-marked-alt"
               label="Obter localização"
               to="/denuncia/gps"
-            >
-            </q-btn>
+            ></q-btn>
           </div>
 
           <div class="endereco">
@@ -238,12 +228,7 @@
             </div>
           </div>
           <div class="btn-denunciar">
-            <q-btn
-              label="Denunciar"
-              color="primary"
-              :disable="disable"
-              @click="denunciar()"
-            />
+            <q-btn label="Denunciar" color="primary" :disable="disable" @click="checkForm" />
             <q-dialog v-model="full" full-height>
               <!-- <div class="popup"> -->
               <q-card class="popProtocolo">
@@ -257,21 +242,17 @@
                       name="fas fa-check-circle"
                       style="font-size: 90px;"
                     ></q-icon>
-                    <div class="popupDenunciaRegistrada">
-                      Denúncia registrada!
-                    </div>
+                    <div class="popupDenunciaRegistrada">Denúncia registrada!</div>
                   </q-card-section>
                 </div>
 
                 <!-- <q-card-section> -->
                 <div class="infoProtocolo">
                   <div class="textNumProtocolo">Número do Protocolo:</div>
-                  <div v-show="protocoloS != null" class="numberProtocol">
-                    {{ protocoloS }}
-                  </div>
-                  <div class="textCadastrar">
-                    Anote o número ou cadastre-se para acompanhar sua denúncia.
-                  </div>
+                  <div v-show="protocoloS != null" class="numberProtocol">{{ protocoloS }}</div>
+                  <div
+                    class="textCadastrar"
+                  >Anote o número ou cadastre-se para acompanhar sua denúncia.</div>
                   <div class="btn-cadastrar">
                     <q-btn label="Cadastrar-se" color="primary" to="/404" />
                   </div>
@@ -350,7 +331,11 @@ export default {
         telefone: null,
         status: "Aberto",
         protocolo: null,
-        data: null
+        data: null,
+        //validacao dos campos
+        errors: [],
+        //imageSrc: null,
+        enderecoC: null
       }
     };
   },
@@ -367,6 +352,27 @@ export default {
     this.$store.commit("Dialog/changeDialogg", false);
   },
   methods: {
+    checkForm: function(e) {
+      if (this.imageSrc && this.enderecoC) {
+        return this.denunciar();
+      }
+
+      this.errors = [];
+      if (!this.imageSrc) {
+        this.errors.push("Foto necessária para completar sua denúncia.");
+      }
+
+      if (!this.enderecoC) {
+        this.errors.push("O endereço é necessário para fazer a denúncia.");
+      }
+
+      let i = 0;
+      for (i = 0; i < this.errors.length; i++) {
+        this.$q.notify(this.errors[i]);
+      }
+
+      e.preventDefault();
+    },
     denunciar() {
       const vm = this;
       this.disable = true;
