@@ -28,7 +28,7 @@
             />
           </template>
         </q-input>
-        <q-input
+        <!-- <q-input
           class="qinput"
           :type="isPwd ? 'password' : 'text'"
           label="Senha"
@@ -41,10 +41,11 @@
               @click="isPwd = !isPwd"
             />
           </template>
-        </q-input>
+        </q-input>-->
+        <q-input v-model="number" type="number" label="Telefone" />
       </div>
       <div class="btn-registrar">
-        <q-btn outline color="primary" label="Registrar" @click="small = true" />
+        <q-btn outline color="primary" label="Registrar" @click="checkForm" />
 
         <!-- <q-btn label="Registrar" color="primary" @click="small = true" /> -->
         <q-dialog v-model="small">
@@ -85,10 +86,62 @@ export default {
       small: false,
       medium: false,
       fullWidth: false,
-      fullHeight: false
+      fullHeight: false,
+      errors: [],
+      text: null,
+      email: null,
+      password: null,
+      number: null,
+      token: "",
+      isPwd: true
     };
   },
   methods: {
+    checkForm: function(e) {
+      if (this.text && this.email && this.password && this.number) {
+        return this.registrar();
+      }
+
+      this.errors = [];
+      if (!this.text) {
+        this.errors.push("O nome é obrigatório.");
+      }
+
+      if (!this.email) {
+        this.errors.push("O e-mail é obrigatório.");
+      }
+      if (!this.password) {
+        this.errors.push("A senha é obrigatória.");
+      }
+
+      if (!this.telefone) {
+        this.errors.push("O telefone é obrigatório.");
+      }
+
+      let i = 0;
+      for (i = 0; i < this.errors.length; i++) {
+        this.$q.notify(this.errors[i]);
+      }
+
+      e.preventDefault();
+    },
+    registrar() {
+      const vm = this;
+      const registrar = {
+        nome: this.text,
+        email: this.email,
+        password: this.password,
+        telefone: this.number
+      };
+
+      User.registrar(registrar)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
     voltar() {
       window.history.back();
     }

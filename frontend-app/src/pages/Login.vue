@@ -92,6 +92,9 @@ export default {
         .catch(e => {
           console.log(e);
         });
+    },
+    voltar() {
+      window.history.back();
     }
   }
 };
