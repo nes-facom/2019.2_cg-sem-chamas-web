@@ -197,26 +197,7 @@ export default {
           sortable: false
         }
       ],
-      data: [
-        {
-          protocolo: 'Q12312312431225',
-          endereco: 'Avenida Afonso Pena, 987',
-          created_at: '12/12/12 22:22',
-          status: 'Em aberto'
-        },
-        {
-          protocolo: 'Q98765432101234',
-          endereco: 'Avenida Manuel da Costa Lima, 123',
-          created_at: '10/10/11 22:22',
-          status: 'Em aberto'
-        },
-        {
-          protocolo: 'Q93483948394873',
-          endereco: 'Avenida Mato Grosso, 542',
-          created_at: '10/10/10 22:22',
-          status: 'Em aberto'
-        }
-      ]
+      data: []
     };
   },
   filters: {
