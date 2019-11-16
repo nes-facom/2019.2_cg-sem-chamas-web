@@ -50,8 +50,17 @@
               />
             </div>
           </div>
-          <div v-show="imageS != 1" class="camera_img" style="margin-top: 10px;">
-            <img class="img_camera" :src="imageS" :alt="'Imagem: ' + imageS" id="photo" />
+          <div
+            v-show="imageS != 1"
+            class="camera_img"
+            style="margin-top: 10px;"
+          >
+            <img
+              class="img_camera"
+              :src="imageS"
+              :alt="'Imagem: ' + imageS"
+              id="photo"
+            />
           </div>
 
           <div class="gps">
@@ -228,13 +237,18 @@
             </div>
           </div>
           <div class="btn-denunciar">
-            <q-btn label="Denunciar" color="primary" :disable="disable" @click="checkForm" />
+            <q-btn
+              label="Denunciar"
+              color="primary"
+              :disable="disable"
+              @click="checkForm"
+            />
             <q-dialog v-model="full" full-height>
               <!-- <div class="popup"> -->
               <q-card class="popProtocolo">
                 <div class="denunciaRegistradaTopo">
                   <div class="closePop">
-                    <q-btn flat label="X" v-close-popup to="/denuncia/buscar" />
+                    <q-btn flat label="X" v-close-popup @click="encaminhar" />
                   </div>
                   <q-card-section>
                     <q-icon
@@ -242,19 +256,28 @@
                       name="fas fa-check-circle"
                       style="font-size: 90px;"
                     ></q-icon>
-                    <div class="popupDenunciaRegistrada">Denúncia registrada!</div>
+                    <div class="popupDenunciaRegistrada">
+                      Denúncia registrada!
+                    </div>
                   </q-card-section>
                 </div>
 
                 <!-- <q-card-section> -->
                 <div class="infoProtocolo">
                   <div class="textNumProtocolo">Número do Protocolo:</div>
-                  <div v-show="protocoloS != null" class="numberProtocol">{{ protocoloS }}</div>
-                  <div
-                    class="textCadastrar"
-                  >Anote o número ou cadastre-se para acompanhar sua denúncia.</div>
-                  <div class="btn-cadastrar">
-                    <q-btn label="Cadastrar-se" color="primary" to="/404" />
+                  <div v-show="protocoloS != null" class="numberProtocol">
+                    {{ protocoloS }}
+                  </div>
+                  <div class="textCadastrar">
+                    Anote o número ou cadastre-se para acompanhar sua denúncia.
+                  </div>
+                  <div v-if="idUser == null" class="btn-cadastrar">
+                    <q-btn label="Cadastrar-se" color="primary" to="/registrar" />
+                  </div>
+                  <div v-else class="btn-cadastrar">
+                    <a href="tel:193">
+                      <q-btn label="Ligar para os bombeiros" color="primary"
+                    /></a>
                   </div>
                 </div>
               </q-card>
@@ -268,14 +291,14 @@
 </template>
 
 <script>
-document.addEventListener("deviceready", () => {}, false);
+document.addEventListener('deviceready', () => {}, false);
 </script>
 
 <script>
-import { mapState } from "vuex";
-import { store } from "../store/index";
-import Map from "./Map";
-import Denuncia from "../boot/denuncia";
+import { mapState } from 'vuex';
+import { store } from '../store/index';
+import Map from './Map';
+import Denuncia from '../boot/denuncia';
 import {
   openURL,
   QInput,
@@ -284,9 +307,9 @@ import {
   QSlideTransition,
   QCardSection,
   QImg
-} from "quasar";
+} from 'quasar';
 export default {
-  name: "FormularioDenuncia",
+  name: 'FormularioDenuncia',
   data() {
     return {
       disable: false,
@@ -329,7 +352,7 @@ export default {
         image: null,
         intensidade: 1,
         telefone: null,
-        status: "Aberto",
+        status: 'Aberto',
         protocolo: null,
         data: null,
         //validacao dos campos
@@ -349,21 +372,21 @@ export default {
     QImg
   },
   beforeMount() {
-    this.$store.commit("Dialog/changeDialogg", false);
+    this.$store.commit('Dialog/changeDialogg', false);
   },
   methods: {
     checkForm: function(e) {
-      if (this.imageSrc && this.enderecoC) {
+      if (this.imageS && this.enderecoC) {
         return this.denunciar();
       }
 
       this.errors = [];
-      if (!this.imageSrc) {
-        this.errors.push("Foto necessária para completar sua denúncia.");
+      if (!this.imageS) {
+        this.errors.push('Foto necessária para completar sua denúncia.');
       }
 
       if (!this.enderecoC) {
-        this.errors.push("O endereço é necessário para fazer a denúncia.");
+        this.errors.push('O endereço é necessário para fazer a denúncia.');
       }
 
       let i = 0;
@@ -388,22 +411,27 @@ export default {
         protocolo: this.protocoloS,
         data: this.dataS
       };
+      console.log(this.denuncia);
+      let token = null;
+      if (localStorage.getItem('userToken')) {
+        token = localStorage.getItem('userToken');
+      }
 
-      Denuncia.salvar(this.denuncia)
+      Denuncia.salvar(this.denuncia, token)
         .then(response => {
           console.log(response);
 
           vm.full = true;
           vm.disable = true;
           this.errors = {};
-          const value = "";
-          vm.$store.commit("Map/updateEndereco", null);
-          vm.$store.commit("Denuncia/setNome", null);
-          vm.$store.commit("Denuncia/setObservacao", null);
-          vm.$store.commit("Denuncia/setImage", 1);
-          vm.$store.commit("Denuncia/setIntensidade", 1);
-          vm.$store.commit("Denuncia/setData", null);
-          vm.$store.commit("Denuncia/setTelefone", null);
+          const value = '';
+          vm.$store.commit('Map/updateEndereco', null);
+          vm.$store.commit('Denuncia/setNome', null);
+          vm.$store.commit('Denuncia/setObservacao', null);
+          vm.$store.commit('Denuncia/setImage', 1);
+          vm.$store.commit('Denuncia/setIntensidade', 1);
+          vm.$store.commit('Denuncia/setData', null);
+          vm.$store.commit('Denuncia/setTelefone', null);
         })
         .catch(e => {
           vm.disable = false;
@@ -417,13 +445,13 @@ export default {
       const protocolo = `Q${timeInMs}`;
       console.log(timeInMs, protocolo);
       const date = new Date();
-      const d = date.toISOString({ timeZone: "America/Campo_Grande" });
+      const d = date.toISOString({ timeZone: 'America/Campo_Grande' });
       // const data = new Date().toLocaleString('pt-BR', {timeZone: 'America/Campo_Grande',});
-      this.$store.commit("Denuncia/setProtocolo", timeInMs);
-      this.$store.commit("Denuncia/setData", d);
+      this.$store.commit('Denuncia/setProtocolo', timeInMs);
+      this.$store.commit('Denuncia/setData', d);
     },
     changeDialog() {
-      this.$store.commit("Dialog/changeDialogg", true);
+      this.$store.commit('Dialog/changeDialogg', true);
     },
 
     selecionarObs(obs) {
@@ -480,7 +508,7 @@ export default {
         this.fogo.cinco = true;
       }
       this.intensidade = intensidade;
-      this.$store.commit("Denuncia/setIntensidade", intensidade);
+      this.$store.commit('Denuncia/setIntensidade', intensidade);
       this.completo.um = true;
     },
     captureImage() {
@@ -489,7 +517,7 @@ export default {
           // Sucesso
           const imageSrc = `data:image/jpeg;base64, ${data}`;
           this.imgCam = false;
-          this.$store.commit("Denuncia/setImage", imageSrc);
+          this.$store.commit('Denuncia/setImage', imageSrc);
         },
         error => {
           console.log(error);
@@ -511,13 +539,18 @@ export default {
         }
       );
     },
+    encaminhar() {
+      if (localStorage.getItem('userToken')) {
+        this.$router.push('/home');
+      } else this.$router.push('/denuncia/buscar');
+    },
     getPhoto() {
       navigator.camera.getPicture(
         data => {
           // Sucesso
           const imageSrc = `data:image/jpeg;base64, ${data}`;
           this.imgCam = false;
-          this.$store.commit("Denuncia/setImage", imageSrc);
+          this.$store.commit('Denuncia/setImage', imageSrc);
           console.log(imageSrc);
         },
         error => {
@@ -538,6 +571,8 @@ export default {
     }
   },
   computed: {
+    ...mapState({ idUser: state => state.Session.id }),
+
     ...mapState({ enderecoS: state => state.Map.enderecoS }),
     ...mapState({ imageS: state => state.Denuncia.image }),
     ...mapState({ intensidadeS: state => state.Denuncia.intensidade }),
@@ -553,8 +588,8 @@ export default {
         return this.enderecoS;
       },
       set(value) {
-        this.$store.commit("Map/updateEndereco", value);
-        this.$store.commit("Denuncia/setEndereco", value);
+        this.$store.commit('Map/updateEndereco', value);
+        this.$store.commit('Denuncia/setEndereco', value);
       }
     },
     telefoneC: {
@@ -562,7 +597,7 @@ export default {
         return this.telefoneS;
       },
       set(value) {
-        this.$store.commit("Denuncia/setTelefone", value);
+        this.$store.commit('Denuncia/setTelefone', value);
       }
     },
     nomeC: {
@@ -570,7 +605,7 @@ export default {
         return this.nomeS;
       },
       set(value) {
-        this.$store.commit("Denuncia/setNome", value);
+        this.$store.commit('Denuncia/setNome', value);
       }
     },
     observacaoC: {
@@ -587,7 +622,7 @@ export default {
         return this.observacaoS;
       },
       set(value) {
-        this.$store.commit("Denuncia/setObservacao", value);
+        this.$store.commit('Denuncia/setObservacao', value);
       }
     }
   }
