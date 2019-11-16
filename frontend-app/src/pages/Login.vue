@@ -1,6 +1,9 @@
 <template>
-  <div class="login" style="height: 100vh;
-  width: 100vw;">
+  <div
+    class="login"
+    style="height: 100vh;
+  width: 100vw;"
+  >
     <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
     <div class="topo">
       <div class="img-centro"></div>
@@ -39,15 +42,16 @@
 </template>
 
 <script>
-import User from "../boot/login";
-import { Notify } from "quasar";
+import { store } from '../store/index';
+import User from '../boot/login';
+import { Notify } from 'quasar';
 export default {
   data() {
     return {
       errors: [],
       email: null,
       password: null,
-      token: "",
+      token: '',
       isPwd: true
     };
   },
@@ -60,10 +64,10 @@ export default {
       this.errors = [];
 
       if (!this.email) {
-        this.errors.push("O e-mail é obrigatório.");
+        this.errors.push('O e-mail é obrigatório.');
       }
       if (!this.password) {
-        this.errors.push("A senha é obrigatória.");
+        this.errors.push('A senha é obrigatória.');
       }
 
       let i = 0;
@@ -73,7 +77,7 @@ export default {
 
       e.preventDefault();
     },
-    logar() {
+    async logar() {
       const vm = this;
       const login = {
         email: this.email,
@@ -82,19 +86,27 @@ export default {
 
       User.logar(login)
         .then(response => {
-          console.log(response);
           const token = response.data.token;
-          localStorage.setItem("userToken", token);
-          const token2 = localStorage.getItem("userToken");
-          console.log("Token: " + token2);
-          // vm.$router.push('/');
+
+          if (response) {
+            User.check(response.data.token).then(user => {
+              vm.$store.commit('Session/updateNome', user.data.nome);
+              vm.$store.commit('Session/updateEmail', user.data.email);
+              vm.$store.commit('Session/updateTelefone', user.data.telefone);
+              vm.$store.commit('Session/updateId', user.data.id);
+              localStorage.setItem('userToken', response.data.token);
+              
+              
+            });
+          }
         })
         .catch(e => {
           console.log(e);
         });
     },
+
     voltar() {
-      window.history.back();
+      this.$router.push('/');
     }
   }
 };
@@ -141,7 +153,7 @@ export default {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 h7 {
-  font-family: "Arial";
+  font-family: 'Arial';
   /* font-weight: bolder; */
   color: #ffffff;
   margin-top: 20px;
@@ -182,7 +194,7 @@ h6 {
 }
 .img-centro {
   background-color: blue;
-  background: url("https://i.imgur.com/h20GKNd.png");
+  background: url('https://i.imgur.com/h20GKNd.png');
   background-size: 140px auto;
   width: 140px;
   height: 140px;

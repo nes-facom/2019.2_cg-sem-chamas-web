@@ -14,5 +14,13 @@ export default {
         'Content-Type': 'application/json'
       }
     });
+  },
+  deslogar: token => {
+    return http.post('logout', null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
   }
 };

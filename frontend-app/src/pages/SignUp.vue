@@ -1,6 +1,9 @@
 <template>
-  <div class="sign-up" style="height: 100vh;
-  width: 100vw;">
+  <div
+    class="sign-up"
+    style="height: 100vh;
+  width: 100vw;"
+  >
     <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
 
     <div class="topo">
@@ -80,6 +83,7 @@
   </div>
 </template>
 <script>
+import User from '../boot/login';
 export default {
   data() {
     return {
@@ -92,7 +96,7 @@ export default {
       email: null,
       password: null,
       number: null,
-      token: "",
+      token: '',
       isPwd: true
     };
   },
@@ -104,18 +108,18 @@ export default {
 
       this.errors = [];
       if (!this.text) {
-        this.errors.push("O nome é obrigatório.");
+        this.errors.push('O nome é obrigatório.');
       }
 
       if (!this.email) {
-        this.errors.push("O e-mail é obrigatório.");
+        this.errors.push('O e-mail é obrigatório.');
       }
       if (!this.password) {
-        this.errors.push("A senha é obrigatória.");
+        this.errors.push('A senha é obrigatória.');
       }
 
       if (!this.telefone) {
-        this.errors.push("O telefone é obrigatório.");
+        this.errors.push('O telefone é obrigatório.');
       }
 
       let i = 0;
@@ -131,15 +135,16 @@ export default {
         nome: this.text,
         email: this.email,
         password: this.password,
-        telefone: this.number
+        telefone: this.number,
+        permission: 4
       };
 
       User.registrar(registrar)
         .then(response => {
-          console.log(response);
+          vm.$router.push('/login');
         })
         .catch(e => {
-          console.log(e);
+          this.$q.notify('Usuário ja existe!');
         });
     },
     voltar() {
@@ -184,7 +189,7 @@ export default {
   margin-bottom: 20px;
 }
 h4 {
-  font-family: "Robotos lab";
+  font-family: 'Robotos lab';
   font-weight: bolder;
   color: #ffffff;
   margin-top: 5%;
@@ -285,7 +290,7 @@ p {
 }
 .img-centro {
   background-color: blue;
-  background: url("https://i.imgur.com/h20GKNd.png");
+  background: url('https://i.imgur.com/h20GKNd.png');
   background-size: 140px auto;
   width: 140px;
   height: 140px;
