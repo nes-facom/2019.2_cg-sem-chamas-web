@@ -36,7 +36,7 @@ Route.get('denuncia/:id', 'DenunciaController.show');
 // ]);
 
 Route.get('protocolo/:protocolo', 'DenunciaController.byProtocolo');
-Route.get('userid/:userid', 'DenunciaController.byUser');
+Route.get('byUser/:userid', 'DenunciaController.byUser');
 Route.get('total/', 'DenunciaController.count');
 // .middleware([
 // 	'auth',
@@ -116,5 +116,4 @@ Route.post('/noticias', 'NoticiaController.store');
 Route.get('/noticias', 'NoticiaController.index');
 // .middleware(['auth']);
 
-Route.get('logout', 'SessionController.delete');
-// .middleware('auth');
+Route.post('/logout', 'SessionController.logout').middleware(['auth']);

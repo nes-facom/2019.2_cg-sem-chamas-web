@@ -8,15 +8,17 @@ class SessionController {
 		return token;
 	}
 
-	async delete({ auth, response }) {
-		await auth.logout();
+	async logout({ response, auth }) {
+		let user = auth.user;
+		await auth.authenticator('api').revokeTokensForUser(user);
+		return response.status(204).send(null);
 	}
 
 	async check({ auth, response }) {
 		try {
 			return await auth.getUser();
 		} catch (error) {
-			response.send('You are not logged in');
+			response.send('Usuário não está logado.');
 		}
 	}
 }
