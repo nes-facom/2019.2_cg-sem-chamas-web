@@ -176,6 +176,10 @@ export default {
 };
 </script>
 <style scoped>
+body{
+  font-size: 13px;
+}
+
 .homeLogged {
   position: fixed;
   display: flex;
