@@ -86,8 +86,8 @@
 
                   <div class="noticiaDados">
                     <div class="noticiaData">
-                      NOV
-                      <br />17
+                                          {{ n.created_at | noticiaData }}
+
                     </div>
                     <div class="noticiaTexto">{{ n.descricao }}</div>
                   </div>
@@ -171,6 +171,13 @@ export default {
       const formatData = dat.toLocaleString('pt-BR');
       const onlydata = formatData.substring(0, 10);
       return onlydata;
+    },
+    noticiaData: data =>{
+      const date = new Date(data);
+      const options = {month: 'short', day: 'numeric'};
+      const onlydata = (date.toLocaleString('en-US', options));
+      return onlydata;
+     
     }
   }
 };
@@ -363,6 +370,7 @@ body{
 }
 
 .noticiaData {
+  text-transform: uppercase;
   font-family: Roboto;
   line-height: 16px;
   text-align: center;
