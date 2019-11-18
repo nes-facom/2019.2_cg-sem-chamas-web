@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
+const api = process.env.API_SERVER;
 const http = axios.create({
-  baseURL: 'http://localhost:3333/'
+  baseURL: `${api}`
 });
 
 export default async ({ Vue }) => {

@@ -2,14 +2,8 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar class="bg-primary text-white  shadow-2">
-        <q-btn
-          flat
-          round
-          dense
-          icon="arrow_back"
-          class="q-mr-sm"
-          @click="voltar()"
-        />
+        <!-- <q-btn flat round dense icon="menu" class="q-mr-sm" />
+        <q-separator dark vertical inset /> -->
         <q-btn stretch flat label="CG SEM CHAMAS" />
 
         <q-space />

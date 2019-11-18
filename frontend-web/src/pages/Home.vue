@@ -212,7 +212,6 @@ export default {
   },
   methods: {
     reload() {
-      console.log('teste');
       window.location.reload();
     },
     mostrar(denuncia) {

@@ -281,11 +281,11 @@ export default {
     },
     mostrar(denuncia) {
       const vm = this;
-      // this.$q.loading.show({
-      //   backgroundColor: 'orange',
-      //   message: 'Atualizando dados do servidor...',
-      //   messageColor: 'black',
-      // })
+      this.$q.loading.show({
+        backgroundColor: 'orange',
+        message: 'Atualizando dados do servidor...',
+        messageColor: 'black'
+      });
 
       Denuncia.listar(denuncia)
         .then(response => {

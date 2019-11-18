@@ -1,55 +1,64 @@
 import authUser from './auth';
 const routes = [
   {
-    path: '/',
+    path: '/layout',
     component: () => import('layouts/MyLayout.vue'),
     children: [
       {
-        path: '',
-        component: () => import('pages/Login.vue')
-      },
-      {
-        path: 'home',
-        beforeEnter: (to, from, next) => authUser(to, from, next),
-        component: () => import('pages/Home.vue')
-      },
-      {
-        path: 'info',
+        path: '/info',
         component: () => import('pages/Info.vue'),
         beforeEnter: (to, from, next) => authUser(to, from, next)
       },
       {
-        path: 'denuncias',
+        path: '/denuncias',
         component: () => import('pages/Denuncias.vue'),
         beforeEnter: (to, from, next) => authUser(to, from, next)
       },
 
       {
-        path: 'noticias',
+        path: '/noticias',
         component: () => import('pages/Noticias.vue'),
         beforeEnter: (to, from, next) => authUser(to, from, next)
       },
       {
-        path: 'gerenciarnoticias',
+        path: '/gerenciarnoticias',
         component: () => import('pages/Gerenciar/Noticias.vue'),
         beforeEnter: (to, from, next) => authUser(to, from, next)
       },
       {
-        path: 'gerenciarusuarios',
+        path: '/gerenciarusuarios',
         component: () => import('pages/Gerenciar/Usuarios.vue'),
         beforeEnter: (to, from, next) => authUser(to, from, next)
       },
       {
-        path: 'permissions',
+        path: '/permissions',
         component: () => import('pages/Gerenciar/Permissões.vue'),
         beforeEnter: (to, from, next) => authUser(to, from, next)
       }
     ]
   },
   {
+    path: '/',
+    name: 'login',
+    component: () => import('pages/Login.vue')
+  },
+
+  {
     path: '/login',
     name: 'login',
     component: () => import('pages/Login.vue')
+  },
+
+  {
+    path: '/lay',
+    component: () => import('layouts/HomeLayout.vue'),
+    children: [
+      {
+        path: '/home',
+        beforeEnter: (to, from, next) => authUser(to, from, next),
+        component: () => import('pages/Home.vue')
+      }
+    ]
   }
 ];
 

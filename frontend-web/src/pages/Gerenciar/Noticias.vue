@@ -22,7 +22,7 @@
                 <q-checkbox dense v-model="props.selected" />
               </q-td>
               <q-td key="capa" :props="props">
-                <img :src="props.row.capa" alt="" width="150" />
+                <img :src="props.row.capa" alt="" height="50" />
               </q-td>
 
               <q-td key="titulo" :props="props">{{ props.row.titulo }}</q-td>
@@ -55,10 +55,18 @@
               </q-td>
             </q-tr>
           </template>
-
+          <template v-slot:top-left>
+            <q-btn
+              color="primary"
+              icon="add"
+              label="Nova notícia"
+              @click="$router.push('/noticias')"
+            />
+          </template>
           <template v-slot:top-right>
             <q-input
               borderless
+              filled
               dense
               debounce="300"
               v-model="filter"
@@ -66,12 +74,6 @@
             >
               <template v-slot:append>
                 <q-icon name="search" />
-                <q-btn
-                  color="green"
-                  style="font-size: 0.5em; width: 5px;  margin-left: 20px"
-                  icon="add"
-                  @click="$router.push('/noticias')"
-                />
               </template>
             </q-input>
           </template>
