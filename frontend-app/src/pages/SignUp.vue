@@ -15,7 +15,7 @@
       <div class="inputs">
         <q-input class="qinput" label="Nome completo" v-model="text" />
 
-        <q-input class="qinput" label="E-mail" v-model="email" />
+        <q-input class="qinput" type="email" label="E-mail" v-model="email" />
 
         <q-input
           class="qinput"
@@ -76,7 +76,7 @@
           <!-- </div> -->
         </q-dialog>
       </div>
-      <a href="/login" class="login" to="/login">
+      <a class="login" @click="$router.push('/login')">
         <p>RETORNAR LOGIN</p>
       </a>
     </div>

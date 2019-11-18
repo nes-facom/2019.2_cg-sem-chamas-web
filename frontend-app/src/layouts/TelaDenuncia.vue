@@ -24,16 +24,17 @@
       </q-btn>
     </div>
     <div class="login">
-      <a href="/login" class="login" @click="$router.push('/login')">ENTRAR NA CONTA</a>
+      <a class="login" @click="$router.push('/login')">ENTRAR NA CONTA</a>
     </div>
   </div>
 </template>
 
 <script>
 import { openURL } from "quasar";
-import { AddressbarColor } from "quasar";
+
 export default {
-  name: "TelaDenuncia"
+  name: "TelaDenuncia",
+
 };
 </script>
 

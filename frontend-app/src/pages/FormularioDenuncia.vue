@@ -542,7 +542,7 @@ export default {
     encaminhar() {
       if (localStorage.getItem('userToken')) {
         this.$router.push('/home');
-      } else this.$router.push('/denuncia/buscar');
+      } else this.$router.push('/');
     },
     getPhoto() {
       navigator.camera.getPicture(

@@ -13,7 +13,7 @@
       <h6>Fazer login</h6>
 
       <div class="inputs">
-        <q-input class="qinput" label="E-mail" v-model="email" />
+        <q-input class="qinput" type="email" label="E-mail" v-model="email" />
         <q-input
           class="qinput"
           :type="isPwd ? 'password' : 'text'"
@@ -35,7 +35,7 @@
       </div>
       <p>
         Não possui uma conta?
-        <a href="/registrar" class="registrar" to="/registrar">CRIAR CONTA</a>
+        <a  class="registrar" @click="$router.push('/registrar')">CRIAR CONTA</a>
       </p>
     </div>
   </div>
@@ -95,12 +95,13 @@ export default {
               vm.$store.commit('Session/updateTelefone', user.data.telefone);
               vm.$store.commit('Session/updateId', user.data.id);
               localStorage.setItem('userToken', response.data.token);
-              
-              
+              vm.$router.push('/home');
+
             });
           }
         })
         .catch(e => {
+        this.$q.notify("Verifique suas credencias e tente novamente!");
           console.log(e);
         });
     },

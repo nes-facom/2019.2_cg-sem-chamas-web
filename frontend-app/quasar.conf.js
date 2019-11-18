@@ -22,7 +22,7 @@ module.exports = function(ctx) {
     ],
 
     framework: {
-      plugins: ['Notify'],
+      plugins: ['Notify', 'AddressbarColor'],
       config: {
         notify: {
           /* Notify defaults */
@@ -86,7 +86,7 @@ module.exports = function(ctx) {
     },
 
     devServer: {
-      https: false,
+      https: true,
       // port: 8080,
       open: true // opens browser window automatically
     },
