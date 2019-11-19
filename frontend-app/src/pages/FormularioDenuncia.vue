@@ -194,7 +194,7 @@
             </div>
           </div>
 
-          <div class="identificacao">
+          <div v-show="idUser == null" class="identificacao">
             <h5>
               5º PASSO
               <q-icon
@@ -272,7 +272,11 @@
                     Anote o número ou cadastre-se para acompanhar sua denúncia.
                   </div>
                   <div v-if="idUser == null" class="btn-cadastrar">
-                    <q-btn label="Cadastrar-se" color="primary" to="/registrar" />
+                    <q-btn
+                      label="Cadastrar-se"
+                      color="primary"
+                      to="/registrar"
+                    />
                   </div>
                   <div v-else class="btn-cadastrar">
                     <a href="tel:193">
@@ -398,15 +402,21 @@ export default {
     },
     denunciar() {
       const vm = this;
+      let current_nome = this.nomeS;
+      let current_telefone = this.telefoneS;
       this.disable = true;
       this.gerarProtocolo();
+      if (this.idUser != null) {
+        current_nome = this.nomeUser;
+        current_telefone = this.telefoneUser;
+      }
       this.denuncia = {
         observacao: this.observacaoS,
-        nome: this.nomeS,
+        nome: current_nome,
         foto: this.imageS,
         endereco: this.enderecoS,
         intensidade: this.intensidadeS,
-        telefone: this.telefoneS,
+        telefone: current_telefone,
         status: this.statusS,
         protocolo: this.protocoloS,
         data: this.dataS
@@ -572,7 +582,8 @@ export default {
   },
   computed: {
     ...mapState({ idUser: state => state.Session.id }),
-
+    ...mapState({ nomeUser: state => state.Session.nome }),
+    ...mapState({ telefoneUser: state => state.Session.telefone }),
     ...mapState({ enderecoS: state => state.Map.enderecoS }),
     ...mapState({ imageS: state => state.Denuncia.image }),
     ...mapState({ intensidadeS: state => state.Denuncia.intensidade }),
