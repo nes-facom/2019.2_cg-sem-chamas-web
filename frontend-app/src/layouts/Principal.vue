@@ -30,16 +30,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import User from '../boot/login';
+import { mapState } from "vuex";
+import User from "../boot/login";
 
 export default {
-  name: 'MyLayout',
+  name: "MyLayout",
 
   data() {
     return {
       leftDrawerOpen: false,
-      usuario: 'Usuário'
+      usuario: "Usuário",
+      logado: false
     };
   },
   methods: {
@@ -51,24 +52,25 @@ export default {
     },
     logout() {
       const vm = this;
-      let token = localStorage.getItem('userToken');
+      let token = localStorage.getItem("userToken");
       User.deslogar(token)
         .then(() => {
-          localStorage.removeItem('userToken');
-          vm.$store.commit('Session/updateNome', null);
-          vm.$store.commit('Session/updateEmail', null);
-          vm.$store.commit('Session/updateTelefone', null);
-          vm.$store.commit('Session/updateId', null);
-          vm.$router.push('/login');
+          localStorage.removeItem("userToken");
+          vm.$store.commit("Session/updateNome", null);
+          vm.$store.commit("Session/updateEmail", null);
+          vm.$store.commit("Session/updateTelefone", null);
+          vm.$store.commit("Session/updateId", null);
+          vm.$router.push("/login");
         })
         .catch(() => {
-          localStorage.removeItem('userToken');
-          vm.$router.push('/login');
+          localStorage.removeItem("userToken");
+          vm.$router.push("/login");
         });
     }
   },
   computed: {
-    ...mapState({ nome: state => state.Session.nome })
+    ...mapState({ nome: state => state.Session.nome }),
+    ...mapState({ userId: state => state.Session.id })
   },
   mounted() {
     this.setarNome();
