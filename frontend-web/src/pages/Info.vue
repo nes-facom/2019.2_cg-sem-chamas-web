@@ -140,12 +140,23 @@
                   <q-td key="status" :props="props">
                     <q-select
                       outlined
-                      v-model="status"
-                      :options="options"
+                      v-model="props.row.status"
                       label="Status"
-                      value="props.row.status"
-                      @input="atualizarStatus(status)"
-                    />
+                    >
+                      <template v-slot:no-option>
+                        <q-list bordered separator>
+                          <q-item
+                            v-for="c in options"
+                            v-bind:key="c"
+                            clickable
+                            v-ripple
+                            @click="atualizarStatus(props.row.protocolo, c)"
+                          >
+                            <q-item-section>{{ c }}</q-item-section>
+                          </q-item>
+                        </q-list>
+                      </template>
+                    </q-select>
                   </q-td>
                   <q-td key="acoes" :props="props">
                     <q-btn
@@ -273,9 +284,21 @@ export default {
             this.data.length
           }`;
     },
-    atualizarStatus(event) {
-      console.log(event);
-      console.log("Ativado!!");
+    atualizarStatus(protocolo, data) {
+      const vm = this;
+      console.log(protocolo, data);
+      const status = {
+        status: data
+      };
+
+      Denuncia.atualizar(protocolo, status)
+        .then(response => {
+          vm.$q.notify("Status atualizado com sucesso!");
+          vm.mostrar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
 
     linhaSelecionada(dados) {
