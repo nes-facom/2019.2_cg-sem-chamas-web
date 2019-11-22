@@ -43,6 +43,12 @@ Route.get('total/', 'DenunciaController.count');
 // 	'is:(Comite || Administrador)'
 // ]);
 
+Route.get('users', 'UserController.index');
+// .middleware([
+// 	'auth',
+// 	'is:(Comite || Administrador)'
+// ]);
+
 Route.get('denuncias', 'DenunciaController.index');
 // .middleware([
 // 	'auth',
@@ -56,15 +62,15 @@ Route.put('denuncia/:id', 'DenunciaController.update');
 // ]);
 
 Route.delete('denuncia/:id', 'DenunciaController.destroy').middleware([
-	'auth'
-	// 'is:(Comite || Administrador)'
+  'auth'
+  // 'is:(Comite || Administrador)'
 ]);
 
 Route.get('/checkUser', 'SessionController.check').middleware('auth');
 
 Route.post('/users', 'UserController.store');
 
-Route.get('/userauth', 'UserController.index');
+Route.get('/userauth', 'UserController.show');
 // .middleware([
 // 	'auth',
 // 	'is:(Comite || Administrador)'
@@ -79,8 +85,8 @@ Route.put('/users/:id', 'UserController.update');
 Route.post('/sessions', 'SessionController.store');
 
 Route.resource('/permissions', 'PermissionController')
-	.apiOnly()
-	.except(['index']);
+  .apiOnly()
+  .except(['index']);
 
 // .middleware(['auth', 'is:(Comite || Administrador)']);
 

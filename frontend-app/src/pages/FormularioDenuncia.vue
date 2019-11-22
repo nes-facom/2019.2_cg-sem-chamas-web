@@ -295,14 +295,14 @@
 </template>
 
 <script>
-document.addEventListener('deviceready', () => {}, false);
+document.addEventListener("deviceready", () => {}, false);
 </script>
 
 <script>
-import { mapState } from 'vuex';
-import { store } from '../store/index';
-import Map from './Map';
-import Denuncia from '../boot/denuncia';
+import { mapState } from "vuex";
+import { store } from "../store/index";
+import Map from "./Map";
+import Denuncia from "../boot/denuncia";
 import {
   openURL,
   QInput,
@@ -311,9 +311,9 @@ import {
   QSlideTransition,
   QCardSection,
   QImg
-} from 'quasar';
+} from "quasar";
 export default {
-  name: 'FormularioDenuncia',
+  name: "FormularioDenuncia",
   data() {
     return {
       disable: false,
@@ -356,7 +356,7 @@ export default {
         image: null,
         intensidade: 1,
         telefone: null,
-        status: 'Aberto',
+        status: "Aberto",
         protocolo: null,
         data: null,
         //validacao dos campos
@@ -376,7 +376,7 @@ export default {
     QImg
   },
   beforeMount() {
-    this.$store.commit('Dialog/changeDialogg', false);
+    this.$store.commit("Dialog/changeDialogg", false);
   },
   methods: {
     checkForm: function(e) {
@@ -386,11 +386,11 @@ export default {
 
       this.errors = [];
       if (!this.imageS) {
-        this.errors.push('Foto necessária para completar sua denúncia.');
+        this.errors.push("Foto necessária para completar sua denúncia.");
       }
 
       if (!this.enderecoC) {
-        this.errors.push('O endereço é necessário para fazer a denúncia.');
+        this.errors.push("O endereço é necessário para fazer a denúncia.");
       }
 
       let i = 0;
@@ -423,8 +423,8 @@ export default {
       };
       console.log(this.denuncia);
       let token = null;
-      if (localStorage.getItem('userToken')) {
-        token = localStorage.getItem('userToken');
+      if (localStorage.getItem("userToken")) {
+        token = localStorage.getItem("userToken");
       }
 
       Denuncia.salvar(this.denuncia, token)
@@ -434,14 +434,14 @@ export default {
           vm.full = true;
           vm.disable = true;
           this.errors = {};
-          const value = '';
-          vm.$store.commit('Map/updateEndereco', null);
-          vm.$store.commit('Denuncia/setNome', null);
-          vm.$store.commit('Denuncia/setObservacao', null);
-          vm.$store.commit('Denuncia/setImage', 1);
-          vm.$store.commit('Denuncia/setIntensidade', 1);
-          vm.$store.commit('Denuncia/setData', null);
-          vm.$store.commit('Denuncia/setTelefone', null);
+          const value = "";
+          vm.$store.commit("Map/updateEndereco", null);
+          vm.$store.commit("Denuncia/setNome", null);
+          vm.$store.commit("Denuncia/setObservacao", null);
+          vm.$store.commit("Denuncia/setImage", 1);
+          vm.$store.commit("Denuncia/setIntensidade", 1);
+          vm.$store.commit("Denuncia/setData", null);
+          vm.$store.commit("Denuncia/setTelefone", null);
         })
         .catch(e => {
           vm.disable = false;
@@ -455,13 +455,13 @@ export default {
       const protocolo = `Q${timeInMs}`;
       console.log(timeInMs, protocolo);
       const date = new Date();
-      const d = date.toISOString({ timeZone: 'America/Campo_Grande' });
+      const d = date.toISOString({ timeZone: "America/Campo_Grande" });
       // const data = new Date().toLocaleString('pt-BR', {timeZone: 'America/Campo_Grande',});
-      this.$store.commit('Denuncia/setProtocolo', timeInMs);
-      this.$store.commit('Denuncia/setData', d);
+      this.$store.commit("Denuncia/setProtocolo", timeInMs);
+      this.$store.commit("Denuncia/setData", d);
     },
     changeDialog() {
-      this.$store.commit('Dialog/changeDialogg', true);
+      this.$store.commit("Dialog/changeDialogg", true);
     },
 
     selecionarObs(obs) {
@@ -518,7 +518,7 @@ export default {
         this.fogo.cinco = true;
       }
       this.intensidade = intensidade;
-      this.$store.commit('Denuncia/setIntensidade', intensidade);
+      this.$store.commit("Denuncia/setIntensidade", intensidade);
       this.completo.um = true;
     },
     captureImage() {
@@ -527,7 +527,7 @@ export default {
           // Sucesso
           const imageSrc = `data:image/jpeg;base64, ${data}`;
           this.imgCam = false;
-          this.$store.commit('Denuncia/setImage', imageSrc);
+          this.$store.commit("Denuncia/setImage", imageSrc);
         },
         error => {
           console.log(error);
@@ -550,9 +550,9 @@ export default {
       );
     },
     encaminhar() {
-      if (localStorage.getItem('userToken')) {
-        this.$router.push('/home');
-      } else this.$router.push('/');
+      if (localStorage.getItem("userToken")) {
+        this.$router.push("/home");
+      } else this.$router.push("/");
     },
     getPhoto() {
       navigator.camera.getPicture(
@@ -560,7 +560,7 @@ export default {
           // Sucesso
           const imageSrc = `data:image/jpeg;base64, ${data}`;
           this.imgCam = false;
-          this.$store.commit('Denuncia/setImage', imageSrc);
+          this.$store.commit("Denuncia/setImage", imageSrc);
           console.log(imageSrc);
         },
         error => {
@@ -599,8 +599,8 @@ export default {
         return this.enderecoS;
       },
       set(value) {
-        this.$store.commit('Map/updateEndereco', value);
-        this.$store.commit('Denuncia/setEndereco', value);
+        this.$store.commit("Map/updateEndereco", value);
+        this.$store.commit("Denuncia/setEndereco", value);
       }
     },
     telefoneC: {
@@ -608,7 +608,7 @@ export default {
         return this.telefoneS;
       },
       set(value) {
-        this.$store.commit('Denuncia/setTelefone', value);
+        this.$store.commit("Denuncia/setTelefone", value);
       }
     },
     nomeC: {
@@ -616,24 +616,15 @@ export default {
         return this.nomeS;
       },
       set(value) {
-        this.$store.commit('Denuncia/setNome', value);
+        this.$store.commit("Denuncia/setNome", value);
       }
     },
     observacaoC: {
       get() {
-        console.log(
-          this.observacaoS,
-          this.nomeS,
-          this.telefoneS,
-          this.enderecoS,
-          this.intensidadeS,
-          this.dataS
-        );
-
         return this.observacaoS;
       },
       set(value) {
-        this.$store.commit('Denuncia/setObservacao', value);
+        this.$store.commit("Denuncia/setObservacao", value);
       }
     }
   }

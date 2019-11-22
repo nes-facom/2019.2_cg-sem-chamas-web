@@ -2,57 +2,60 @@
   <div class="container" style="height: 92vh">
     <div class="dash">
       <div class="dashboard">
-        <h2>Notícias</h2>
+        <h2>Usuários</h2>
 
         <q-table
           flat
           :grid="$q.screen.xs"
           class="my-sticky-column-table"
-          title="Noticias"
+          title="Usuários"
           :data="data"
           :columns="columns"
           row-key="created_at"
-          selection="multiple"
-          :selected.sync="selected"
           :filter="filter"
           :pagination.sync="pagination"
         >
           <template v-slot:body="props">
             <q-tr :props="props">
-              <q-td auto-width>
-                <q-checkbox dense v-model="props.selected" />
+              <q-td key="nome" :props="props">
+                {{ props.row.nome }}
               </q-td>
-              <q-td key="capa" :props="props">
-                <img :src="props.row.capa" alt="" width="150" />
+              <q-td key="email" :props="props">
+                {{ props.row.email }}
               </q-td>
-
-              <q-td key="titulo" :props="props">{{ props.row.titulo }}</q-td>
-
-              <q-td key="descricao" :props="props">{{
-                props.row.descricao
-              }}</q-td>
-
-              <q-td key="created_at" :props="props">{{
-                props.row.created_at
-              }}</q-td>
-
-              <q-td key="acoes" :props="props">
-                <q-btn
-                  color="green"
-                  style="font-size: 0.9em; width: 5px; height: 5px; margin-left: 5px"
-                  icon="remove_red_eye"
-                />
-                <q-btn
-                  color="orange"
-                  style="font-size: 0.9em; width: 5px; height: 5px; margin-left: 5px"
-                  icon="edit"
-                />
-                <q-btn
-                  color="red"
-                  style="font-size: 0.9em; width: 5px; height: 5px; margin-left: 5px"
-                  icon="delete"
-                  @click="remover(props.row.id)"
-                />
+              <q-td key="permission" :props="props">
+                <q-select
+                  outlined
+                  :value="props.row.roles | formatPermission"
+                  @input="value => (date = value)"
+                  label="Tipo de Usuário"
+                >
+                  <template v-slot:no-option>
+                    <q-list bordered separator>
+                      <q-item
+                        clickable
+                        v-ripple
+                        @click="alterarPermissao(props.row.id, 1)"
+                      >
+                        <q-item-section>Administrador</q-item-section>
+                      </q-item>
+                      <q-item
+                        clickable
+                        v-ripple
+                        @click="alterarPermissao(props.row.id, 2)"
+                      >
+                        <q-item-section>Membro do Comitê</q-item-section>
+                      </q-item>
+                      <q-item
+                        clickable
+                        v-ripple
+                        @click="alterarPermissao(props.row.id, 3)"
+                      >
+                        <q-item-section>Usuário Comum</q-item-section>
+                      </q-item>
+                    </q-list>
+                  </template>
+                </q-select>
               </q-td>
             </q-tr>
           </template>
@@ -77,7 +80,7 @@
 </template>
 
 <script>
-import Noticia from '../../boot/noticia';
+import User from "../../boot/login";
 export default {
   data() {
     return {
@@ -85,62 +88,74 @@ export default {
         page: 1,
         rowsPerPage: 5,
         descending: true,
-        sortBy: 'created_at'
+        sortBy: "created_at"
       },
-      noticias: [],
       selected: [],
-      filter: '',
+      filter: "",
       select: [],
-      
+
       dados: null,
+      perm: 1,
+      usuario: "Usuário Comum",
       columns: [
         {
-          name: 'capa',
+          name: "nome",
           required: true,
-          label: 'Capa',
-          align: 'left',
+          label: "Nome",
+          align: "left",
           field: row => row.protocolo,
           format: val => `${val}`,
           sortable: true
         },
         {
-          name: 'titulo',
-          align: 'left',
-          label: 'Titulo',
-          field: 'titulo',
+          name: "email",
+          align: "left",
+          label: "E-mail",
+          field: "email",
           sortable: true
         },
 
         {
-          name: 'created_at',
-          align: 'left',
-          label: 'Data',
-          field: 'created_at',
+          name: "permission",
+          align: "left",
+          label: "Tipo de Usuário",
+          field: "permission",
           sortable: true
-        },
-        {
-          name: 'acoes',
-          align: 'center',
-          label: 'Ações',
-          field: 'acoes',
-          sortable: false
         }
       ],
       data: [
         {
           capa:
-            'https://f.i.uol.com.br/fotografia/2019/03/15/15526795065c8c025270c53_1552679506_4x3_sm.jpg',
-          descricao: 'Campanha de Prevenção de Queimadas',
-          created_at: '10/10/2011 18:22:00',
-          titulo: 'Queimadas não!'
+            "https://f.i.uol.com.br/fotografia/2019/03/15/15526795065c8c025270c53_1552679506_4x3_sm.jpg",
+          descricao: "Campanha de Prevenção de Queimadas",
+          created_at: "10/10/2011 18:22:00",
+          titulo: "Queimadas não!"
         }
       ]
     };
   },
   methods: {
-     mostrar(noticia) {
+    alterarPermissao(id, perm) {
+      console.log("oiii");
+      console.log(id, perm);
       const vm = this;
-      Noticia.listar(noticia)
+      const permission = {
+        roles: [perm]
+      };
+
+      User.atualizar(id, permission)
+        .then(response => {
+          console.log(response);
+          console.log(response.data.token);
+          vm.listar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    mostrar() {
+      const vm = this;
+      User.listar()
         .then(response => {
           console.log(response.data);
           this.data = response.data;
@@ -149,23 +164,32 @@ export default {
           this.errors = e.response.data.errors;
           console.log(e.response.data.errors);
         });
-    },
-    remover (noticia) {
-      if (confirm("Deseja excluir o noticia?")) {
-        Noticia.apagar(noticia)
-          .then(response => {
-            this.mostrar();
-            this.errors = {};
-          })
-          .catch(e => {
-            this.errors = e.response.data.errors;
-          });
-      }
-    },
+    }
   },
   mounted() {
     this.mostrar();
   },
+  filters: {
+    formatPermission: data => {
+      if (data == null) {
+        return "Usuário";
+      }
+      switch (data) {
+        case null:
+          return "Administrador";
+        case 2:
+          return "Membro do Comitê";
+        case 3:
+          return "Usuário Comum";
+      }
+    }
+  },
+  watch: {
+    roles(val) {
+      const filter = val | formatPermission;
+      this.roles = filter;
+    }
+  }
 };
 </script>
 
