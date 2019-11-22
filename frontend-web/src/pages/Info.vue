@@ -214,7 +214,7 @@ export default {
         protocolo: ""
       },
       status: "Em aberto",
-      options: ["Aberta", "Verificada", "Fechada", "Inválida"],
+      options: ["Aberta", "Apurada", "Fechada", "Inválida"],
 
       denuncias: [],
       selected: [],

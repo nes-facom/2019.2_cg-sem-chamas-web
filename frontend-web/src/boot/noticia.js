@@ -1,21 +1,30 @@
 import { http } from "./axios";
-
+const token = localStorage.getItem("userToken");
 
 export default {
+  postar: noticia => {
+    return http.post("noticias", noticia, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+  },
 
-    postar: noticia => {
-        return http.post("noticias", noticia);
-    },
+  atualizar: (id, data) => {
+    return http.put("noticias/" + id, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
+  },
 
-    atualizar: noticia => {
-        return http.put("noticias/" + noticia, noticia);
-    },
+  listar: () => {
+    return http.get("noticias");
+  },
 
-    listar: () => {
-        return http.get("noticias");
-    },
-
-    apagar: noticia => {
-        return http.delete("noticias/" + noticia);
-    },
-}
+  apagar: noticia => {
+    return http.delete("noticias/" + noticia);
+  }
+};
