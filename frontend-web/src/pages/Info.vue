@@ -138,9 +138,14 @@
                   }}</q-td>
 
                   <q-td key="status" :props="props">
-                    <q-badge square color="green">{{
-                      props.row.status
-                    }}</q-badge>
+                    <q-select
+                      outlined
+                      v-model="status"
+                      :options="options"
+                      label="Status"
+                      value="props.row.status"
+                      @input="atualizarStatus(status)"
+                    />
                   </q-td>
                   <q-td key="acoes" :props="props">
                     <q-btn
@@ -181,7 +186,7 @@
 </template>
 
 <script>
-import Denuncia from '../boot/denuncia';
+import Denuncia from "../boot/denuncia";
 export default {
   data() {
     return {
@@ -190,56 +195,58 @@ export default {
         page: 1,
         rowsPerPage: 5,
         descending: true,
-        sortBy: 'protocolo'
+        sortBy: "protocolo"
       },
       denuncia: {
-        id: '',
-        endereco: '',
-        protocolo: ''
+        id: "",
+        endereco: "",
+        protocolo: ""
       },
+      status: "Em aberto",
+      options: ["Aberta", "Verificada", "Fechada", "Inválida"],
 
       denuncias: [],
       selected: [],
-      filter: '',
+      filter: "",
       select: [],
       dados: null,
       columns: [
         {
-          name: 'created_at',
-          align: 'left',
-          label: 'Data',
-          field: 'created_at',
+          name: "created_at",
+          align: "left",
+          label: "Data",
+          field: "created_at",
           sortable: true
         },
         {
-          name: 'protocolo',
+          name: "protocolo",
           required: true,
-          label: 'Protocolo',
-          align: 'left',
+          label: "Protocolo",
+          align: "left",
           field: row => row.protocolo,
           format: val => `${val}`,
           sortable: true
         },
         {
-          name: 'endereco',
-          align: 'left',
-          label: 'Endereço',
-          field: 'endereco',
+          name: "endereco",
+          align: "left",
+          label: "Endereço",
+          field: "endereco",
           sortable: true
         },
 
         {
-          name: 'status',
-          align: 'center',
-          label: 'Status',
-          field: 'status',
+          name: "status",
+          align: "center",
+          label: "Status",
+          field: "status",
           sortable: true
         },
         {
-          name: 'acoes',
-          align: 'center',
-          label: 'Ações',
-          field: 'acoes',
+          name: "acoes",
+          align: "center",
+          label: "Ações",
+          field: "acoes",
           sortable: false
         }
       ],
@@ -249,8 +256,8 @@ export default {
   filters: {
     formatData: data => {
       const dat = new Date(data);
-      const formatData = dat.toLocaleString('pt-BR', {
-        timeZone: 'America/Anchorage'
+      const formatData = dat.toLocaleString("pt-BR", {
+        timeZone: "America/Anchorage"
       });
 
       return formatData;
@@ -259,12 +266,16 @@ export default {
   methods: {
     getSelectedString() {
       return this.selected.length === 0
-        ? ''
+        ? ""
         : `${this.selected.length} denúncia${
-            this.selected.length > 1 ? 's' : ''
-          } selecionada${this.selected.length > 1 ? 's' : ''} de ${
+            this.selected.length > 1 ? "s" : ""
+          } selecionada${this.selected.length > 1 ? "s" : ""} de ${
             this.data.length
           }`;
+    },
+    atualizarStatus(event) {
+      console.log(event);
+      console.log("Ativado!!");
     },
 
     linhaSelecionada(dados) {
@@ -274,17 +285,17 @@ export default {
     },
     load() {
       this.$q.loading.show({
-        backgroundColor: 'orange',
-        message: 'Atualizando dados do servidor...',
-        messageColor: 'black'
+        backgroundColor: "orange",
+        message: "Atualizando dados do servidor...",
+        messageColor: "black"
       });
     },
     mostrar(denuncia) {
       const vm = this;
       this.$q.loading.show({
-        backgroundColor: 'orange',
-        message: 'Atualizando dados do servidor...',
-        messageColor: 'black'
+        backgroundColor: "orange",
+        message: "Atualizando dados do servidor...",
+        messageColor: "black"
       });
 
       Denuncia.listar(denuncia)
@@ -311,7 +322,7 @@ export default {
     },
 
     remover(denuncia) {
-      if (confirm('Deseja excluir o denuncia?')) {
+      if (confirm("Deseja excluir o denuncia?")) {
         Denuncia.apagar(denuncia)
           .then(response => {
             this.mostrar();

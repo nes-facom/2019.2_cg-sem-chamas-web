@@ -39,13 +39,11 @@ const routes = [
   },
   {
     path: '/',
-    name: 'login',
     component: () => import('pages/Login.vue')
   },
 
   {
     path: '/login',
-    name: 'login',
     component: () => import('pages/Login.vue')
   },
 
