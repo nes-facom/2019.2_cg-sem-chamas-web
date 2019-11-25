@@ -36,7 +36,6 @@ Route.get('denuncia/:id', 'DenunciaController.show');
 // ]);
 
 Route.get('protocolo/:protocolo', 'DenunciaController.byProtocolo');
-<<<<<<< Updated upstream
 Route.get('byUser/:userid', 'DenunciaController.byUser');
 Route.get('total/', 'DenunciaController.count');
 // .middleware([
@@ -63,8 +62,8 @@ Route.put('denuncia/:id', 'DenunciaController.update');
 // ]);
 
 Route.delete('denuncia/:id', 'DenunciaController.destroy').middleware([
-  'auth'
-  // 'is:(Comite || Administrador)'
+    'auth'
+    // 'is:(Comite || Administrador)'
 ]);
 
 Route.get('/checkUser', 'SessionController.check').middleware('auth');
@@ -86,8 +85,8 @@ Route.put('/users/:id', 'UserController.update');
 Route.post('/sessions', 'SessionController.store');
 
 Route.resource('/permissions', 'PermissionController')
-  .apiOnly()
-  .except(['index']);
+    .apiOnly()
+    .except(['index']);
 
 // .middleware(['auth', 'is:(Comite || Administrador)']);
 
@@ -124,51 +123,3 @@ Route.get('/noticias', 'NoticiaController.index');
 // .middleware(['auth']);
 
 Route.post('/logout', 'SessionController.logout').middleware(['auth']);
-=======
-
-Route.get('total/', 'DenunciaController.count')
-.middleware(['auth','is:(Comite || Administrador)']);
-
-Route.get('denuncias', 'DenunciaController.index')
-.middleware(['auth','is:(Comite || Administrador)']);
-
-Route.put('denuncia/:id', 'DenunciaController.update')
-.middleware(['auth','is:(Comite || Administrador)']);
-
-Route.delete('denuncia/:id', 'DenunciaController.destroy')
-.middleware(['auth','is:(Comite || Administrador)']);
-
-Route.post('users', 'UserController.store');
-
-Route.get('userauth', 'UserController.index')
-.middleware(['auth','is:(Comite || Administrador)']);
-
-Route.put('users/:id', 'UserController.update')
-.middleware(['auth','is:(Comite || Administrador)']);
-
-Route.post('sessions', 'SessionController.store');
-
-Route.resource('permissions', 'PermissionController')
-	.apiOnly()
-	.except('index')
-	.middleware(['auth','is:(Comite || Administrador)']);
-
-Route.resource('roles', 'RoleController')
-	.apiOnly()
-	.middleware(['auth','is:(Comite || Administrador)']);
-
-Route.post('usersReturn', 'UserReturnController.store')
-.middleware(['auth','is:(Comite || Administrador)']);
-
-Route.put('/noticias/:id', 'NoticiaController.update')
-.middleware(['auth','is:(Comite)']);
-
-Route.delete('noticias/id', 'NoticiaController.destroy')
-.middleware(['auth','is:(Comite)']);
-
-Route.post('/noticias', 'NoticiaController.store')
-.middleware(['auth','is:(Comite)']);
-
-Route.get('/noticias', 'NoticiaController.index')
-.middleware(['auth','is:(Comite)']);
->>>>>>> Stashed changes
