@@ -16,110 +16,104 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-/*Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' }
-})*/
+Route.get('/', () => {
+  return { greeting: 'O sistema está online!' };
+});
 
-Route.post('denuncia', 'DenunciaController.store');
+Route.post('denuncia', 'DenunciaController.store')
+  .except([''])
+  .middleware(['']);
 
-//.except([''])
-//.middleware([''])
 //Usuario_comum 4
 //Usuario_Logado 3
-//Comite 2
-//Administrador 1
+//comite 2
+//administrador 1
 
-Route.get('denuncia/:id', 'DenunciaController.show');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite || Administrador)'
-// ]);
+Route.get('denuncia/:id', 'DenunciaController.show').middleware([
+  'auth',
+  'is:(comite || administrador)'
+]);
 
 Route.get('protocolo/:protocolo', 'DenunciaController.byProtocolo');
-Route.get('byUser/:userid', 'DenunciaController.byUser');
-Route.get('total/', 'DenunciaController.count');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite || Administrador)'
-// ]);
 
-Route.get('users', 'UserController.index');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite || Administrador)'
-// ]);
+//Buscar denuncias pelo id do usuario
+Route.get('byUser/:userid', 'DenunciaController.byUser').middleware('auth');
 
-Route.get('denuncias', 'DenunciaController.index');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite || Administrador)'
-// ]);
+//Retornar numero de denúncias
+Route.get('total/', 'DenunciaController.count').middleware([
+  'auth',
+  'is:(comite || administrador)'
+]);
 
-Route.put('denuncia/:id', 'DenunciaController.update');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite || Administrador)'
-// ]);
+//Listar usuarios
+Route.get('users', 'UserController.index').middleware([
+  'auth',
+  'is:(comite || administrador)'
+]);
+
+Route.get('denuncias', 'DenunciaController.index').middleware([
+  'auth',
+  'is:(comite || administrador)'
+]);
+
+Route.put('denuncia/:id', 'DenunciaController.update').middleware([
+  'auth',
+  'is:(comite || administrador)'
+]);
 
 Route.delete('denuncia/:id', 'DenunciaController.destroy').middleware([
-  'auth'
-  // 'is:(Comite || Administrador)'
+  'auth',
+  'is:(comite || administrador)'
 ]);
 
 Route.get('/checkUser', 'SessionController.check').middleware('auth');
 
 Route.post('/users', 'UserController.store');
 
-Route.get('/userauth', 'UserController.show');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite || Administrador)'
-// ]);
+//Buscar dados do usuario
+Route.get('/userauth', 'UserController.show').middleware([
+  'auth',
+  'is:(comite || administrador)'
+]);
 
-Route.put('/users/:id', 'UserController.update');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite || Administrador)'
-// ]);
+Route.put('/users/:id', 'UserController.update').middleware([
+  'auth',
+  'is:(comite || administrador)'
+]);
 
 Route.post('/sessions', 'SessionController.store');
 
 Route.resource('/permissions', 'PermissionController')
   .apiOnly()
-  .except(['index']);
-
-// .middleware(['auth', 'is:(Comite || Administrador)']);
+  .except(['index'])
+  .middleware(['auth', 'is:(comite || administrador)']);
 
 Route.get('/permissions', 'PermissionController.index');
-Route.resource('roles', 'RoleController').apiOnly();
 
-// .middleware(['auth', 'is:(Comite || Administrador)']);
+Route.resource('roles', 'RoleController')
+  .apiOnly()
+  .middleware(['auth', 'is:(comite || administrador)']);
 
-Route.post('usersReturn', 'UserReturnController.store');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite || Administrador)'
-// ]);
+Route.post('usersReturn', 'UserReturnController.store').middleware([
+  'auth',
+  'is:(comite || administrador)'
+]);
 
-Route.put('/noticias/:id', 'NoticiaController.update');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite)'
-// ]);
+Route.put('/noticias/:id', 'NoticiaController.update').middleware([
+  'auth',
+  'is:(comite || administrador)'
+]);
 
-Route.delete('noticias/:id', 'NoticiaController.destroy');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite)'
-// ]);
+Route.delete('noticias/:id', 'NoticiaController.destroy').middleware([
+  'auth',
+  'is:(comite || administrador)'
+]);
 
-Route.post('/noticias', 'NoticiaController.store');
-// .middleware([
-// 	'auth',
-// 	'is:(Comite)'
-// ]);
+Route.post('/noticias', 'NoticiaController.store').middleware([
+  'auth',
+  'is:(comite || administrador)'
+]);
 
-Route.get('/noticias', 'NoticiaController.index');
-// .middleware(['auth']);
+Route.get('/noticias', 'NoticiaController.index').middleware(['auth']);
 
 Route.post('/logout', 'SessionController.logout').middleware(['auth']);

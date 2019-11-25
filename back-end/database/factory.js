@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*
 |--------------------------------------------------------------------------
@@ -12,10 +12,16 @@
 */
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
-// const Factory = use('Factory')
+const Factory = use('Factory');
 
-// Factory.blueprint('App/Models/User', (faker) => {
-//   return {
-//     username: faker.username()
-//   }
-// })
+Factory.blueprint('App/Models/User', faker => {
+  return {
+    nome: 'Administrador',
+    email: 'admin@cgsemchamas.com',
+    password: '3OjzYjzK',
+    telefone: '671111111',
+    enderecoUsuario: 'Rua A numero 100',
+    cpf: '11111111111',
+    permission: 1
+  };
+});
