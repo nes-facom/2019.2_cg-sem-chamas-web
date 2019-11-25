@@ -11,14 +11,13 @@
 |
 */
 const providers = [
-	'@adonisjs/framework/providers/AppProvider',
-	'@adonisjs/auth/providers/AuthProvider',
-	'@adonisjs/bodyparser/providers/BodyParserProvider',
-	'@adonisjs/cors/providers/CorsProvider',
-	'@adonisjs/lucid/providers/LucidProvider',
-	'@adonisjs/lucid/providers/MigrationsProvider',
-	'@adonisjs/vow/providers/VowProvider',
-	'adonis-acl/providers/AclProvider'
+    '@adonisjs/framework/providers/AppProvider',
+    '@adonisjs/auth/providers/AuthProvider',
+    '@adonisjs/bodyparser/providers/BodyParserProvider',
+    '@adonisjs/cors/providers/CorsProvider',
+    '@adonisjs/lucid/providers/LucidProvider',
+    '@adonisjs/lucid/providers/MigrationsProvider',
+    'adonis-acl/providers/AclProvider'
 ];
 
 /*
@@ -31,8 +30,9 @@ const providers = [
 |
 */
 const aceProviders = [
-	'adonis-acl/providers/CommandsProvider',
-	'@adonisjs/lucid/providers/MigrationsProvider'
+    'adonis-acl/providers/CommandsProvider',
+    '@adonisjs/lucid/providers/MigrationsProvider',
+    '@adonisjs/vow/providers/VowProvider'
 ];
 
 /*
@@ -48,8 +48,8 @@ const aceProviders = [
 |
 */
 const aliases = {
-	Role: 'Adonis/Acl/Role',
-	Permission: 'Adonis/Acl/Permission'
+    Role: 'Adonis/Acl/Role',
+    Permission: 'Adonis/Acl/Permission'
 };
 
 /*
