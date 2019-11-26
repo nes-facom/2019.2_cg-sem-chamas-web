@@ -25,8 +25,8 @@
       <q-separator />
 
       <q-tab-panels v-model="tab" animated>
+        <!-- Denunciar -->
         <q-tab-panel name="home">
-          <!-- <div class="text-h6">Mails</div>Lorem ipsum dolor sit amet consectetur adipisicing elit. -->
           <div class="containerHome">
             <div class="logo"></div>
             <div class="img-centro"></div>
@@ -46,6 +46,7 @@
           </div>
         </q-tab-panel>
 
+        <!-- Minhas Denuncias -->
         <q-tab-panel name="minhasDenuncias" class="denuncias">
           <div class="card">
             <div class="denunciaTitulo">Minhas denúncias</div>
@@ -69,6 +70,7 @@
           </div>
         </q-tab-panel>
 
+        <!-- Notícias -->
         <q-tab-panel name="noticias">
           <div class="noticias">
             <q-scroll-area visible="false" style="height: 92vh; width: 98%;">
@@ -78,20 +80,29 @@
                 class="my-card"
                 style="max-width: 98%;"
               >
-                <img :src="n.capa" style="width: 100%" />
-                <div class="noticiaInfo">
-                  <div>
-                    <div class="noticiaTitulo">{{ n.titulo }}</div>
-                  </div>
+                <q-expansion-item icon="drafts">
+                  <template icon="none" v-slot:header>
+                    <q-card-section>
+                      <img :src="n.capa" style="width: 100%; " />
+                      <div class="noticiaInfo">
+                        <div>
+                          <div class="noticiaTitulo">{{ n.titulo }}</div>
+                        </div>
 
-                  <div class="noticiaDados">
-                    <div class="noticiaData">
-                                          {{ n.created_at | noticiaData }}
+                        <div class="noticiaDados">
+                          <div class="noticiaData">
+                            {{ n.created_at | noticiaData }}
+                          </div>
+                          <div class="noticiaTexto">{{ n.descricao }}</div>
+                        </div>
+                      </div>
+                    </q-card-section>
+                  </template>
 
-                    </div>
-                    <div class="noticiaTexto">{{ n.descricao }}</div>
-                  </div>
-                </div>
+                  <q-card-section>
+                    <p v-html="n.conteudo"></p>
+                  </q-card-section>
+                </q-expansion-item>
               </q-card>
             </q-scroll-area>
           </div>
@@ -102,18 +113,18 @@
 </template>
 
 <script>
-import Noticia from '../boot/noticia';
-import Denuncia from '../boot/denuncia';
-import { openURL } from 'quasar';
-import { AddressbarColor } from 'quasar';
-import { mapState } from 'vuex';
+import Noticia from "../boot/noticia";
+import Denuncia from "../boot/denuncia";
+import { openURL } from "quasar";
+import { AddressbarColor } from "quasar";
+import { mapState } from "vuex";
 
 export default {
-  name: 'TelaDenuncia',
+  name: "TelaDenuncia",
   data() {
     return {
-      tab: 'home',
-      isHome: 'bg_orange',
+      tab: "home",
+      isHome: "bg_orange",
       noticias: [],
       denuncias: []
     };
@@ -121,11 +132,11 @@ export default {
 
   watch: {
     tab: function() {
-      if (this.tab == 'home') {
-        this.isHome = 'bg_orange';
+      if (this.tab == "home") {
+        this.isHome = "bg_orange";
         this.listarDenuncias();
         this.listarNoticia();
-      } else this.isHome = 'bg_white';
+      } else this.isHome = "bg_white";
     }
   },
 
@@ -134,33 +145,27 @@ export default {
       const vm = this;
       Noticia.listar(noticia)
         .then(response => {
-          console.log(response.data);
           vm.noticias = response.data.reverse();
         })
         .catch(e => {
           this.errors = e.response.data.errors;
-          console.log(e.response.data.errors);
         });
     },
     listarDenuncias() {
       const vm = this;
       const id = this.id;
-      const token = localStorage.getItem('userToken');
+      const token = localStorage.getItem("userToken");
 
-      console.log('oii ' + id + 'oi: ' + token);
       Denuncia.byUser(id, token)
         .then(response => {
           vm.denuncias = response.data.reverse();
         })
-        .catch(e => {
-          console.log(e.response.data.errors);
-        });
+        .catch(e => {});
     }
   },
   mounted() {
     this.listarNoticia();
     this.listarDenuncias();
-    console.log(this.noticias);
   },
   computed: {
     ...mapState({ id: state => state.Session.id })
@@ -168,23 +173,24 @@ export default {
   filters: {
     formatData: data => {
       const dat = new Date(data);
-      const formatData = dat.toLocaleString('pt-BR');
+      const formatData = dat.toLocaleString("pt-BR");
       const onlydata = formatData.substring(0, 10);
       return onlydata;
     },
-    noticiaData: data =>{
+    noticiaData: data => {
       const date = new Date(data);
-      const options = {month: 'short', day: 'numeric'};
-      const onlydata = (date.toLocaleString('en-US', options));
+      const options = { month: "short", day: "numeric" };
+      const onlydata = date.toLocaleString("en-US", options);
       return onlydata;
-     
     }
   }
 };
 </script>
 <style scoped>
-body{
+body {
   font-size: 13px;
+  font-family: Roboto;
+  font-style: normal;
 }
 
 .homeLogged {
@@ -266,7 +272,7 @@ body{
 .img-centro {
   margin-top: 3%;
   background-color: blue;
-  background: url('https://i.imgur.com/sV8gZBV.png');
+  background: url("https://i.imgur.com/sV8gZBV.png");
   background-size: 230px auto;
   width: 250px;
   height: 250px;

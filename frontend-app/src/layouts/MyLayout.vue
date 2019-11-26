@@ -22,6 +22,14 @@
           :label="usuario"
         >
           <q-list>
+            <q-item clickable v-close-popup tabindex="0" @click="buscar()">
+              <q-item-section avatar>
+                <q-avatar icon="search" text-color="primary" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>Buscar por protocolo</q-item-label>
+              </q-item-section>
+            </q-item>
             <q-item clickable v-close-popup tabindex="0" @click="logout()">
               <q-item-section avatar>
                 <q-avatar icon="exit_to_app" text-color="primary" />
@@ -62,6 +70,10 @@ export default {
     voltar() {
       window.history.back();
     },
+    buscar() {
+      this.$router.push("/denuncia/buscar");
+    },
+
     logout() {
       const vm = this;
       let token = localStorage.getItem("userToken");

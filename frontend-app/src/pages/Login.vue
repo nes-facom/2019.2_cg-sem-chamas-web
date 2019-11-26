@@ -4,6 +4,7 @@
     style="height: 100vh;
   width: 100vw;"
   >
+    <q-ajax-bar ref="bar" position="top" color="grey" size="5px" skip-hijack />
     <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
     <div class="topo">
       <div class="img-centro"></div>
@@ -35,39 +36,41 @@
       </div>
       <p>
         Não possui uma conta?
-        <a  class="registrar" @click="$router.push('/registrar')">CRIAR CONTA</a>
+        <a class="registrar" @click="$router.push('/registrar')">CRIAR CONTA</a>
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import { store } from '../store/index';
-import User from '../boot/login';
-import { Notify } from 'quasar';
+import { store } from "../store/index";
+import User from "../boot/login";
+import { Notify } from "quasar";
 export default {
   data() {
     return {
       errors: [],
       email: null,
       password: null,
-      token: '',
+      token: "",
       isPwd: true
     };
   },
   methods: {
     checkForm: function(e) {
       if (this.email && this.password) {
-        return this.logar();
+        if (this.email.length < 14) {
+          this.$q.notify("O e-mail é inválido!");
+        } else return this.logar();
       }
 
       this.errors = [];
 
       if (!this.email) {
-        this.errors.push('O e-mail é obrigatório.');
+        this.errors.push("O e-mail é obrigatório.");
       }
       if (!this.password) {
-        this.errors.push('A senha é obrigatória.');
+        this.errors.push("A senha é obrigatória.");
       }
 
       let i = 0;
@@ -79,6 +82,9 @@ export default {
     },
     async logar() {
       const vm = this;
+      const bar = this.$refs.bar;
+
+      bar.start();
       const login = {
         email: this.email,
         password: this.password
@@ -90,30 +96,36 @@ export default {
 
           if (response) {
             User.check(response.data.token).then(user => {
-              vm.$store.commit('Session/updateNome', user.data.nome);
-              vm.$store.commit('Session/updateEmail', user.data.email);
-              vm.$store.commit('Session/updateTelefone', user.data.telefone);
-              vm.$store.commit('Session/updateId', user.data.id);
-              localStorage.setItem('userToken', response.data.token);
-              vm.$router.push('/home');
-
+              vm.$store.commit("Session/updateNome", user.data.nome);
+              vm.$store.commit("Session/updateEmail", user.data.email);
+              vm.$store.commit("Session/updateTelefone", user.data.telefone);
+              vm.$store.commit("Session/updateId", user.data.id);
+              localStorage.setItem("userToken", response.data.token);
+              vm.$router.push("/home");
             });
           }
+          bar.stop();
         })
         .catch(e => {
-        this.$q.notify("Verifique suas credencias e tente novamente!");
+          bar.stop();
+
+          this.$q.notify("Verifique suas credencias e tente novamente!");
           console.log(e);
         });
     },
 
     voltar() {
-      this.$router.push('/');
+      this.$router.push("/");
     }
   }
 };
 </script>
 
 <style scoped>
+.registrar {
+  color: #f4853e;
+  font-weight: bold;
+}
 .container {
   height: 100vh;
   width: 100vw;
@@ -154,7 +166,7 @@ export default {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 h7 {
-  font-family: 'Arial';
+  font-family: "Arial";
   /* font-weight: bolder; */
   color: #ffffff;
   margin-top: 20px;
@@ -195,7 +207,7 @@ h6 {
 }
 .img-centro {
   background-color: blue;
-  background: url('https://i.imgur.com/h20GKNd.png');
+  background: url("https://i.imgur.com/h20GKNd.png");
   background-size: 140px auto;
   width: 140px;
   height: 140px;
@@ -216,11 +228,11 @@ a:visited {
 
 a:hover {
   text-decoration: none;
-  color: #737373;
+  color: #f4853e;
 }
 
 a:active {
   text-decoration: none;
-  color: #737373;
+  color: #f4853e;
 }
 </style>

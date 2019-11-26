@@ -31,14 +31,6 @@ const routes = [
   },
 
   {
-    path: "/formulario",
-    component: () => import("layouts/Inicio.vue"),
-    children: [
-      { path: "", component: () => import("pages/FormularioDenuncia.vue") }
-    ]
-  },
-
-  {
     path: "/home",
     component: () => import("layouts/Principal.vue"),
     children: [

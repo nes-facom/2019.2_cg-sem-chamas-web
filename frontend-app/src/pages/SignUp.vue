@@ -83,7 +83,7 @@
   </div>
 </template>
 <script>
-import User from '../boot/login';
+import User from "../boot/login";
 export default {
   data() {
     return {
@@ -96,7 +96,7 @@ export default {
       email: null,
       password: null,
       number: null,
-      token: '',
+      token: "",
       isPwd: true
     };
   },
@@ -108,18 +108,18 @@ export default {
 
       this.errors = [];
       if (!this.text) {
-        this.errors.push('O nome é obrigatório.');
+        this.errors.push("O nome é obrigatório.");
       }
 
       if (!this.email) {
-        this.errors.push('O e-mail é obrigatório.');
+        this.errors.push("O e-mail é obrigatório.");
       }
       if (!this.password) {
-        this.errors.push('A senha é obrigatória.');
+        this.errors.push("A senha é obrigatória.");
       }
 
       if (!this.telefone) {
-        this.errors.push('O telefone é obrigatório.');
+        this.errors.push("O telefone é obrigatório.");
       }
 
       let i = 0;
@@ -141,10 +141,10 @@ export default {
 
       User.registrar(registrar)
         .then(response => {
-          vm.$router.push('/login');
+          vm.$router.push("/login");
         })
         .catch(e => {
-          this.$q.notify('Usuário ja existe!');
+          this.$q.notify("Usuário ja existe!");
         });
     },
     voltar() {
@@ -189,7 +189,7 @@ export default {
   margin-bottom: 20px;
 }
 h4 {
-  font-family: 'Robotos lab';
+  font-family: "Robotos lab";
   font-weight: bolder;
   color: #ffffff;
   margin-top: 5%;
@@ -290,7 +290,7 @@ p {
 }
 .img-centro {
   background-color: blue;
-  background: url('https://i.imgur.com/h20GKNd.png');
+  background: url("https://i.imgur.com/h20GKNd.png");
   background-size: 140px auto;
   width: 140px;
   height: 140px;
