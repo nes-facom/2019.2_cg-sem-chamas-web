@@ -20,9 +20,7 @@ Route.get('/', () => {
   return { greeting: 'O sistema está online!' };
 });
 
-Route.post('denuncia', 'DenunciaController.store')
-  .except([''])
-  .middleware(['']);
+Route.post('denuncia', 'DenunciaController.store');
 
 //Usuario_comum 4
 //Usuario_Logado 3
@@ -31,7 +29,7 @@ Route.post('denuncia', 'DenunciaController.store')
 
 Route.get('denuncia/:id', 'DenunciaController.show').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(comite or administrador)'
 ]);
 
 Route.get('protocolo/:protocolo', 'DenunciaController.byProtocolo');
@@ -42,43 +40,46 @@ Route.get('byUser/:userid', 'DenunciaController.byUser').middleware('auth');
 //Retornar numero de denúncias
 Route.get('total/', 'DenunciaController.count').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(comite or administrador)'
 ]);
 
 //Listar usuarios
 Route.get('users', 'UserController.index').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(comite or administrador)'
 ]);
 
 Route.get('denuncias', 'DenunciaController.index').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(comite or administrador)'
 ]);
 
 Route.put('denuncia/:id', 'DenunciaController.update').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(comite or administrador)'
 ]);
 
 Route.delete('denuncia/:id', 'DenunciaController.destroy').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(comite or administrador)'
 ]);
 
+//Verificar dados do usuários logado
 Route.get('/checkUser', 'SessionController.check').middleware('auth');
 
+//Registrar usuário
 Route.post('/users', 'UserController.store');
 
 //Buscar dados do usuario
 Route.get('/userauth', 'UserController.show').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(comite or administrador)'
 ]);
 
+//Atualizar dados de um usuários
 Route.put('/users/:id', 'UserController.update').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(administrador)'
 ]);
 
 Route.post('/sessions', 'SessionController.store');
@@ -86,32 +87,32 @@ Route.post('/sessions', 'SessionController.store');
 Route.resource('/permissions', 'PermissionController')
   .apiOnly()
   .except(['index'])
-  .middleware(['auth', 'is:(comite || administrador)']);
+  .middleware(['auth', 'is:(comite or administrador)']);
 
 Route.get('/permissions', 'PermissionController.index');
 
 Route.resource('roles', 'RoleController')
   .apiOnly()
-  .middleware(['auth', 'is:(comite || administrador)']);
+  .middleware(['auth', 'is:(comite or administrador)']);
 
 Route.post('usersReturn', 'UserReturnController.store').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(comite or administrador)'
 ]);
 
 Route.put('/noticias/:id', 'NoticiaController.update').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(comite or administrador)'
 ]);
 
 Route.delete('noticias/:id', 'NoticiaController.destroy').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(comite or administrador)'
 ]);
 
 Route.post('/noticias', 'NoticiaController.store').middleware([
   'auth',
-  'is:(comite || administrador)'
+  'is:(comite or administrador)'
 ]);
 
 Route.get('/noticias', 'NoticiaController.index').middleware(['auth']);

@@ -16,12 +16,11 @@ const Factory = use('Factory');
 
 Factory.blueprint('App/Models/User', faker => {
   return {
-    nome: 'Administrador',
-    email: 'admin@cgsemchamas.com',
+    nome: 'Administrador 2',
+    email: 'admin2@cgsemchamas.com',
     password: '3OjzYjzK',
     telefone: '671111111',
     enderecoUsuario: 'Rua A numero 100',
-    cpf: '11111111111',
-    permission: 1
+    cpf: '11111111111'
   };
 });
