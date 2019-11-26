@@ -87,8 +87,7 @@
               icon-right="fas fa-map-marked-alt"
               label="Obter localização"
               to="/denuncia/gps"
-            >
-            </q-btn>
+            ></q-btn>
           </div>
 
           <div class="endereco">
@@ -195,7 +194,7 @@
             </div>
           </div>
 
-          <div class="identificacao">
+          <div v-show="idUser == null" class="identificacao">
             <h5>
               5º PASSO
               <q-icon
@@ -242,14 +241,14 @@
               label="Denunciar"
               color="primary"
               :disable="disable"
-              @click="denunciar()"
+              @click="checkForm"
             />
             <q-dialog v-model="full" full-height>
               <!-- <div class="popup"> -->
               <q-card class="popProtocolo">
                 <div class="denunciaRegistradaTopo">
                   <div class="closePop">
-                    <q-btn flat label="X" v-close-popup to="/denuncia/buscar" />
+                    <q-btn flat label="X" v-close-popup @click="encaminhar" />
                   </div>
                   <q-card-section>
                     <q-icon
@@ -269,11 +268,20 @@
                   <div v-show="protocoloS != null" class="numberProtocol">
                     {{ protocoloS }}
                   </div>
-                  <div class="textCadastrar">@click="captureImage()"
+                  <div class="textCadastrar">
                     Anote o número ou cadastre-se para acompanhar sua denúncia.
                   </div>
-                  <div class="btn-cadastrar">
-                    <q-btn label="Cadastrar-se" color="primary" to="/404" />
+                  <div v-if="idUser == null" class="btn-cadastrar">
+                    <q-btn
+                      label="Cadastrar-se"
+                      color="primary"
+                      to="/registrar"
+                    />
+                  </div>
+                  <div v-else class="btn-cadastrar">
+                    <a href="tel:193">
+                      <q-btn label="Ligar para os bombeiros" color="primary"
+                    /></a>
                   </div>
                 </div>
               </q-card>
@@ -350,7 +358,11 @@ export default {
         telefone: null,
         status: "Aberto",
         protocolo: null,
-        data: null
+        data: null,
+        //validacao dos campos
+        errors: [],
+        //imageSrc: null,
+        enderecoC: null
       }
     };
   },
@@ -367,23 +379,55 @@ export default {
     this.$store.commit("Dialog/changeDialogg", false);
   },
   methods: {
+    checkForm: function(e) {
+      if (this.imageS && this.enderecoC) {
+        return this.denunciar();
+      }
+
+      this.errors = [];
+      if (!this.imageS) {
+        this.errors.push("Foto necessária para completar sua denúncia.");
+      }
+
+      if (!this.enderecoC) {
+        this.errors.push("O endereço é necessário para fazer a denúncia.");
+      }
+
+      let i = 0;
+      for (i = 0; i < this.errors.length; i++) {
+        this.$q.notify(this.errors[i]);
+      }
+
+      e.preventDefault();
+    },
     denunciar() {
       const vm = this;
+      let current_nome = this.nomeS;
+      let current_telefone = this.telefoneS;
       this.disable = true;
       this.gerarProtocolo();
+      if (this.idUser != null) {
+        current_nome = this.nomeUser;
+        current_telefone = this.telefoneUser;
+      }
       this.denuncia = {
         observacao: this.observacaoS,
-        nome: this.nomeS,
+        nome: current_nome,
         foto: this.imageS,
         endereco: this.enderecoS,
         intensidade: this.intensidadeS,
-        telefone: this.telefoneS,
+        telefone: current_telefone,
         status: this.statusS,
         protocolo: this.protocoloS,
         data: this.dataS
       };
+      console.log(this.denuncia);
+      let token = null;
+      if (localStorage.getItem("userToken")) {
+        token = localStorage.getItem("userToken");
+      }
 
-      Denuncia.salvar(this.denuncia)
+      Denuncia.salvar(this.denuncia, token)
         .then(response => {
           console.log(response);
 
@@ -505,6 +549,11 @@ export default {
         }
       );
     },
+    encaminhar() {
+      if (localStorage.getItem("userToken")) {
+        this.$router.push("/home");
+      } else this.$router.push("/");
+    },
     getPhoto() {
       navigator.camera.getPicture(
         data => {
@@ -532,6 +581,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({ idUser: state => state.Session.id }),
+    ...mapState({ nomeUser: state => state.Session.nome }),
+    ...mapState({ telefoneUser: state => state.Session.telefone }),
     ...mapState({ enderecoS: state => state.Map.enderecoS }),
     ...mapState({ imageS: state => state.Denuncia.image }),
     ...mapState({ intensidadeS: state => state.Denuncia.intensidade }),
@@ -569,15 +621,6 @@ export default {
     },
     observacaoC: {
       get() {
-        console.log(
-          this.observacaoS,
-          this.nomeS,
-          this.telefoneS,
-          this.enderecoS,
-          this.intensidadeS,
-          this.dataS
-        );
-
         return this.observacaoS;
       },
       set(value) {

@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-const teste = 'http://localhost:3333/';
-
+const api = process.env.API_SERVER;
 const http = axios.create({
-  baseURL: teste
+  baseURL: `${api}`
 });
 
 export default async ({ Vue }) => {

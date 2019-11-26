@@ -22,7 +22,12 @@ module.exports = function(ctx) {
     ],
 
     framework: {
+      plugins: ["Notify", "AddressbarColor"],
       config: {
+        notify: {
+          /* Notify defaults */
+        },
+
         brand: {
           primary: "#f4853e"
         }
@@ -36,6 +41,7 @@ module.exports = function(ctx) {
       // all: true, // --- includes everything; for dev only!
 
       components: [
+        "QAjaxBar",
         "QLayout",
         "QHeader",
         "QDrawer",
@@ -59,7 +65,11 @@ module.exports = function(ctx) {
         "QSeparator",
         "QCardSection",
         "QDialog",
-        'QScrollArea'
+        "QScrollArea",
+        "QSpace",
+        "QAvatar",
+        "QBtnDropdown",
+        "QExpansionItem"
       ],
 
       directives: ["Ripple", "ClosePopup"],
@@ -81,7 +91,7 @@ module.exports = function(ctx) {
     },
 
     devServer: {
-      https: false,
+      https: true,
       // port: 8080,
       open: true // opens browser window automatically
     },

@@ -1,33 +1,26 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar class="bg-grey-8  text-white  shadow-2">
-        <q-btn
-          flat
-          round
-          dense
-          icon="arrow_back"
-          class="q-mr-sm"
-          @click="voltar()"
-        />
-        <q-btn stretch flat label="CG SEM CHAMAS" style="font-size: 13px;" />
+      <q-toolbar class="bg-primary text-white  shadow-2">
+        <!-- <q-btn flat round dense icon="menu" class="q-mr-sm" />
+        <q-separator dark vertical inset /> -->
+        <q-btn stretch flat label="CG SEM CHAMAS" />
 
         <q-space />
 
-        <q-btn-dropdown
-          v-show="userId != null"
-          stretch
-          flat
-          style="font-size: 13px;"
-          :label="usuario"
-        >
+        <q-btn-dropdown stretch flat :label="usuario">
           <q-list>
-            <q-item clickable v-close-popup tabindex="0" @click="buscar()">
+            <q-item
+              v-show="userPerm == 1"
+              clickable
+              tabindex="0"
+              @click="usuarios()"
+            >
               <q-item-section avatar>
-                <q-avatar icon="search" text-color="primary" />
+                <q-avatar icon="person" text-color="primary" />
               </q-item-section>
               <q-item-section>
-                <q-item-label>Buscar por protocolo</q-item-label>
+                <q-item-label>Gerênciar usuários</q-item-label>
               </q-item-section>
             </q-item>
             <q-item clickable v-close-popup tabindex="0" @click="logout()">
@@ -59,8 +52,7 @@ export default {
   data() {
     return {
       leftDrawerOpen: false,
-      usuario: "Usuário",
-      logado: true
+      usuario: "Usuário do Sistema"
     };
   },
   methods: {
@@ -70,10 +62,9 @@ export default {
     voltar() {
       window.history.back();
     },
-    buscar() {
-      this.$router.push("/denuncia/buscar");
+    usuarios() {
+      this.$router.push("/gerenciarusuarios");
     },
-
     logout() {
       const vm = this;
       let token = localStorage.getItem("userToken");
@@ -94,10 +85,11 @@ export default {
   },
   computed: {
     ...mapState({ nome: state => state.Session.nome }),
-    ...mapState({ userId: state => state.Session.id })
+    ...mapState({ userPerm: state => state.Session.permission })
   },
   mounted() {
     this.setarNome();
   }
 };
 </script>
+<style lang="stylus" scoped></style>

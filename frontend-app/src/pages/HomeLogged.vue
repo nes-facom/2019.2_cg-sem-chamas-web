@@ -1,5 +1,9 @@
 <template>
-  <div class="homeLogged" style="height: 100vh;  width: 100vw;" v-bind:class="isHome">
+  <div
+    class="homeLogged"
+    style="height: 100vh;  width: 100vw;"
+    v-bind:class="isHome"
+  >
     <div class="toolbarLogado">
       <q-tabs
         class="tabs"
@@ -10,15 +14,19 @@
         narrow-indicator
       >
         <q-tab name="home" icon="home" label="Home" />
-        <q-tab name="minhasDenuncias" icon="fas fa-bullhorn" label="Minhas denúncias" />
+        <q-tab
+          name="minhasDenuncias"
+          icon="fas fa-bullhorn"
+          label="Minhas denúncias"
+        />
         <q-tab name="noticias" icon="far fa-newspaper" label="Notícias" />
       </q-tabs>
 
       <q-separator />
 
       <q-tab-panels v-model="tab" animated>
+        <!-- Denunciar -->
         <q-tab-panel name="home">
-          <!-- <div class="text-h6">Mails</div>Lorem ipsum dolor sit amet consectetur adipisicing elit. -->
           <div class="containerHome">
             <div class="logo"></div>
             <div class="img-centro"></div>
@@ -29,52 +37,73 @@
             <div class="btn-denuncia">
               <q-btn color="white" push @click="$router.push('/denuncia/form')">
                 <div class="row items-center no-wrap botao-denuncia">
-                  <div class="text-center text-primary text-weight-bold">Denunciar</div>
+                  <div class="text-center text-primary text-weight-bold">
+                    Denunciar
+                  </div>
                 </div>
               </q-btn>
             </div>
           </div>
         </q-tab-panel>
 
+        <!-- Minhas Denuncias -->
         <q-tab-panel name="minhasDenuncias" class="denuncias">
           <div class="card">
             <div class="denunciaTitulo">Minhas denúncias</div>
             <div class="line"></div>
-            <div class="denunciaInfo">
-              <div class="denunciaDados">
-                <div class="denunciaProtocolo">00000000000000</div>
-                <div class="denunciaData">10/11/2019 21:90</div>
-                <div class="denunciaStatus">Fechada</div>
-              </div>
+            <div v-for="d in denuncias" v-bind:key="d.id">
+              <div class="denunciaInfo">
+                <div class="denunciaDados">
+                  <div class="denunciaProtocolo">{{ d.protocolo }}</div>
+                  <div class="denunciaData">
+                    {{ d.created_at | formatData }}
+                  </div>
+                  <div class="denunciaStatus">{{ d.status }}</div>
+                </div>
 
-              <div class="denunciaEndereco">Avenida Afonso Pena, 432 - Campo Grande-MS 79092-123</div>
+                <div class="denunciaEndereco">
+                  {{ d.endereco }}
+                </div>
+              </div>
+              <div class="line"></div>
             </div>
-            <div class="line"></div>
           </div>
         </q-tab-panel>
 
+        <!-- Notícias -->
         <q-tab-panel name="noticias">
           <div class="noticias">
-          <q-scroll-area
-      visible="false"
-      style="height: 92vh; max-width: 95%;"
-    >
-            <q-card v-for="n in noticias" v-bind:key="n.id" class="my-card" style="width: 90%;">
-              <img :src="n.capa" style="width: 100%" />
-              <div class="noticiaInfo">
-                <div>
-                  <div class="noticiaTitulo">{{ n.titulo }}</div>
-                </div>
+            <q-scroll-area visible="false" style="height: 92vh; width: 98%;">
+              <q-card
+                v-for="n in noticias"
+                v-bind:key="n.id"
+                class="my-card"
+                style="max-width: 98%;"
+              >
+                <q-expansion-item icon="drafts">
+                  <template icon="none" v-slot:header>
+                    <q-card-section>
+                      <img :src="n.capa" style="width: 100%; " />
+                      <div class="noticiaInfo">
+                        <div>
+                          <div class="noticiaTitulo">{{ n.titulo }}</div>
+                        </div>
 
-                <div class="noticiaDados">
-                  <div class="noticiaData">
-                    NOV
-                    <br />17
-                  </div>
-                  <div class="noticiaTexto">{{ n.descricao }}</div>
-                </div>
-              </div>
-            </q-card>
+                        <div class="noticiaDados">
+                          <div class="noticiaData">
+                            {{ n.created_at | noticiaData }}
+                          </div>
+                          <div class="noticiaTexto">{{ n.descricao }}</div>
+                        </div>
+                      </div>
+                    </q-card-section>
+                  </template>
+
+                  <q-card-section>
+                    <p v-html="n.conteudo"></p>
+                  </q-card-section>
+                </q-expansion-item>
+              </q-card>
             </q-scroll-area>
           </div>
         </q-tab-panel>
@@ -85,15 +114,19 @@
 
 <script>
 import Noticia from "../boot/noticia";
+import Denuncia from "../boot/denuncia";
 import { openURL } from "quasar";
 import { AddressbarColor } from "quasar";
+import { mapState } from "vuex";
+
 export default {
   name: "TelaDenuncia",
   data() {
     return {
       tab: "home",
       isHome: "bg_orange",
-      noticias: []
+      noticias: [],
+      denuncias: []
     };
   },
 
@@ -101,32 +134,65 @@ export default {
     tab: function() {
       if (this.tab == "home") {
         this.isHome = "bg_orange";
+        this.listarDenuncias();
+        this.listarNoticia();
       } else this.isHome = "bg_white";
     }
   },
 
-  
   methods: {
-    mostrar(noticia) {
+    listarNoticia(noticia) {
       const vm = this;
       Noticia.listar(noticia)
         .then(response => {
-          console.log(response.data);
-          this.noticias = response.data;
+          vm.noticias = response.data.reverse();
         })
         .catch(e => {
           this.errors = e.response.data.errors;
-          console.log(e.response.data.errors);
         });
+    },
+    listarDenuncias() {
+      const vm = this;
+      const id = this.id;
+      const token = localStorage.getItem("userToken");
+
+      Denuncia.byUser(id, token)
+        .then(response => {
+          vm.denuncias = response.data.reverse();
+        })
+        .catch(e => {});
     }
   },
   mounted() {
-    this.mostrar();
-    console.log(this.noticias)
+    this.listarNoticia();
+    this.listarDenuncias();
   },
+  computed: {
+    ...mapState({ id: state => state.Session.id })
+  },
+  filters: {
+    formatData: data => {
+      const dat = new Date(data);
+      const formatData = dat.toLocaleString("pt-BR");
+      const onlydata = formatData.substring(0, 10);
+      return onlydata;
+    },
+    noticiaData: data => {
+      const date = new Date(data);
+      const options = { month: "short", day: "numeric" };
+      const onlydata = date.toLocaleString("en-US", options);
+      return onlydata;
+    }
+  }
 };
 </script>
 <style scoped>
+body {
+  font-size: 13px;
+  font-family: Roboto;
+  font-style: normal;
+}
+
 .homeLogged {
   position: fixed;
   display: flex;
@@ -282,7 +348,7 @@ export default {
 .noticiaTitulo {
   font-family: Roboto;
   font-style: normal;
-  font-weight: 400;
+  font-weight: bold;
   font-size: 15px;
   line-height: 16px;
   text-align: center;
@@ -310,6 +376,7 @@ export default {
 }
 
 .noticiaData {
+  text-transform: uppercase;
   font-family: Roboto;
   line-height: 16px;
   text-align: center;
@@ -351,7 +418,6 @@ export default {
   display: flex;
 
   width: 100%;
-  justify-content: center;
   text-align: center;
   padding: 10px;
 }
@@ -405,7 +471,7 @@ export default {
   display: flex;
   align-items: center;
   text-align: center;
-  color: red;
+  color: green;
   margin-top: 3px;
 }
 

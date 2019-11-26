@@ -61,15 +61,17 @@
 </template>
 
 <script>
-import Noticia from '../boot/noticia';
+import { mapState } from "vuex";
+
+import Noticia from "../boot/noticia";
 export default {
   data() {
     return {
-      titulo: '',
-      descricao: '',
-      capa: '',
-      conteudo: '',
-      image: ''
+      titulo: "",
+      descricao: "",
+      capa: "",
+      conteudo: "",
+      image: ""
     };
   },
 
@@ -92,7 +94,7 @@ export default {
         titulo: this.titulo,
         descricao: this.descricao,
         conteudo: this.conteudo,
-        user_id: 1
+        user_id: this.idUser
       };
 
       Noticia.postar(conteudonoticia)
@@ -100,12 +102,15 @@ export default {
           console.log(response);
           console.log(response.data.token);
           vm.status = response.data.status;
-          vm.$router.push('/gerenciarnoticias');
+          vm.$router.push("/gerenciarnoticias");
         })
         .catch(e => {
           console.log(e);
         });
     }
+  },
+  computed: {
+    ...mapState({ idUser: state => state.Session.id })
   }
 };
 </script>

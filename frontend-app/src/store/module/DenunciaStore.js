@@ -4,12 +4,12 @@ export default {
     endereco: null,
     nome: null,
     observacao: null,
-    image: 1,
+    image: null,
     intensidade: 1,
     telefone: null,
     status: "Aberta",
     protocolo: null,
-    data: null,
+    data: null
   },
   mutations: {
     setEndereco(state, value) {
@@ -36,11 +36,9 @@ export default {
     setData(state, value) {
       state.data = value;
     },
-    setStatus(state, value){
-      state.status = value
+    setStatus(state, value) {
+      state.status = value;
     }
   },
-  actions: {
-
-  }
+  actions: {}
 };

@@ -4,32 +4,32 @@
 const Schema = use('Schema');
 
 class DenunciaSchema extends Schema {
-	up() {
-		this.create('denuncias', table => {
-			table.increments();
-			table
-				.integer('user_id')
-				.unsigned()
-				.references('id')
-				.inTable('users');
-			table.bigInteger('protocolo').unique();
-			table.text('foto');
-			table.integer('intensidade');
-			table.string('observacao', 256);
-			table.date('data').notNullable();
-			table.string('ip', 16);
-			table.string('endereco', 256).notNullable();
-			table.string('status', 256);
-			table.string('telefone', 20);
-			table.string('nome', 40);
+  up() {
+    this.create('denuncias', table => {
+      table.increments();
+      table
+        .integer('user_id')
+        .unsigned()
+        .references('id')
+        .inTable('users');
+      table.bigInteger('protocolo').unique();
+      table.text('foto').notNullable();
+      table.integer('intensidade');
+      table.string('observacao', 256);
+      table.date('data').notNullable();
+      table.string('ip', 16);
+      table.string('endereco', 256).notNullable();
+      table.string('status', 256).notNullable();
+      table.string('telefone', 20);
+      table.string('nome', 40);
 
-			table.timestamps();
-		});
-	}
+      table.timestamps();
+    });
+  }
 
-	down() {
-		this.drop('denuncias');
-	}
+  down() {
+    this.drop('denuncias');
+  }
 }
 
 module.exports = DenunciaSchema;

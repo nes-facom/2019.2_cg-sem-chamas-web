@@ -3,62 +3,69 @@
 const User = use('App/Models/User');
 
 class UserController {
-	async store({ request }) {
-		const { permissions, roles, ...data } = request.only([
-			'nome',
-			'email',
-			'password',
-			'enderecoUsuario',
-			'telefone',
-			'permissions',
-			'roles'
-		]);
-		const user = await User.create(data);
+  async index({ request, response, view }) {
+    const user = await User.query()
+      .with('roles')
+      .fetch();
+    return user;
+  }
 
-		if (roles) {
-			await user.roles().attach(roles);
-		}
+  async store({ request }) {
+    const { permissions, roles, ...data } = request.only([
+      'nome',
+      'email',
+      'password',
+      'enderecoUsuario',
+      'telefone',
+      'permissions',
+      'roles'
+    ]);
+    const user = await User.create(data);
 
-		if (permissions) {
-			await user.permissions().attach(permissions);
-		}
-		await user.loadMany(['roles', 'permissions']);
+    if (roles) {
+      await user.roles().attach(roles);
+    }
 
-		return user;
-	}
+    if (permissions) {
+      await user.permissions().attach(permissions);
+    }
+    await user.loadMany(['roles', 'permissions']);
 
-	async update({ request, params }) {
-		const { permissions, roles, ...data } = request.only([
-			'nome',
-			'email',
-			'password',
-			'enderecoUsuario',
-			'telefone',
-			'permissions',
-			'roles'
-		]);
-		const user = await User.findOrFail(params.id);
-		user.merge(data);
-		user.save();
+    return user;
+  }
 
-		if (roles) {
-			await user.roles().sync(roles);
-		}
+  async update({ request, params }) {
+    const { permissions, roles, ...data } = request.only([
+      'nome',
+      'email',
+      'password',
+      'enderecoUsuario',
+      'telefone',
+      'permissions',
+      'roles'
+    ]);
+    const user = await User.findOrFail(params.id);
+    user.merge(data);
+    user.save();
 
-		if (permissions) {
-			await user.permissions().sync(permissions);
-		}
+    if (roles) {
+      await user.roles().sync(roles);
+    }
 
-		await user.loadMany(['roles', 'permissions']);
+    if (permissions) {
+      await user.permissions().sync(permissions);
+    }
 
-		return user;
-	}
+    await user.loadMany(['roles', 'permissions']);
 
-	async index({ auth }) {
-		const { id, nome, email, permission } = await User.findOrFail(auth.user.id);
-		const data = { id, nome, email, permission };
-		return data;
-	}
+    return user;
+  }
+
+  async show({ auth }) {
+    const { id, nome, email, permission } = await User.findOrFail(auth.user.id);
+    const data = { id, nome, email, permission };
+    return data;
+  }
 }
 
 module.exports = UserController;

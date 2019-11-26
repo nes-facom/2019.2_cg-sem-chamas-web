@@ -4,25 +4,24 @@
     style="height: 100vh;
   width: 100vw;"
   >
+    <q-ajax-bar ref="bar" position="top" color="grey" size="5px" skip-hijack />
     <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
-    <h4>CG sem chamas</h4>
+    <div class="topo">
+      <div class="img-centro"></div>
+    </div>
 
     <div class="loginIn">
-      <h6>Login</h6>
+      <h6>Fazer login</h6>
 
       <div class="inputs">
-        <q-input outlined v-model="email" label="Email">
-          <template v-slot:prepend>
-            <q-icon name="mail" />
-          </template>
-        </q-input>
+        <q-input class="qinput" type="email" label="E-mail" v-model="email" />
         <q-input
-          outlined
+          class="qinput"
           :type="isPwd ? 'password' : 'text'"
           label="Senha"
           v-model="password"
         >
-          <template v-slot:prepend>
+          <template v-slot:append>
             <q-icon
               :name="isPwd ? 'visibility_off' : 'visibility'"
               class="cursor-pointer"
@@ -33,30 +32,60 @@
       </div>
 
       <div class="btn-login">
-        <q-btn color="primary">ENTRAR</q-btn>
+        <q-btn outline color="primary" label="Login" @click="checkForm" />
       </div>
       <p>
         Não possui uma conta?
-        <a href="/registrar" class="registrar" to="/registrar">CRIAR CONTA</a>
+        <a class="registrar" @click="$router.push('/registrar')">CRIAR CONTA</a>
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import User from '../boot/login';
+import { store } from "../store/index";
+import User from "../boot/login";
+import { Notify } from "quasar";
 export default {
   data() {
     return {
-      email: '',
-      password: '',
-      token: '',
+      errors: [],
+      email: null,
+      password: null,
+      token: "",
       isPwd: true
     };
   },
   methods: {
-    logar() {
+    checkForm: function(e) {
+      if (this.email && this.password) {
+        if (this.email.length < 14) {
+          this.$q.notify("O e-mail é inválido!");
+        } else return this.logar();
+      }
+
+      this.errors = [];
+
+      if (!this.email) {
+        this.errors.push("O e-mail é obrigatório.");
+      }
+      if (!this.password) {
+        this.errors.push("A senha é obrigatória.");
+      }
+
+      let i = 0;
+      for (i = 0; i < this.errors.length; i++) {
+        this.$q.notify(this.errors[i]);
+      }
+
+      e.preventDefault();
+    },
+    async logar() {
+      localStorage.removeItem("userToken");
       const vm = this;
+      const bar = this.$refs.bar;
+
+      bar.start();
       const login = {
         email: this.email,
         password: this.password
@@ -64,21 +93,41 @@ export default {
 
       User.logar(login)
         .then(response => {
-          console.log(response);
-          console.log(response.data.token);
+          const token = response.data.token;
+          console.log(token);
 
-          vm.token = response.data.token;
-          vm.$router.push('/');
+          if (response) {
+            User.check(response.data.token).then(user => {
+              vm.$store.commit("Session/updateNome", user.data.nome);
+              vm.$store.commit("Session/updateEmail", user.data.email);
+              vm.$store.commit("Session/updateTelefone", user.data.telefone);
+              vm.$store.commit("Session/updateId", user.data.id);
+              localStorage.setItem("userToken", response.data.token);
+              vm.$router.push("/home");
+            });
+          }
+          bar.stop();
         })
         .catch(e => {
+          bar.stop();
+
+          this.$q.notify("Verifique suas credencias e tente novamente!");
           console.log(e);
         });
+    },
+
+    voltar() {
+      this.$router.push("/");
     }
   }
 };
 </script>
 
 <style scoped>
+.registrar {
+  color: #f4853e;
+  font-weight: bold;
+}
 .container {
   height: 100vh;
   width: 100vw;
@@ -87,6 +136,10 @@ export default {
   justify-content: center;
   flex-direction: column;
   text-align: center;
+}
+.topo {
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 .login {
   display: flex;
@@ -110,17 +163,24 @@ export default {
   background-color: #ffffff;
   width: 88%;
   border-radius: 2.2%;
-  margin-top: 10%;
+  margin-top: 0px;
+  padding: 20px 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-h4 {
-  font-family: 'Robotos lab';
-  font-weight: bolder;
+h7 {
+  font-family: "Arial";
+  /* font-weight: bolder; */
   color: #ffffff;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 .inputs .q-input {
   margin-top: 1%;
   margin-bottom: 5%;
   width: 250px;
+}
+.btn-login {
+  padding: 20px 0px;
 }
 .inputs .q-icon {
   color: #f4853e;
@@ -132,13 +192,49 @@ button {
   height: 55px;
   width: 250px;
 }
+.p1 {
+  color: white;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
 p {
   color: #737373;
-  margin-top: 5%;
+  margin-top: 0px 20px;
   font-size: 13px;
 }
 h6 {
-  color: #737373;
+  color: black;
   margin: 3%;
+}
+.img-centro {
+  background-color: blue;
+  background: url("https://i.imgur.com/h20GKNd.png");
+  background-size: 140px auto;
+  width: 140px;
+  height: 140px;
+  /* border: 17px solid #f4853e; */
+  box-sizing: border-box;
+  margin: 0px;
+  margin-bottom: 10px;
+}
+a:link {
+  text-decoration: none;
+  color: #f4853e;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #f4853e;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #f4853e;
+}
+
+a:active {
+  text-decoration: none;
+  color: #f4853e;
 }
 </style>

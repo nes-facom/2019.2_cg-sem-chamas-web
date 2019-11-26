@@ -22,14 +22,14 @@
           <p class="h3">{{ totalDenuncias }}</p>
           <p>Total de Denúncias</p>
         </div>
-        <div class="mes fit column justify-center items-center content-center">
+        <!-- <div class="mes fit column justify-center items-center content-center">
           <p class="h3">{{ totalDenuncias }}</p>
           <p>Denúncias no mês</p>
         </div>
         <div class="dia fit column justify-center items-center content-center">
           <p class="h3">{{ totalDenuncias }}</p>
           <p>Denúncias no dia</p>
-        </div>
+        </div> -->
       </div>
       <div class="botao">
         <q-btn
@@ -59,10 +59,13 @@
               <strong>Denúncias</strong>
             </p>
           </div>
-          <div class="gerenciar cart" @click="$router.push('/Noticias')">
+          <div
+            class="gerenciar cart"
+            @click="$router.push('/gerenciarnoticias')"
+          >
             <p>
-              Cadastrar
-              <strong>Noticia</strong>
+              Gerênciar
+              <strong>Noticias</strong>
             </p>
           </div>
         </div>
@@ -123,9 +126,8 @@
 </template>
 
 <script>
-import VueApexCharts from 'vue-apexcharts';
-import Denuncia from '../boot/denuncia';
-import Session from '../store/module/Session';
+import VueApexCharts from "vue-apexcharts";
+import Denuncia from "../boot/denuncia";
 
 export default {
   name: 'Dashboard',
@@ -136,7 +138,7 @@ export default {
     return {
       totalDenuncias: 0,
       options: {
-        colors: ['#F77726', '#AAA'],
+        colors: ["#F77726", "#AAA"],
         legend: {
           show: false
         },
@@ -153,75 +155,56 @@ export default {
         page: 1,
         rowsPerPage: 5,
         descending: true,
-        sortBy: 'protocolo'
+        sortBy: "protocolo"
       },
       dados: null,
       columns: [
         {
-          name: 'protocolo',
+          name: "protocolo",
           required: true,
-          label: 'Protocolo',
-          align: 'left',
+          label: "Protocolo",
+          align: "left",
           field: row => row.protocolo,
           format: val => `${val}`,
           sortable: true
         },
         {
-          name: 'endereco',
-          align: 'left',
-          label: 'Endereço',
-          field: 'endereco',
+          name: "endereco",
+          align: "left",
+          label: "Endereço",
+          field: "endereco",
           sortable: true
         },
         {
-          name: 'created_at',
-          align: 'left',
-          label: 'Data',
-          field: 'created_at',
+          name: "created_at",
+          align: "left",
+          label: "Data",
+          field: "created_at",
           sortable: true
         },
         {
-          name: 'status',
-          align: 'center',
-          label: 'Status',
-          field: 'status',
+          name: "status",
+          align: "center",
+          label: "Status",
+          field: "status",
           sortable: true
         },
         {
-          name: 'acoes',
-          align: 'center',
-          label: 'Ações',
-          field: 'acoes',
+          name: "acoes",
+          align: "center",
+          label: "Ações",
+          field: "acoes",
           sortable: false
         }
       ],
-      data: [
-        {
-          protocolo: 'Q12312312431225',
-          endereco: 'Avenida Afonso Pena, 987',
-          created_at: '12/12/12 22:22',
-          status: 'Em aberto'
-        },
-        {
-          protocolo: 'Q98765432101234',
-          endereco: 'Avenida Manuel da Costa Lima, 123',
-          created_at: '10/10/11 22:22',
-          status: 'Em aberto'
-        },
-        {
-          protocolo: 'Q93483948394873',
-          endereco: 'Avenida Mato Grosso, 542',
-          created_at: '10/10/10 22:22',
-          status: 'Em aberto'
-        }
-      ]
+      data: []
     };
   },
   filters: {
     formatData: data => {
       const dat = new Date(data);
-      const formatData = dat.toLocaleString('pt-BR', {
-        timeZone: 'America/Anchorage'
+      const formatData = dat.toLocaleString("pt-BR", {
+        timeZone: "America/Anchorage"
       });
 
       return formatData;
@@ -229,20 +212,14 @@ export default {
   },
   methods: {
     reload() {
-      console.log('teste');
       window.location.reload();
     },
     mostrar(denuncia) {
-      console.log('oii');
-
-      Session.actions.check();
-      console.log('oiii');
-
       const vm = this;
       this.$q.loading.show({
-        backgroundColor: 'orange',
-        message: 'Atualizando dados do servidor...',
-        messageColor: 'black'
+        backgroundColor: "orange",
+        message: "Atualizando dados do servidor...",
+        messageColor: "black"
       });
       Denuncia.listar(denuncia)
         .then(response => {

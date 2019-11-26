@@ -9,6 +9,7 @@
  */
 const Denuncia = use('App/Models/Denuncia');
 const Auth = use('Adonis/Middleware/Auth');
+const Database = use('Database');
 
 class DenunciaController {
 	/**
@@ -121,22 +122,14 @@ class DenunciaController {
 		return dados;
 	}
 
-		async byUser({ params, request, response, view }) {
-		const denuncia = await Denuncia.findBy('user_id', params.userid);
+	async byUser({ params, request, response, view }) {
+		const denuncia = await Database.from('denuncias').where(
+			'user_id',
+			params.userid
+		);
 
-		//Separando dados que eu quero retornar (SEGURANÇA)
-		const { status, protocolo, created_at } = denuncia;
-
-		//Criar JSON de com os dados de retorno
-		const dados = {
-			protocolo: protocolo,
-			status: status,
-			data: created_at
-		};
-
-		return dados;
+		return denuncia;
 	}
-
 
 	/**
 	 * Render a form to update an existing denuncia.

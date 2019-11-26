@@ -6,30 +6,24 @@
   >
     <q-icon name="arrow_back_ios" class="voltar text-white" @click="voltar()" />
 
-    <h4>CG sem chamas</h4>
-
+    <div class="topo">
+      <div class="img-centro"></div>
+    </div>
     <div class="SignUp">
       <h6>Cadastrar-se</h6>
 
       <div class="inputs">
-        <q-input outlined v-model="text" label="Nome completo">
-          <template v-slot:prepend>
-            <q-icon name="person_add" />
-          </template>
-        </q-input>
-        <q-input outlined v-model="email" label="Email">
-          <template v-slot:prepend>
-            <q-icon name="mail" />
-          </template>
-        </q-input>
+        <q-input class="qinput" label="Nome completo" v-model="text" />
+
+        <q-input class="qinput" type="email" label="E-mail" v-model="email" />
 
         <q-input
-          outlined
+          class="qinput"
           :type="isPwd ? 'password' : 'text'"
           label="Senha"
           v-model="password"
         >
-          <template v-slot:prepend>
+          <template v-slot:append>
             <q-icon
               :name="isPwd ? 'visibility_off' : 'visibility'"
               class="cursor-pointer"
@@ -37,50 +31,26 @@
             />
           </template>
         </q-input>
-
-        <q-input
-          outlined
+        <!-- <q-input
+          class="qinput"
           :type="isPwd ? 'password' : 'text'"
-          label="Confirmar senha"
+          label="Senha"
           v-model="password"
         >
-          <template v-slot:prepend>
+          <template v-slot:append>
             <q-icon
               :name="isPwd ? 'visibility_off' : 'visibility'"
               class="cursor-pointer"
               @click="isPwd = !isPwd"
             />
           </template>
-        </q-input>
+        </q-input>-->
+        <q-input v-model="number" type="number" label="Telefone" />
       </div>
-
-      <!-- <div class="btn-registrar">
-        <q-btn label="REGISTRAR" color="primary" @click="small = true" />
-        <q-dialog v-model="small">
-          <q-card class style="width: 300px">
-            <q-card-section>
-              <div class="closePop">
-                <q-btn flat label="X" v-close-popup to="/TelaDenuncia" />
-              </div>
-              <q-card-section>
-                <q-icon
-                  class="iconDenunciaRegistrada"
-                  name="fas fa-check-circle"
-                  style="font-size: 50px;"
-                ></q-icon>
-                <div class="popupUserRegistrado">Sucesso!</div>
-              </q-card-section>
-            </q-card-section>
-            <q-card-section>Cadastro realizado com sucesso.</q-card-section>
-
-            <q-card-actions align="right" class="bg-white text-teal">
-              <q-btn flat label="OK" v-close-popup to="/login" />
-            </q-card-actions>
-          </q-card>
-        </q-dialog>
-      </div>-->
       <div class="btn-registrar">
-        <q-btn label="Registrar" color="primary" @click="small = true" />
+        <q-btn outline color="primary" label="Registrar" @click="checkForm" />
+
+        <!-- <q-btn label="Registrar" color="primary" @click="small = true" /> -->
         <q-dialog v-model="small">
           <q-card class="popRegistrar">
             <div class="denunciaRegistradaTopo" style="width: 300px">
@@ -106,23 +76,77 @@
           <!-- </div> -->
         </q-dialog>
       </div>
-      <a href="/login" class="login" to="/login">
+      <a class="login" @click="$router.push('/login')">
         <p>RETORNAR LOGIN</p>
       </a>
     </div>
   </div>
 </template>
 <script>
+import User from "../boot/login";
 export default {
   data() {
     return {
       small: false,
       medium: false,
       fullWidth: false,
-      fullHeight: false
+      fullHeight: false,
+      errors: [],
+      text: null,
+      email: null,
+      password: null,
+      number: null,
+      token: "",
+      isPwd: true
     };
   },
   methods: {
+    checkForm: function(e) {
+      if (this.text && this.email && this.password && this.number) {
+        return this.registrar();
+      }
+
+      this.errors = [];
+      if (!this.text) {
+        this.errors.push("O nome é obrigatório.");
+      }
+
+      if (!this.email) {
+        this.errors.push("O e-mail é obrigatório.");
+      }
+      if (!this.password) {
+        this.errors.push("A senha é obrigatória.");
+      }
+
+      if (!this.telefone) {
+        this.errors.push("O telefone é obrigatório.");
+      }
+
+      let i = 0;
+      for (i = 0; i < this.errors.length; i++) {
+        this.$q.notify(this.errors[i]);
+      }
+
+      e.preventDefault();
+    },
+    registrar() {
+      const vm = this;
+      const registrar = {
+        nome: this.text,
+        email: this.email,
+        password: this.password,
+        telefone: this.number,
+        permission: 4
+      };
+
+      User.registrar(registrar)
+        .then(response => {
+          vm.$router.push("/login");
+        })
+        .catch(e => {
+          this.$q.notify("Usuário ja existe!");
+        });
+    },
     voltar() {
       window.history.back();
     }
@@ -161,18 +185,21 @@ export default {
   background-color: #ffffff;
   width: 88%;
   border-radius: 2.2%;
-  margin-top: 10%;
+  margin-top: 0px;
+  margin-bottom: 20px;
 }
 h4 {
-  font-family: 'Robotos lab';
+  font-family: "Robotos lab";
   font-weight: bolder;
   color: #ffffff;
   margin-top: 5%;
   margin-bottom: 5%;
 }
 .inputs .q-input {
-  margin-top: 1%;
-  margin-bottom: 5%;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  margin-top: 1px;
+  margin-bottom: 1px;
   width: 250px;
 }
 
@@ -183,6 +210,10 @@ q-card_section {
   color: #f4853e;
   margin-top: 5%;
 }
+/* .qinput {
+  padding-top: 1px;
+  padding-bottom: 1px;
+} */
 button {
   border-color: #f4853e;
   margin-top: 3%;
@@ -191,13 +222,13 @@ button {
   width: 250px;
 }
 h6 {
-  color: #737373;
+  color: black;
   margin: 4%;
 }
 p {
-  margin-top: 1%;
+  margin-top: 15px;
   font-size: 13px;
-  margin-bottom: 5%;
+  margin-bottom: 20px;
 }
 
 .btn-registrar button {
@@ -255,6 +286,40 @@ p {
   justify-items: center;
   text-align: center;
   padding: 1%;
+  color: #737373;
+}
+.img-centro {
+  background-color: blue;
+  background: url("https://i.imgur.com/h20GKNd.png");
+  background-size: 140px auto;
+  width: 140px;
+  height: 140px;
+  /* border: 17px solid #f4853e; */
+  box-sizing: border-box;
+  margin: 0px;
+  margin-bottom: 10px;
+}
+.topo {
+  margin-top: 50px;
+  margin-bottom: 0px;
+}
+a:link {
+  text-decoration: none;
+  color: #f4853e;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #f4853e;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #737373;
+}
+
+a:active {
+  text-decoration: none;
   color: #737373;
 }
 </style>
