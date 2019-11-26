@@ -16,6 +16,20 @@
 
         <q-btn-dropdown stretch flat :label="usuario">
           <q-list>
+            <q-item
+              v-show="userPerm == 1"
+              clickable
+              tabindex="0"
+              @click="usuarios()"
+            >
+              <q-item-section avatar>
+                <q-avatar icon="person" text-color="primary" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>Gerênciar usuários</q-item-label>
+              </q-item-section>
+            </q-item>
+
             <q-item clickable v-close-popup tabindex="0" @click="logout()">
               <q-item-section avatar>
                 <q-avatar icon="exit_to_app" text-color="primary" />
@@ -36,16 +50,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import User from '../boot/login';
+import { mapState } from "vuex";
+import User from "../boot/login";
 
 export default {
-  name: 'MyLayout',
+  name: "MyLayout",
 
   data() {
     return {
       leftDrawerOpen: false,
-      usuario: 'Usuário do Sistema'
+      usuario: "Usuário do Sistema"
     };
   },
   methods: {
@@ -55,26 +69,31 @@ export default {
     voltar() {
       window.history.back();
     },
+    usuarios() {
+      this.$router.push("/gerenciarusuarios");
+    },
+
     logout() {
       const vm = this;
-      let token = localStorage.getItem('userToken');
+      let token = localStorage.getItem("userToken");
       User.deslogar(token)
         .then(() => {
-          localStorage.removeItem('userToken');
-          vm.$store.commit('Session/updateNome', null);
-          vm.$store.commit('Session/updateEmail', null);
-          vm.$store.commit('Session/updateTelefone', null);
-          vm.$store.commit('Session/updateId', null);
-          vm.$router.push('/login');
+          localStorage.removeItem("userToken");
+          vm.$store.commit("Session/updateNome", null);
+          vm.$store.commit("Session/updateEmail", null);
+          vm.$store.commit("Session/updateTelefone", null);
+          vm.$store.commit("Session/updateId", null);
+          vm.$router.push("/login");
         })
         .catch(() => {
-          localStorage.removeItem('userToken');
-          vm.$router.push('/login');
+          localStorage.removeItem("userToken");
+          vm.$router.push("/login");
         });
     }
   },
   computed: {
-    ...mapState({ nome: state => state.Session.nome })
+    ...mapState({ nome: state => state.Session.nome }),
+    ...mapState({ userPerm: state => state.Session.permission })
   },
   mounted() {
     this.setarNome();

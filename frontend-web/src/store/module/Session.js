@@ -2,11 +2,12 @@ export default {
   namespaced: true,
   state: {
     id: null,
-    email: '',
-    nome: '',
-    password: '',
-    token: '',
-    telefone: ''
+    email: "",
+    nome: "",
+    password: "",
+    token: "",
+    telefone: "",
+    permission: ""
   },
   mutations: {
     updateNome(state, value) {

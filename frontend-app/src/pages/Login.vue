@@ -81,6 +81,7 @@ export default {
       e.preventDefault();
     },
     async logar() {
+      localStorage.removeItem("userToken");
       const vm = this;
       const bar = this.$refs.bar;
 
@@ -93,6 +94,7 @@ export default {
       User.logar(login)
         .then(response => {
           const token = response.data.token;
+          console.log(token);
 
           if (response) {
             User.check(response.data.token).then(user => {

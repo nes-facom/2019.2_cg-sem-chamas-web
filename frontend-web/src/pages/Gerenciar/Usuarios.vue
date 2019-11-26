@@ -26,7 +26,7 @@
               <q-td key="permission" :props="props">
                 <q-select
                   outlined
-                  :value="props.row.roles | formatPermission"
+                  :value="props.row.roles[0] | formatPermission"
                   @input="value => (date = value)"
                   label="Tipo de Usuário"
                 >
@@ -96,7 +96,7 @@ export default {
 
       dados: null,
       perm: 1,
-      usuario: "Usuário Comum",
+      usuario: "",
       columns: [
         {
           name: "nome",
@@ -136,18 +136,17 @@ export default {
   },
   methods: {
     alterarPermissao(id, perm) {
-      console.log("oiii");
-      console.log(id, perm);
       const vm = this;
+      const token = localStorage.getItem("userToken");
+      console.log(token);
       const permission = {
         roles: [perm]
       };
 
       User.atualizar(id, permission)
         .then(response => {
-          console.log(response);
-          console.log(response.data.token);
-          vm.listar();
+          vm.$q.notify("Atualizado com sucesso!");
+          vm.mostrar();
         })
         .catch(e => {
           console.log(e);

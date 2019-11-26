@@ -1,70 +1,65 @@
-import authUser from './auth';
+import authUser from "./auth";
 const routes = [
   {
-    path: '/layout',
-    component: () => import('layouts/MyLayout.vue'),
+    path: "/layout",
+    component: () => import("layouts/MyLayout.vue"),
     children: [
       {
-        path: '/info',
-        component: () => import('pages/Info.vue'),
+        path: "/info",
+        component: () => import("pages/Info.vue"),
         beforeEnter: (to, from, next) => authUser(to, from, next)
       },
       {
-        path: '/denuncias',
-        component: () => import('pages/Denuncias.vue'),
+        path: "/denuncias",
+        component: () => import("pages/Denuncias.vue"),
         beforeEnter: (to, from, next) => authUser(to, from, next)
       },
 
       {
-        path: '/noticias',
-        component: () => import('pages/Noticias.vue'),
+        path: "/noticias",
+        component: () => import("pages/Noticias.vue"),
         beforeEnter: (to, from, next) => authUser(to, from, next)
       },
       {
-        path: '/gerenciarnoticias',
-        component: () => import('pages/Gerenciar/Noticias.vue'),
+        path: "/gerenciarnoticias",
+        component: () => import("pages/Gerenciar/Noticias.vue"),
         beforeEnter: (to, from, next) => authUser(to, from, next)
       },
       {
-        path: '/gerenciarusuarios',
-        component: () => import('pages/Gerenciar/Usuarios.vue'),
-        beforeEnter: (to, from, next) => authUser(to, from, next)
-      },
-      {
-        path: '/permissions',
-        component: () => import('pages/Gerenciar/Permissões.vue'),
+        path: "/gerenciarusuarios",
+        component: () => import("pages/Gerenciar/Usuarios.vue"),
         beforeEnter: (to, from, next) => authUser(to, from, next)
       }
     ]
   },
   {
-    path: '/',
-    component: () => import('pages/Login.vue')
+    path: "/",
+    component: () => import("pages/Login.vue")
   },
 
   {
-    path: '/login',
-    component: () => import('pages/Login.vue')
+    path: "/login",
+    component: () => import("pages/Login.vue")
   },
 
   {
-    path: '/lay',
-    component: () => import('layouts/HomeLayout.vue'),
+    path: "/lay",
+    component: () => import("layouts/HomeLayout.vue"),
     children: [
       {
-        path: '/home',
+        path: "/home",
         beforeEnter: (to, from, next) => authUser(to, from, next),
-        component: () => import('pages/Home.vue')
+        component: () => import("pages/Home.vue")
       }
     ]
   }
 ];
 
 // Always leave this as last one
-if (process.env.MODE !== 'ssr') {
+if (process.env.MODE !== "ssr") {
   routes.push({
-    path: '*',
-    component: () => import('pages/Error404.vue'),
+    path: "*",
+    component: () => import("pages/Error404.vue"),
     beforeEnter: (to, from, next) => authUser(to, from, next)
   });
 }

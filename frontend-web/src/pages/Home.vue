@@ -22,14 +22,14 @@
           <p class="h3">{{ totalDenuncias }}</p>
           <p>Total de Denúncias</p>
         </div>
-        <div class="mes fit column justify-center items-center content-center">
+        <!-- <div class="mes fit column justify-center items-center content-center">
           <p class="h3">{{ totalDenuncias }}</p>
           <p>Denúncias no mês</p>
         </div>
         <div class="dia fit column justify-center items-center content-center">
           <p class="h3">{{ totalDenuncias }}</p>
           <p>Denúncias no dia</p>
-        </div>
+        </div> -->
       </div>
       <div class="botao">
         <q-btn
@@ -126,11 +126,11 @@
 </template>
 
 <script>
-import VueApexCharts from 'vue-apexcharts';
-import Denuncia from '../boot/denuncia';
+import VueApexCharts from "vue-apexcharts";
+import Denuncia from "../boot/denuncia";
 
 export default {
-  name: 'Dashboard',
+  name: "Dashboard",
   components: {
     apexchart: VueApexCharts
   },
@@ -138,7 +138,7 @@ export default {
     return {
       totalDenuncias: 0,
       options: {
-        colors: ['#F77726', '#AAA'],
+        colors: ["#F77726", "#AAA"],
         legend: {
           show: false
         },
@@ -150,50 +150,50 @@ export default {
         }
       },
       series: [0, 25],
-      labels: ['Mês', 'Geral', 'Ano'],
+      labels: ["Mês", "Geral", "Ano"],
       pagination: {
         page: 1,
         rowsPerPage: 5,
         descending: true,
-        sortBy: 'protocolo'
+        sortBy: "protocolo"
       },
       dados: null,
       columns: [
         {
-          name: 'protocolo',
+          name: "protocolo",
           required: true,
-          label: 'Protocolo',
-          align: 'left',
+          label: "Protocolo",
+          align: "left",
           field: row => row.protocolo,
           format: val => `${val}`,
           sortable: true
         },
         {
-          name: 'endereco',
-          align: 'left',
-          label: 'Endereço',
-          field: 'endereco',
+          name: "endereco",
+          align: "left",
+          label: "Endereço",
+          field: "endereco",
           sortable: true
         },
         {
-          name: 'created_at',
-          align: 'left',
-          label: 'Data',
-          field: 'created_at',
+          name: "created_at",
+          align: "left",
+          label: "Data",
+          field: "created_at",
           sortable: true
         },
         {
-          name: 'status',
-          align: 'center',
-          label: 'Status',
-          field: 'status',
+          name: "status",
+          align: "center",
+          label: "Status",
+          field: "status",
           sortable: true
         },
         {
-          name: 'acoes',
-          align: 'center',
-          label: 'Ações',
-          field: 'acoes',
+          name: "acoes",
+          align: "center",
+          label: "Ações",
+          field: "acoes",
           sortable: false
         }
       ],
@@ -203,8 +203,8 @@ export default {
   filters: {
     formatData: data => {
       const dat = new Date(data);
-      const formatData = dat.toLocaleString('pt-BR', {
-        timeZone: 'America/Anchorage'
+      const formatData = dat.toLocaleString("pt-BR", {
+        timeZone: "America/Anchorage"
       });
 
       return formatData;
@@ -217,9 +217,9 @@ export default {
     mostrar(denuncia) {
       const vm = this;
       this.$q.loading.show({
-        backgroundColor: 'orange',
-        message: 'Atualizando dados do servidor...',
-        messageColor: 'black'
+        backgroundColor: "orange",
+        message: "Atualizando dados do servidor...",
+        messageColor: "black"
       });
       Denuncia.listar(denuncia)
         .then(response => {

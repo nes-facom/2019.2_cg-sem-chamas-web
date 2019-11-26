@@ -21,10 +21,20 @@ export default {
   },
 
   listar: () => {
-    return http.get("noticias");
+    return http.get("noticias", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
   },
 
   apagar: noticia => {
-    return http.delete("noticias/" + noticia);
+    return http.delete("noticias/" + noticia, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    });
   }
 };

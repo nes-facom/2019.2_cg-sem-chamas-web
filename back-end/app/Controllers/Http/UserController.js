@@ -4,8 +4,9 @@ const User = use('App/Models/User');
 
 class UserController {
   async index({ request, response, view }) {
-    const user = User.all();
-
+    const user = await User.query()
+      .with('roles')
+      .fetch();
     return user;
   }
 

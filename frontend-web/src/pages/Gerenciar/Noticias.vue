@@ -260,7 +260,6 @@ export default {
       this.dados = dados;
     },
     editarNoticia(dados) {
-      console.log(dados);
       this.medium = true;
       this.dados = dados;
     },

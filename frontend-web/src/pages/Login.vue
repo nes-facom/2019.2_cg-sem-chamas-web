@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+
+    <q-ajax-bar ref="bar" position="top" color="grey" size="5px" skip-hijack />
     <div class="img"></div>
 
     <div class="form">
@@ -53,7 +55,9 @@ export default {
     },
 
     logar(){
+  const bar = this.$refs.bar;
 
+      bar.start();
      const vm = this
       const login = {
         email: this.email,
@@ -67,25 +71,36 @@ export default {
         console.log(response);
           const token = response.data.token;
             User.check(token).then(user => {
-            // if(user.data.permission == 1 || user.data.permission ==2) {
-            if(user) {
 
+              let userPerm = null;
+
+            if(user) {
+              if(user.data.roles[0]){
+                userPerm = user.data.roles[0].id;
+              }
+              if(userPerm == 1 || userPerm ==2) {
+                console.log(user.data)
+                this.$store.commit("Session/updateId", user.data.id);
              this.$store.commit("Session/updateNome", user.data.nome);
              this.$store.commit("Session/updateEmail", user.data.email);
-             this.$store.commit("Session/updatePermission", user.data.permission);
-
-
+             this.$store.commit("Session/updatePermission", userPerm);
               localStorage.setItem('userToken', token);
-          vm.$router.push('/home');
-            }
-            else      vm.$q.notify('Você não possui permissões para acessar ao sistema!')
+              vm.$router.push('/home');
+               bar.stop();
+            }            else      vm.$q.notify('Você não possui permissões para acessar ao sistema!')
+               bar.stop();
 
+
+            }
          })
         })
         .catch(e => {
+               bar.stop();
+
                vm.$q.notify({message:'Verifique suas credencias e tente novamente!'})
 
         });
+               bar.stop();
 
     }
   },
